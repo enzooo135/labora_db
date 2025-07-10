@@ -1,0 +1,53 @@
+        .trabajos-container {
+            margin-bottom: 25px;
+        }
+        
+        .trabajos-container label {
+            color: #0077B6;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .trabajos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .trabajo-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #E0E0E0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .trabajo-option:hover {
+            background-color: #D0D0D0;
+        }
+        
+        .trabajo-option input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .trabajo-option i {
+            margin-right: 10px;
+            color: #0077B6;
+            font-size: 1.2rem;
+        }
+        
+        .trabajo-option.selected {
+            background-color: #0077B6;
+            color: white;
+        }
+        
+        .trabajo-option.selected i {
+            color: white;
+        }

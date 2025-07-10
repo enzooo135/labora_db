@@ -1,0 +1,219 @@
+/* Estilos generales para todo el documento */
+body {
+    margin: 0;          /* Elimina los márgenes predeterminados */
+    padding: 0;         /* Elimina el padding predeterminado */
+    font-family: 'Roboto', sans-serif;  /* Define la fuente principal del sitio */
+    background-color: #FFFFFF;  /* Fondo blanco */
+    color: #333333;     /* Color de texto principal */
+}
+
+/* Estilos para el encabezado de la página */
+.header {
+    background-color: transparent;  /* Fondo transparente */
+    padding: 30px 20px;            /* Espaciado interno */
+    text-align: center;            /* Centra el contenido */
+}
+
+/* Estilos para el título principal */
+.header h1 {
+    color: #0077B6;               /* Color azul corporativo */
+    font-size: 48px;              /* Tamaño de fuente grande */
+    font-weight: 700;             /* Texto en negrita */
+    margin: 0;                    /* Sin márgenes */
+    letter-spacing: 2px;          /* Espaciado entre letras */
+}
+
+/* Estilos para los enlaces en el encabezado */
+.header a {
+    color: #0077B6;               /* Color azul corporativo */
+    text-decoration: none;        /* Sin subrayado */
+    font-weight: 500;             /* Peso de fuente medio */
+    position: absolute;           /* Posicionamiento absoluto */
+    top: 40px;                    /* Distancia desde arriba */
+    left: 40px;                   /* Distancia desde la izquierda */
+    font-size: 18px;              /* Tamaño de fuente */
+}
+
+/* Efecto hover para los enlaces */
+.header a:hover {
+    text-decoration: underline;   /* Subrayado al pasar el mouse */
+    text-underline-offset: 4px;   /* Espacio entre texto y subrayado */
+}
+
+/* Contenedor para las tarjetas de selección */
+.selection-container {
+    display: flex;                /* Usa flexbox para layout */
+    justify-content: center;      /* Centra horizontalmente */
+    gap: 60px;                    /* Espacio entre elementos */
+    padding: 60px 20px;           /* Espaciado interno */
+}
+
+/* Estilos para las tarjetas de selección */
+.selection-card {
+    background-color: #F0F0F0;    /* Fondo gris claro */
+    padding: 40px;                /* Espaciado interno */
+    border-radius: 20px;          /* Bordes redondeados */
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.5);  /* Sombra suave */
+    width: 400px;                 /* Ancho fijo */
+    text-align: center;           /* Centra el contenido */
+    cursor: pointer;              /* Cursor tipo pointer */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Animaciones suaves */
+}
+
+/* Efecto hover para las tarjetas */
+.selection-card:hover {
+    transform: scale(1.05);       /* Escala ligeramente al pasar el mouse */
+    box-shadow: 0 15px 40px rgba(0, 119, 182, 0.7);  /* Sombra más pronunciada */
+}
+
+/* Estilos para los títulos de las tarjetas */
+.selection-card h2 {
+    color: #0077B6;               /* Color azul corporativo */
+    font-size: 32px;              /* Tamaño de fuente */
+    margin-bottom: 15px;          /* Espacio inferior */
+    font-weight: 600;             /* Peso de fuente */
+    letter-spacing: 1px;          /* Espaciado entre letras */
+}
+
+/* Estilos para el texto de las tarjetas */
+.selection-card p {
+    color: #333333;               /* Color de texto */
+    font-size: 18px;              /* Tamaño de fuente */
+    line-height: 1.6;             /* Altura de línea */
+}
+
+/* Sección de formularios */
+.form-section {
+    background-color: #F0F0F0;    /* Fondo gris claro */
+    padding: 50px;                /* Espaciado interno */
+    border-radius: 20px;          /* Bordes redondeados */
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.5);  /* Sombra suave */
+    width: 500px;                 /* Ancho fijo */
+    margin: 0 auto;               /* Centrado horizontal */
+    text-align: left;             /* Alineación de texto a la izquierda */
+}
+
+/* Estilos para los títulos de los formularios */
+.form-section h2 {
+    color: #333333;               /* Color de texto */
+    font-size: 36px;              /* Tamaño de fuente */
+    margin-bottom: 30px;          /* Espacio inferior */
+    font-weight: 700;             /* Peso de fuente */
+    text-align: center;           /* Centrado */
+    letter-spacing: 2px;          /* Espaciado entre letras */
+}
+
+/* Grupos de campos de entrada */
+.input-group {
+    margin-bottom: 25px;          /* Espacio inferior */
+}
+
+/* Estilos para las etiquetas de los campos */
+.input-group label {
+    color: #0077B6;               /* Color azul corporativo */
+    display: block;               /* Comportamiento de bloque */
+    margin-bottom: 10px;          /* Espacio inferior */
+    font-size: 18px;              /* Tamaño de fuente */
+    font-weight: 500;             /* Peso de fuente */
+}
+
+/* Estilos para los campos de entrada y selectores */
+.input-group input,
+.input-group select {
+    width: 100%;                  /* Ancho completo */
+    padding: 15px;                /* Espaciado interno */
+    border: 2px solid #0077B6;    /* Borde azul */
+    border-radius: 10px;          /* Bordes redondeados */
+    background-color: #E0E0E0;    /* Fondo gris */
+    color: #333333;               /* Color de texto */
+    font-size: 18px;              /* Tamaño de fuente */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Animaciones suaves */
+}
+
+/* Estilos para campos de entrada y selectores en foco */
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;                /* Elimina el contorno predeterminado */
+    border-color: #005F8C;        /* Color de borde más oscuro */
+    box-shadow: 0 0 10px rgba(0, 95, 140, 0.7);  /* Sombra al enfocar */
+}
+
+/* Contenedor especial para el campo de contraseña */
+.password-container {
+    position: relative;           /* Posicionamiento relativo */
+    width: 100%;                  /* Ancho completo */
+}
+
+/* Estilos específicos para el campo de contraseña */
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;                  /* Ancho completo */
+    padding: 15px;                /* Espaciado interno */
+    padding-right: 45px;          /* Espacio extra a la derecha para el ícono */
+    border: 2px solid #0077B6;    /* Borde azul */
+    border-radius: 10px;          /* Bordes redondeados */
+    background-color: #E0E0E0;    /* Fondo gris */
+    color: #333333;               /* Color de texto */
+    font-size: 18px;              /* Tamaño de fuente */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Animaciones suaves */
+    box-sizing: border-box;       /* Incluye padding en el ancho total */
+}
+
+/* Botón para mostrar/ocultar contraseña */
+.toggle-password {
+    position: absolute;           /* Posicionamiento absoluto */
+    right: 10px;                  /* Distancia desde la derecha */
+    top: 50%;                     /* Centrado vertical */
+    transform: translateY(-50%);  /* Ajuste fino del centrado */
+    background: none;             /* Sin fondo */
+    border: none;                 /* Sin borde */
+    cursor: pointer;              /* Cursor tipo pointer */
+    color: #0077B6;              /* Color azul corporativo */
+    font-size: 1.2rem;           /* Tamaño de fuente */
+    padding: 8px;                /* Espaciado interno reducido */
+    width: 35px;                /* Ancho fijo */
+    height: 35px;               /* Alto fijo */
+    display: flex;              /* Usa flexbox */
+    align-items: center;        /* Centra verticalmente */
+    justify-content: center;    /* Centra horizontalmente */
+    transition: color 0.3s ease; /* Animación suave del color */
+    z-index: 1;                /* Asegura que esté por encima del input */
+}
+
+/* Efecto hover para el botón de contraseña */
+.toggle-password:hover {
+    color: #005F8C;              /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para el botón cuando está enfocado */
+.toggle-password:focus {
+    outline: none;                /* Elimina el contorno predeterminado */
+}
+
+/* Estilos generales para botones */
+button {
+    background-color: #0077B6;    /* Color azul corporativo */
+    color: #FFFFFF;               /* Texto blanco */
+    padding: 15px;                /* Espaciado interno */
+    border: none;                 /* Sin borde */
+    border-radius: 10px;          /* Bordes redondeados */
+    width: 100%;                  /* Ancho completo */
+    font-size: 20px;              /* Tamaño de fuente */
+    cursor: pointer;              /* Cursor tipo pointer */
+    transition: background-color 0.3s ease;  /* Animación suave del color */
+    font-weight: 600;             /* Peso de fuente */
+}
+
+/* Efecto hover para botones */
+button:hover {
+    background-color: #005F8C;    /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para mensajes */
+.message {
+    margin-top: 30px;             /* Espacio superior */
+    text-align: center;           /* Centrado */
+    font-size: 18px;              /* Tamaño de fuente */
+    color: #0077B6;               /* Color azul corporativo */
+    font-weight: 500;             /* Peso de fuente */
+}

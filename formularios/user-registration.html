@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- Declara que este documento es HTML5 -->
+<html lang="es">
+<!-- Inicio del documento HTML con idioma español -->
+
+<head>
+    <!-- Sección de metadatos y recursos -->
+    <meta charset="UTF-8">
+    <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configura la vista para dispositivos móviles -->
+    <title>Registro de Usuario - LABORA</title>
+    <!-- Título que aparece en la pestaña del navegador -->
+    <link rel="stylesheet" href="../recursos/css/styles.css">
+    <!-- Vincula el archivo de estilos CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Importa la fuente Roboto de Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Importa los íconos de Font Awesome -->
+</head>
+
+<body>
+    <!-- Cuerpo principal del documento -->
+    <div class="header">
+        <!-- Encabezado de la página -->
+        <h1>LABORA</h1>
+        <!-- Título principal -->
+        <a href="../index.html">Volver al Inicio</a>
+        <!-- Enlace para volver a la página principal -->
+    </div>
+
+    <div class="form-section">
+        <!-- Sección del formulario de registro -->
+        <h2>Registro de Usuario</h2>
+        <!-- Título del formulario -->
+
+        <form action="../funciones/user-registration.php" method="post" id="employerForm" onsubmit="return validateForm()">
+            <!-- Formulario con validación -->
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para nombre -->
+                <label for="empd-nombre">Nombre completo</label>
+                <!-- Etiqueta del campo -->
+                <input type="text" id="empd-nombre" name="nombre" required>
+                <!-- Campo de entrada para nombre -->
+            </div>
+
+            <div class="input-group">
+                <label for="emp-dni">DNI</label>
+                <input type="text" id="emp-dni" name="dni" required pattern="[0-9]{8}" title="Ingrese un DNI válido de 8 dígitos">
+            </div>
+
+            <div class="input-group">
+                <label for="emp-fecha-nacimiento">Fecha de Nacimiento</label>
+                <input type="date" id="emp-fecha-nacimiento" name="fecha-nacimiento" required>
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para email -->
+                <label for="empd-email">Correo Electrónico</label>
+                <!-- Etiqueta del campo -->
+                <input type="email" id="empd-email" name="email" required>
+                <!-- Campo de entrada para email -->
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para contraseña -->
+                <label for="empd-password">Contraseña</label>
+                <!-- Etiqueta del campo -->
+                <div class="password-container">
+                    <!-- Contenedor especial para el campo de contraseña -->
+                    <input type="password" id="empd-password" name="clave" required>
+                    <!-- Campo de entrada para contraseña -->
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <!-- Botón para mostrar/ocultar contraseña -->
+                        <i class="fas fa-eye"></i>
+                        <!-- Ícono de ojo de Font Awesome -->
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para confirmar contraseña -->
+                <label for="empd-confirm-password">Confirmar Contraseña</label>
+                <!-- Etiqueta del campo -->
+                <div class="password-container">
+                    <!-- Contenedor especial para el campo de confirmación -->
+                    <input type="password" id="empd-confirm-password" name="confirm-password" required>
+                    <!-- Campo de entrada para confirmar contraseña -->
+                    <button type="button" class="toggle-password" onclick="toggleConfirmPassword()">
+                        <!-- Botón para mostrar/ocultar confirmación -->
+                        <i class="fas fa-eye"></i>
+                        <!-- Ícono de ojo de Font Awesome -->
+                    </button>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para teléfono -->
+                <label for="empd-telefono">Teléfono</label>
+                <!-- Etiqueta del campo -->
+                <input type="tel" id="empd-telefono" name="telefono" required>
+                <!-- Campo de entrada para teléfono -->
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para dirección -->
+                <label for="empd-direccion">Dirección</label>
+                <!-- Etiqueta del campo -->
+                <input type="text" id="empd-direccion" name="direccion" required>
+                <!-- Campo de entrada para dirección -->
+            </div>
+
+            <button type="submit">Registrarse</button>
+            <!-- Botón para enviar el formulario -->
+        </form>
+
+        <div id="message" class="message"></div>
+        <!-- Contenedor para mensajes del sistema -->
+    </div>
+
+    <script>
+        // Función para validar el formulario
+        function validateForm() {
+            // Obtiene los valores de los campos
+            const password = document.getElementById('empd-password').value;
+            const confirmPassword = document.getElementById('empd-confirm-password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Verifica si las contraseñas coinciden
+            if (password !== confirmPassword) {
+                messageDiv.textContent = 'Las contraseñas no coinciden';
+                return false;
+            }
+
+            // Si todo está correcto, muestra mensaje de éxito
+            messageDiv.textContent = 'Registro exitoso';
+            return true;
+        }
+
+        // Función para mostrar/ocultar contraseña principal
+        function togglePassword() {
+            const passwordInput = document.getElementById('empd-password');
+            const icon = document.querySelector('.toggle-password i');
+            
+            // Cambia el tipo de input y el ícono
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Función para mostrar/ocultar confirmación de contraseña
+        function toggleConfirmPassword() {
+            const confirmPasswordInput = document.getElementById('empd-confirm-password');
+            const icon = document.querySelectorAll('.toggle-password i')[1];
+            
+            // Cambia el tipo de input y el ícono
+            if (confirmPasswordInput.type === 'password') {
+                confirmPasswordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                confirmPasswordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

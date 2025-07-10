@@ -1,0 +1,84 @@
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #d6f3ff, #f0fbff);
+      color: #333;
+    }
+    .perfil-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 119, 182, 0.2);
+    }
+    .perfil-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
+    }
+    .perfil-header img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .perfil-header h1 {
+      font-size: 28px;
+      margin: 0;
+      color: #0077B6;
+    }
+    .perfil-section {
+      margin-top: 25px;
+    }
+    .perfil-section h2 {
+      color: #0077B6;
+      font-size: 22px;
+      border-bottom: 2px solid #90E0EF;
+      padding-bottom: 5px;
+    }
+    .perfil-section p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    .habilidades {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .habilidad-tag {
+      background: #00B4D8;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 15px;
+      font-size: 14px;
+    }
+    .boton-editar, .boton-aplicar {
+      display: block;
+      margin: 20px auto 0;
+      background-color: #0077B6;
+      color: white;
+      font-size: 18px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .boton-editar:hover, .boton-aplicar:hover {
+      background-color: #005f8c;
+    }
+    .editable {
+      display: none;
+    }
+    .editable input,
+    .editable textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }

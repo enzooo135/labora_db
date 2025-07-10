@@ -1,0 +1,168 @@
+        :root {
+            --color-principal: #0077B6;
+            --color-secundario: #00B4D8;
+            --color-claro: #90E0EF;
+            --color-blanco: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            background: var(--color-blanco);
+        }
+
+        .encabezado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            height: 60px;
+            box-sizing: border-box;
+        }
+
+        .contenedor-logo {
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+        .contenedor-logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .deslizador-fondo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .columna-fondo {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            animation: deslizarArribaAbajo 20s infinite alternate;
+        }
+
+        .columna-fondo:nth-child(2) {
+            animation-delay: -5s;
+        }
+
+        .columna-fondo:nth-child(3) {
+            animation-delay: -10s;
+        }
+
+        @keyframes deslizarArribaAbajo {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-30%);
+            }
+        }
+
+        .elemento-fondo {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 15px;
+            opacity: 0.15;
+            transition: opacity 1s ease;
+        }
+
+        .elemento-fondo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contenido-principal {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95));
+        }
+
+        .descripcion {
+            max-width: 800px;
+            margin: 40px auto;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tarjeta-servicio {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 119, 182, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-servicio:hover {
+            transform: translateY(-5px);
+        }
+
+        .tarjeta-servicio i {
+            font-size: 2.5rem;
+            color: var(--color-principal);
+            margin-bottom: 15px;
+        }
+
+        .tarjeta-servicio h3 {
+            color: var(--color-principal);
+            margin: 10px 0;
+        }
+
+        .tarjeta-servicio p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .boton-empezar {
+            display: inline-block;
+            background-color: var(--color-principal);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin-top: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .boton-empezar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 119, 182, 0.3);
+        }

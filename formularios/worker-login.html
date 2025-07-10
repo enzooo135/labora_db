@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- Declara que este documento es HTML5 -->
+<html lang="es">
+<!-- Inicio del documento HTML con idioma español -->
+
+<head>
+    <!-- Sección de metadatos y recursos -->
+    <meta charset="UTF-8">
+    <!-- Define la codificación de caracteres como UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Configura la vista para dispositivos móviles -->
+    <title>Iniciar Sesión - LABORA</title>
+    <!-- Título que aparece en la pestaña del navegador -->
+    <link rel="stylesheet" href="../recursos/css/styles.css">
+    <!-- Vincula el archivo de estilos CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Importa la fuente Roboto de Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Importa los íconos de Font Awesome -->
+</head>
+
+<body>
+    <!-- Cuerpo principal del documento -->
+    <div class="header">
+        <!-- Encabezado de la página -->
+        <h1>LABORA</h1>
+        <!-- Título principal -->
+        <a href="../index.html">Volver al Inicio</a>
+        <!-- Enlace para volver a la página principal -->
+    </div>
+
+    <div class="form-section">
+        <!-- Sección del formulario de inicio de sesión -->
+        <h2>Iniciar Sesión</h2>
+        <!-- Título del formulario -->
+
+        <form action="../funciones/worker-login.php" method="POST">
+            <!-- Formulario con validación -->
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para email -->
+                <label for="login-email">Correo Electrónico</label>
+                <!-- Etiqueta del campo -->
+                <input type="email" id="login-email" name="correo" required>
+                <!-- Campo de entrada para email -->
+            </div>
+
+            <div class="input-group">
+                <!-- Grupo de campo de entrada para contraseña -->
+                <label for="login-password">Contraseña</label>
+                <!-- Etiqueta del campo -->
+                <div class="password-container">
+                    <!-- Contenedor especial para el campo de contraseña -->
+                    <input type="password" id="login-password" name="clave" required>
+                    <!-- Campo de entrada para contraseña -->
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <!-- Botón para mostrar/ocultar contraseña -->
+                        <i class="fas fa-eye"></i>
+                        <!-- Ícono de ojo de Font Awesome -->
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit">Iniciar Sesión</button>
+            <!-- Botón para enviar el formulario -->
+        </form>
+
+        <div id="message" class="message"></div>
+        <!-- Contenedor para mensajes del sistema -->
+    </div>
+
+    <script>
+        // Función para validar el formulario
+        function validateForm() {
+            // Obtiene los valores de los campos
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const messageDiv = document.getElementById('message');
+
+            // Verifica si los campos están vacíos
+            if (!email || !password) {
+                messageDiv.textContent = 'Por favor, complete todos los campos';
+                return false;
+            }
+
+            // Si todo está correcto, muestra mensaje de éxito
+            messageDiv.textContent = 'Inicio de sesión exitoso';
+            return true;
+        }
+
+        // Función para mostrar/ocultar contraseña
+        function togglePassword() {
+            const passwordInput = document.getElementById('login-password');
+            const icon = document.querySelector('.toggle-password i');
+            
+            // Cambia el tipo de input y el ícono
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html> 

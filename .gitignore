@@ -1,10 +1,21 @@
+# Ignorar carpetas de dependencias
 /vendor/
-/node_modules/
+node_modules/
+
+# Ignorar archivos de configuración sensibles
+.env
+
+# Ignorar archivos de bases de datos locales o respaldos
 *.log
-*.env
+*.sql
 *.sqlite
 *.bak
 *.zip
-*.tar
+
+# Archivos temporales de sistema
 .DS_Store
 Thumbs.db
+
+# Archivos temporales de PHPStorm, VSCode u otros editores
+.idea/
+.vscode/

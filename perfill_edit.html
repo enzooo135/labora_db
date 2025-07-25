@@ -1,0 +1,444 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil de Trabajador</title>
+    <style>
+        :root {
+            --azul-principal: #0077B6;
+            --azul-secundario: #00B4D8;
+            --azul-claro: #90E0EF;
+            --fondo-principal: #d6f3ff;
+            --fondo-secundario: #f0fbff;
+            --texto: #333;
+            --borde: #ccc;
+            --blanco: #ffffff;
+        }
+
+        body {
+            background-color: var(--fondo-principal);
+            color: var(--texto);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .section {
+            background-color: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: var(--azul-principal);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section label {
+            color: var(--azul-secundario);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .section input, .section textarea, .section select {
+            width: 100%;
+            border: 1px solid var(--borde);
+            border-radius: 4px;
+            padding: 0.5rem;
+            margin-top: 0.25rem;
+            color: var(--texto);
+        }
+
+        .section input[type="file"] {
+            padding: 0;
+        }
+
+        .section a {
+            color: var(--azul-secundario);
+            text-decoration: none;
+        }
+
+        .section a:hover {
+            text-decoration: underline;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .border-t {
+            border-top: 1px solid var(--borde);
+            padding-top: 1rem;
+        }
+
+        .add-button, .delete-button {
+            color: var(--azul-secundario);
+            cursor: pointer;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .add-button:hover, .delete-button:hover {
+            text-decoration: underline;
+        }
+
+        .submit-button {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .submit-button:hover {
+            background-color: var(--azul-secundario);
+        }
+
+        .message-bubble {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: var(--azul-principal);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .message-bubble:hover {
+            background-color: var(--azul-secundario);
+            transform: scale(1.1);
+        }
+
+        .message-bubble img {
+            width: 30px;
+            height: 30px;
+            filter: brightness(0) invert(1);
+        }
+
+        .chat-modal {
+            display: none;
+            position: fixed;
+            bottom: 6rem;
+            right: 1.5rem;
+            background-color: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            width: 300px;
+            max-height: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .chat-modal-header {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            padding: 0.75rem;
+            font-weight: bold;
+        }
+
+        .chat-modal-body {
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-modal-input {
+            display: flex;
+            border-top: 1px solid var(--borde);
+            padding: 0.5rem;
+        }
+
+        .chat-modal-input input {
+            flex: 1;
+            border: 1px solid var(--borde);
+            border-radius: 4px;
+            padding: 0.5rem;
+            outline: none;
+        }
+
+        .chat-modal-input button {
+            background-color: var(--azul-secundario);
+            color: var(--blanco);
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        .chat-modal-input button:hover {
+            background-color: var(--azul-principal);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-2xl font-bold text-center text-var(--azul-principal) mb-6">Editar Perfil de Trabajador</h1>
+
+        <!-- Información Personal -->
+        <section class="section">
+            <h2>Información Personal</h2>
+            <div class="grid">
+                <div>
+                    <label>Nombre Completo</label>
+                    <input type="text" value="Nombre del Trabajador">
+                </div>
+                <div>
+                    <label>Ubicación</label>
+                    <input type="text" value="Ciudad, País">
+                </div>
+                <div>
+                    <label>Correo Electrónico</label>
+                    <input type="email" value="correo@ejemplo.com">
+                </div>
+                <div>
+                    <label>Teléfono</label>
+                    <input type="tel" value="+123 456 7890">
+                </div>
+                <div>
+                    <label>Foto de Perfil</label>
+                    <input type="file" accept="image/*">
+                    <p>Foto actual: <a href="#">Ver foto</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Título Profesional -->
+        <section class="section">
+            <h2>Título Profesional</h2>
+            <input type="text" value="Desarrollador Full Stack">
+        </section>
+
+        <!-- Acerca de Mí -->
+        <section class="section">
+            <h2>Acerca de Mí</h2>
+            <textarea rows="4">Soy un desarrollador apasionado con 5 años de experiencia en crear aplicaciones web escalables. Me especializo en JavaScript, React y Node.js, y me encanta trabajar en proyectos innovadores que resuelvan problemas reales.</textarea>
+        </section>
+
+        <!-- Habilidades -->
+        <section class="section">
+            <h2>Habilidades</h2>
+            <input type="text" value="JavaScript, React, Node.js, Tailwind CSS">
+        </section>
+
+        <!-- Experiencia Laboral -->
+        <section class="section">
+            <h2>Experiencia Laboral</h2>
+            <div class="border-t">
+                <div class="grid">
+                    <div>
+                        <label>Puesto</label>
+                        <input type="text" value="Desarrollador Frontend">
+                    </div>
+                    <div>
+                        <label>Empresa</label>
+                        <input type="text" value="Empresa Ejemplo">
+                    </div>
+                    <div>
+                        <label>Contacto de Referencia</label>
+                        <input type="email" value="referencia@empresa.com">
+                    </div>
+                    <div>
+                        <label>Fecha de Inicio</label>
+                        <input type="date" value="2020-01-01">
+                    </div>
+                    <div>
+                        <label>Fecha de Fin</label>
+                        <input type="date" value="2022-12-31">
+                    </div>
+                    <div class="col-span-2">
+                        <label>Descripción</label>
+                        <textarea rows="4">Desarrollé interfaces de usuario interactivas utilizando React y Tailwind CSS, optimizando la experiencia del usuario y reduciendo el tiempo de carga en un 30%.</textarea>
+                    </div>
+                    <div class="col-span-2">
+                        <span class="delete-button">Eliminar</span>
+                    </div>
+                </div>
+            </div>
+            <span class="add-button">+ Agregar otra experiencia</span>
+        </section>
+
+        <!-- Educación -->
+        <section class="section">
+            <h2>Educación</h2>
+            <div class="border-t">
+                <div class="grid">
+                    <div>
+                        <label>Título</label>
+                        <input type="text" value="Ingeniería en Sistemas">
+                    </div>
+                    <div>
+                        <label>Institución</label>
+                        <input type="text" value="Universidad Ejemplo">
+                    </div>
+                    <div>
+                        <label>Fecha de Inicio</label>
+                        <input type="date" value="2015-01-01">
+                    </div>
+                    <div>
+                        <label>Fecha de Fin</label>
+                        <input type="date" value="2019-12-31">
+                    </div>
+                    <div class="col-span-2">
+                        <span class="delete-button">Eliminar</span>
+                    </div>
+                </div>
+            </div>
+            <span class="add-button">+ Agregar otra educación</span>
+        </section>
+
+        <!-- Portafolio -->
+        <section class="section">
+            <h2>Portafolio</h2>
+            <div class="border-t">
+                <div class="grid">
+                    <div>
+                        <label>Título del Proyecto</label>
+                        <input type="text" value="Proyecto Ejemplo">
+                    </div>
+                    <div>
+                        <label>Enlace o Archivo</label>
+                        <input type="url" value="https://ejemplo.com">
+                    </div>
+                    <div class="col-span-2">
+                        <span class="delete-button">Eliminar</span>
+                    </div>
+                </div>
+            </div>
+            <span class="add-button">+ Agregar otro proyecto</span>
+        </section>
+
+        <!-- Tarifas y Disponibilidad -->
+        <section class="section">
+            <h2>Tarifas y Disponibilidad</h2>
+            <div class="grid">
+                <div>
+                    <label>Tarifa por Hora (USD)</label>
+                    <input type="number" value="50">
+                </div>
+                <div>
+                    <label>Disponibilidad</label>
+                    <select>
+                        <option value="">Selecciona una opción</option>
+                        <option value="full-time">Tiempo completo</option>
+                        <option value="part-time">Medio tiempo</option>
+                        <option value="freelance" selected>Freelance</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botón de Guardar -->
+        <div class="text-center">
+            <button class="submit-button">Guardar Cambios</button>
+        </div>
+
+        <!-- Burbuja de Mensaje -->
+        <div class="message-bubble" onclick="toggleChatModal()">
+            <img src="https://img.icons8.com/ios-filled/50/000000/speech-bubble.png" alt="Icono de Mensaje">
+        </div>
+
+        <!-- Modal de Chat -->
+        <div class="chat-modal" id="chatModal">
+            <div class="chat-modal-header">
+                Chat con el Trabajador
+            </div>
+            <div class="chat-modal-body" id="chatMessages">
+                <!-- Los mensajes se añadirán aquí dinámicamente -->
+            </div>
+            <div class="chat-modal-input">
+                <input type="text" id="chatInput" placeholder="Escribe un mensaje...">
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleChatModal() {
+            const chatModal = document.getElementById('chatModal');
+            chatModal.style.display = chatModal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                messageElement.textContent = `Usuario: ${message}`;
+                messageElement.style.padding = '0.5rem';
+                messageElement.style.borderBottom = '1px solid var(--borde)';
+                chatMessages.appendChild(messageElement);
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ $sql_check2 = "SELECT id_usuario FROM registro_pendiente_usuarios WHERE correo =
 $result2 = $conn->query($sql_check2);
 
 if ($result1->num_rows > 0 || $result2->num_rows > 0) {
-    echo "Este correo ya está registrado o pendiente de verificación.";
+    header("Location: ../mensajes/existente.html");
     exit();
 }
 
@@ -106,7 +106,7 @@ if ($conn->query($sql) === TRUE) {
                         ";
 
         $mail->send();
-        echo "Registro exitoso. Revisá tu correo para confirmar tu cuenta."; //Poner mensaje lindo (pendiente)
+        header("Location: ../mensajes/revisar-mail.html");
     } catch (Exception $e) {
         echo "No se pudo enviar el correo de verificación: {$mail->ErrorInfo}";
     }

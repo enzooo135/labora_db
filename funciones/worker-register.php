@@ -18,7 +18,7 @@ $sql_check2 = "SELECT id_empleado FROM registro_pendiente_empleados WHERE correo
 $result2 = $conn->query($sql_check2);
 
 if ($result1->num_rows > 0 || $result2->num_rows > 0) {
-    echo "Este correo ya está registrado o pendiente de verificación.";
+    header("Location: ../mensajes/existente.html");
     exit();
 }
 
@@ -65,7 +65,7 @@ if ($conn->query($sql) === TRUE) {
         $enlace = "http://localhost/labora_db/funciones/worker-verify.php?token=$token";
         //Este es el mail que se va a mandar a las personas al momento de pedir verificacion
         $mail->Body = " 
-                        <!DOCTYPE html>
+                       <!DOCTYPE html>
                         <html lang='es'>
                         <head>
                             <meta charset='UTF-8'>
@@ -77,13 +77,6 @@ if ($conn->query($sql) === TRUE) {
                                 <tr>
                                     <td align='center'>
                                         <table width='600' cellpadding='0' cellspacing='0' style='background-color: #ffffff; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.1);'>
-                                            <!-- Cabecera con el logo -->
-                                            <tr>
-                                                <td align='center' style='padding: 30px 0; background-color: #4CAF50;'>
-                                                    <img src='imagenes/logo-labora' alt='LABORA' style='max-width: 150px;'>
-                                                </td>
-                                            </tr>
-
                                             <!-- Contenido principal -->
                                             <tr>
                                                 <td style='padding: 40px 30px;'>
@@ -95,7 +88,7 @@ if ($conn->query($sql) === TRUE) {
                                                         Por favor, hacé clic en el siguiente botón para verificar tu cuenta:
                                                     </p>
                                                     <div style='text-align: center; margin: 30px 0;'>
-                                                        <a href='$enlace' style='background-color: #4CAF50; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-size: 16px;'>
+                                                        <a href='$enlace' style='background-color: #00B4D8; color: white; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-size: 16px;'>
                                                             Verificar mi cuenta
                                                         </a>
                                                     </div>
@@ -109,7 +102,7 @@ if ($conn->query($sql) === TRUE) {
                                             <tr>
                                                 <td style='background-color: #f4f4f4; padding: 20px; text-align: center; font-size: 12px; color: #999999;'>
                                                     © 2025 LABORA | Todos los derechos reservados.<br>
-                                                    Si tenés alguna consulta, escribinos a <a href='mailto:labora1357@gmail.com' style='color: #4CAF50;'>labora1357@gmail.com</a>.
+                                                    Si tenés alguna consulta, escribinos a <a href='mailto:labora1357@gmail.com' style='color: #00B4D8;'>labora1357@gmail.com</a>.
                                                 </td>
                                             </tr>
 
@@ -120,9 +113,9 @@ if ($conn->query($sql) === TRUE) {
                         </body>
                         </html>
                         ";
-
+                        
         $mail->send();
-        echo "Registro exitoso. Revisá tu correo para confirmar tu cuenta.";
+        header("Location: ../mensajes/revisar-mail.html");
     } catch (Exception $e) {
         echo "No se pudo enviar el correo de verificación: {$mail->ErrorInfo}";
     }

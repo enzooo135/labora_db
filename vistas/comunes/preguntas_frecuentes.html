@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Preguntas Frecuentes</title>
+    <link rel="stylesheet" href="../estilos/footer.css">
+    <link rel="stylesheet" href="../../recursos/css/index.css">
+    <link rel="stylesheet" href="../../recursos/css/nav.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .faq-title {
+            background: #0077B6;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 16px 24px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-title i {
+            margin-right: 12px;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 24px 16px;
+            font-size: 15px;
+            color: #444;
+            display: none;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .material-icons {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .material-icons {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="logo">
+        <a href="/labora_db/index.html">Labora</a>
+    </div>
+    <ul class="nav-links">
+        <li><a href="/labora_db/index.html">Inicio</a></li>
+        <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">FAQ</a></li>
+        <li><a href="/labora_db/formularios/login-options.html">Iniciar Sesión</a></li>
+        <li><a href="/labora_db/formularios/register-options.html">Registrarse</a></li>
+    </ul>
+    </nav>
+
+    <div class="faq-container">
+        <div class="faq-title">
+            <i class="material-icons">help_outline</i>
+            Preguntas frecuentes
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cómo creo una cuenta en Labora?
+                <span class="material-icons">expand_more</span>
+            </div>
+            <div class="faq-answer">
+                Debés ingresar a <em>Crear cuenta</em>, completar tus datos y confirmarlos. Inmediatamente después, tendras que llenar campos y mandarlos a verificacion. También recibirás un correo electrónico para activar tu cuenta.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                No puedo ingresar a mi cuenta / Olvidé mi contraseña, ¿cómo la recupero?
+                <span class="material-icons">expand_more</span>
+            </div>
+            <div class="faq-answer">
+                Hacé clic en "¿Olvidaste tu contraseña?" en la pantalla de inicio de sesión y seguí los pasos.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                ¿Cómo cambio mi contraseña?
+                <span class="material-icons">expand_more</span>
+            </div>
+            <div class="faq-answer">
+                Desde tu perfil, accedé a la sección de configuración de cuenta y elegí "Cambiar contraseña".
+            </div>
+        </div>
+
+        <!-- Agregá más ítems aquí como necesites -->
+
+    </div>
+
+
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
+            <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
+            <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>  
+        </div>
+
+        <div class="footer-redes">
+            <a href="https://www.facebook.com/" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram">
+            </a>
+            <a href="https://wa.me/1234567890" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp">
+            </a>
+        </div>
+
+        <div class="footer-copy">
+            &copy; 2025 Labora - Todos los derechos reservados.
+        </div>
+    </div>
+</footer>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                item.classList.toggle('open');
+
+                const icon = item.querySelector('.material-icons');
+                icon.textContent = item.classList.contains('open') ? 'expand_less' : 'expand_more';
+            });
+        });
+    </script>
+
+</body>
+</html>

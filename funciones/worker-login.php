@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($clave, $usuario['clave'])) {
             $_SESSION['empleado_id'] = $usuario['id_empleado'];
             $_SESSION['nombre'] = $usuario['nombre'];
-            header("Location: ../vistas/trabajadores/perfildeltrabajador.php");
+            header("Location: ../vistas/trabajadores/vista_tra.php");
             exit();
         } else {
             echo "Contraseña incorrecta";

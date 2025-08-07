@@ -12,19 +12,28 @@
     <title>LABORA - Tu Plataforma de Empleo</title>
     <!-- Título que aparece en la pestaña del navegador -->
     <link rel="stylesheet" href="recursos/css/index.css">
+    <link rel="stylesheet" href="recursos/css/nav.css">
     <!-- Vincula el archivo de estilos CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Importa la fuente Roboto de Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
 </head>
-
+<!-- Cuerpo principal del documento -->
 <body class="cuerpo-inicio">
-    <!-- Cuerpo principal del documento -->
-    <div class="encabezado" style="justify-content: flex-end;">
-        <a href="formularios/register-options.html" style="color: white; text-decoration: none; background-color: var(--color-principal); padding: 10px; border-radius: 10px;">Registrarse</a>
-        <a href="formularios/Login-options.html" style="color: white; text-decoration: none; background-color: var(--color-principal); padding: 10px; border-radius: 10px;">Iniciar Sesión</a>
+
+    <!-- nav_publico.html -->
+    <nav class="navbar">
+    <div class="logo">
+        <a href="/labora_db/index.html">Labora</a>
     </div>
+    <ul class="nav-links">
+        <li><a href="/labora_db/index.html">Inicio</a></li>
+        <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">FAQ</a></li>
+        <li><a href="/labora_db/formularios/login-options.html">Iniciar Sesión</a></li>
+        <li><a href="/labora_db/formularios/register-options.html">Registrarse</a></li>
+    </ul>
+    </nav>
 
     <div class="contenido-principal">
         <div class="descripcion">
@@ -69,32 +78,34 @@
         <a href="formularios/register-options.html" class="boton-empezar">Empecemos</a>
     </div>
 
-    <div class="deslizador-fondo">
-        <div class="columna-fondo">
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1621905252144-705969d16d46" alt="Carpintero en taller">
-            </div>
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1581141849291-1125c7b692b5" alt="Pintor trabajando">
-            </div>
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-links">
+            <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
+            <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
+            <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>
         </div>
-        <div class="columna-fondo">
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1540496905036-5937c10647cc" alt="Profesor enseñando">
-            </div>
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a" alt="Electricista instalando">
-            </div>
+
+        <div class="footer-redes">
+            <a href="https://www.facebook.com/" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram">
+            </a>
+            <a href="https://wa.me/1234567890" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp">
+            </a>
         </div>
-        <div class="columna-fondo">
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1517646331032-9e2920f4c07f" alt="Jardinero podando">
-            </div>
-            <div class="elemento-fondo">
-                <img src="https://images.unsplash.com/photo-1590479773321-5f5b5e4288c4" alt="Plomero reparando">
-            </div>
+
+        <div class="footer-copy">
+            &copy; 2025 Labora - Todos los derechos reservados.
         </div>
     </div>
+</footer>
+
+
 
     <script src="home.js"></script>
 </body>

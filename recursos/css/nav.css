@@ -1,0 +1,33 @@
+/* nav.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0077B6; /* Azul principal */
+  padding: 1rem 2rem;
+  color: #fff;
+}
+
+.logo a {
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #90E0EF; /* Azul claro */
+}

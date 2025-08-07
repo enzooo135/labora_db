@@ -18,15 +18,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $titulo_profesional = $_POST['titulo_profesional'] ?? '';
     $habilidades = $_POST['habilidades'] ?? '';
-    $educacion = $_POST['educacion'] ?? '';
-    $experiencia = $_POST['experiencia'] ?? '';
     $portafolio = $_POST['portafolio'] ?? '';
     $portafolio_link = $_POST ['portafolio_link'] ?? '';
     
-    //Tabla empleados
-    $stmt = $conn->prepare("UPDATE empleado SET zona_trabajo=?, descripcion_servicios=?, profesion=?, disponibilidad=?, precio_hora=?, telefono=?, titulo_profesional=?, habilidades=?, educacion=?, experiencia=?, portafolio=?, portafolio_link=? WHERE id_empleado=?");
-    $stmt->bind_param("ssssdsssssssi", $zona, $sobre_mi, $profesion, $disponibilidad, $precio, $telefono, $titulo_profesional, $habilidades, $educacion, $experiencia, $portafolio, $portafolio_link, $id);
+    //UPDATE tabla empleados
+    $stmt = $conn->prepare("UPDATE empleado SET zona_trabajo=?, descripcion_servicios=?, profesion=?, disponibilidad=?, precio_hora=?, telefono=?, habilidades=?, portafolio=?, portafolio_link=? WHERE id_empleado=?");
+    $stmt->bind_param("ssssdssssi", $zona, $sobre_mi, $profesion, $disponibilidad, $precio, $telefono, $habilidades, $portafolio, $portafolio_link, $id);
     $stmt->execute();
+
+    //UPDATE tabla experiencia_laboral
+    $puesto = $_POST['puesto'] ?? '';
+    $empresa = $_POST['empresa'] ?? '';
+    $contacto = $_POST['contacto_referencia'] ?? '';
+    $fecha_inicio = $_POST['fecha_inicio'] ?? '';
+    $fecha_fin = $_POST['fecha_fin'] ?? '';
+    $descripcion_exp = $_POST['descripcion_experiencia'] ?? '';
+
+    $check = $conn->prepare("SELECT id_experiencia FROM experiencia_laboral WHERE id_empleado = ?");
+    $check->bind_param("i", $id);
+    $check->execute();
+    $result_check = $check->get_result();
+
+    if ($result_check->num_rows > 0) {
+        $stmt_exp = $conn->prepare("UPDATE experiencia_laboral SET puesto=?, empresa=?, contacto_referencia=?, fecha_inicio=?, fecha_fin=?, descripcion=? WHERE id_empleado=?");
+        $stmt_exp->bind_param("ssssssi", $puesto, $empresa, $contacto, $fecha_inicio, $fecha_fin, $descripcion_exp, $id);
+    } else {
+        $stmt_exp = $conn->prepare("INSERT INTO experiencia_laboral (id_empleado, puesto, empresa, contacto_referencia, fecha_inicio, fecha_fin, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt_exp->bind_param("issssss", $id, $puesto, $empresa, $contacto, $fecha_inicio, $fecha_fin, $descripcion_exp);
+    }
+    $stmt_exp->execute();
+
+
+    //UPDATE tabla educacion
+
+    $titulo_edu = $_POST['titulo_edu'] ?? '';
+    $institucion_edu = $_POST['institucion_edu'] ?? '';
+    $fecha_inicio_edu = $_POST['fecha_inicio_edu'] ?? '';
+    $fecha_fin_edu = $_POST['fecha_fin_edu'] ?? '';
+
+    // Verificar si ya existe un registro de educación para este empleado
+    $check_edu = $conn->prepare("SELECT id_educacion FROM educacion WHERE id_empleado = ?");
+    $check_edu->bind_param("i", $id);
+    $check_edu->execute();
+    $result_check_edu = $check_edu->get_result();
+
+    if ($result_check_edu->num_rows > 0) {
+        // Actualizar educación existente
+        $stmt_edu = $conn->prepare("UPDATE educacion SET titulo=?, institucion=?, fecha_inicio=?, fecha_fin=? WHERE id_empleado=?");
+        $stmt_edu->bind_param("ssssi", $titulo_edu, $institucion_edu, $fecha_inicio_edu, $fecha_fin_edu, $id);
+    } else {
+        // Insertar nueva educación
+        $stmt_edu = $conn->prepare("INSERT INTO educacion (id_empleado, titulo, institucion, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?, ?)");
+        $stmt_edu->bind_param("issss", $id, $titulo_edu, $institucion_edu, $fecha_inicio_edu, $fecha_fin_edu);
+    }
+    $stmt_edu->execute();
+
 
     if (isset($_FILES['nueva_foto']) && $_FILES['nueva_foto']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['nueva_foto']['name'], PATHINFO_EXTENSION);
@@ -45,13 +91,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-$sql = "SELECT * FROM empleado WHERE id_empleado = $id";
-$resultado = $conn->query($sql);
-if (!$resultado || $resultado->num_rows !== 1) {
-    echo "Empleado no encontrado.";
-    exit();
-}
-$empleado = $resultado->fetch_assoc();
+    $sql = "SELECT * FROM empleado WHERE id_empleado = $id";
+    $resultado = $conn->query($sql);
+    if (!$resultado || $resultado->num_rows !== 1) {
+        echo "Empleado no encontrado.";
+        exit();
+    }
+    $empleado = $resultado->fetch_assoc();
+
+    $sql_exp = "SELECT * FROM experiencia_laboral WHERE id_empleado = $id LIMIT 1";
+    $res_exp = $conn->query($sql_exp);
+    $experiencia = $res_exp->fetch_assoc() ?? [
+        'puesto' => '',
+        'empresa' => '',
+        'contacto' => '',
+        'fecha_inicio' => '',
+        'fecha_fin' => '',
+        'descripcion' => ''
+    ];
+
+    $sql_edu = "SELECT * FROM educacion WHERE id_empleado = $id LIMIT 1";
+    $res_edu = $conn->query($sql_edu);
+    $educacion = $res_edu->fetch_assoc() ?? [
+        'titulo' => '',
+        'institucion' => '',
+        'fecha_inicio' => '',
+        'fecha_fin' => ''
+    ];
+
 
 function esta_vacio($valor) {
     return !isset($valor) || trim($valor) === '';
@@ -66,8 +133,9 @@ $perfil_incompleto =
     esta_vacio($empleado['telefono']) ||
     esta_vacio($empleado['titulo_profesional']) ||
     esta_vacio($empleado['habilidades']) ||
-    esta_vacio($empleado['educacion']) ||
-    esta_vacio($empleado['experiencia']) ||
+    esta_vacio($educacion['titulo']) ||
+    esta_vacio($educacion['institucion']) ||
+    esta_vacio($experiencia['descripcion']) ||
     esta_vacio($empleado['portafolio']) ||
     esta_vacio($empleado['portafolio_link']);
     
@@ -182,7 +250,7 @@ $ruta_foto = !empty($empleado['foto_perfil']) ? '../../uploads/' . $empleado['fo
     }
     .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        grid-template-columns: repeat(auto-fit,minmax(270px,1fr));
         gap: 1rem;
     }
     .border-t {
@@ -252,7 +320,7 @@ $ruta_foto = !empty($empleado['foto_perfil']) ? '../../uploads/' . $empleado['fo
         <h2>Información Personal</h2>
         <div class="grid">
           <div>
-            <label>Nombre</label>
+            <label>Nombre Completo</label>
             <p><?php echo htmlspecialchars($empleado['nombre']); ?></p>
           </div>
           <div>
@@ -313,15 +381,67 @@ $ruta_foto = !empty($empleado['foto_perfil']) ? '../../uploads/' . $empleado['fo
         </div>
     </section>
 
-      <section class="section"><h2>Experiencia</h2>
-        <p class="static"><?php echo htmlspecialchars($empleado['experiencia']); ?></p>
-        <textarea class="editable" name="experiencia"><?php echo htmlspecialchars($empleado['experiencia']); ?></textarea>
-      </section>
+      <section class="section"><h2>Experiencia Laboral</h2>
+    <div class="grid">
+        <div>
+            <label>Puesto</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['puesto']); ?></p>
+            <input class="editable" type="text" name="puesto" value="<?php echo htmlspecialchars($experiencia['puesto']); ?>">
+        </div>
+        <div>
+            <label>Empresa</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['empresa']); ?></p>
+            <input class="editable" type="text" name="empresa" value="<?php echo htmlspecialchars($experiencia['empresa']); ?>">
+        </div>
+        <div>
+            <label>Contacto</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['contacto_referencia']); ?></p>
+            <input class="editable" type="text" name="contacto_referencia" value="<?php echo htmlspecialchars($experiencia['contacto_referencia']); ?>">
+        </div>
+        <div>
+            <label>Fecha de inicio</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['fecha_inicio']); ?></p>
+            <input class="editable" type="date" name="fecha_inicio" value="<?php echo htmlspecialchars($experiencia['fecha_inicio']); ?>">
+        </div>
+        <div>
+            <label>Fecha de fin</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['fecha_fin']); ?></p>
+            <input class="editable" type="date" name="fecha_fin" value="<?php echo htmlspecialchars($experiencia['fecha_fin']); ?>">
+        </div>
+        <div class="grid" style="grid-column: 1 / -1;">
+            <label>Descripción</label>
+            <p class="static"><?php echo htmlspecialchars($experiencia['descripcion']); ?></p>
+            <textarea class="editable" name="descripcion_experiencia"><?php echo htmlspecialchars($experiencia['descripcion']); ?></textarea>
+        </div>
+    </div>
+</section>
+
 
       <section class="section"><h2>Educación</h2>
-        <p class="static"><?php echo htmlspecialchars($empleado['educacion']); ?></p>
-        <textarea class="editable" name="educacion"><?php echo htmlspecialchars($empleado['educacion']); ?></textarea>
-      </section>
+      <div class="grid">
+        <div>
+          <label>Título</label>
+          <p class="static"><?php echo htmlspecialchars($educacion['titulo']); ?></p>
+          <input class="editable" type="text" name="titulo_edu" value="<?php echo htmlspecialchars($educacion['titulo']); ?>">
+        </div>
+        <div>
+          <label>Institución</label>
+          <p class="static"><?php echo htmlspecialchars($educacion['institucion']); ?></p>
+          <input class="editable" type="text" name="institucion_edu" value="<?php echo htmlspecialchars($educacion['institucion']); ?>">
+        </div>
+        <div>
+          <label>Fecha de inicio</label>
+          <p class="static"><?php echo htmlspecialchars($educacion['fecha_inicio']); ?></p>
+          <input class="editable" type="date" name="fecha_inicio_edu" value="<?php echo htmlspecialchars($educacion['fecha_inicio']); ?>">
+        </div>
+        <div>
+          <label>Fecha de finalización</label>
+          <p class="static"><?php echo htmlspecialchars($educacion['fecha_fin']); ?></p>
+          <input class="editable" type="date" name="fecha_fin_edu" value="<?php echo htmlspecialchars($educacion['fecha_fin']); ?>">
+        </div>
+      </div>
+    </section>
+
 
       <section class="section"><h2>Portafolio</h2>
         <div class="grid">

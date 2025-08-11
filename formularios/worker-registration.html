@@ -1,264 +1,393 @@
 <!DOCTYPE html>
-<!-- Declara que este documento es HTML5 -->
 <html lang="es">
-<!-- Inicio del documento HTML con idioma español -->
-
 <head>
-    <!-- Sección de metadatos y recursos -->
-    <meta charset="UTF-8">
-    <!-- Define la codificación de caracteres como UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Configura la vista para dispositivos móviles -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Registro de Empleado - LABORA</title>
-    <!-- Título que aparece en la pestaña del navegador -->
     <link rel="stylesheet" href="../recursos/css/styles.css">
     <link rel="stylesheet" href="../recursos/css/worker-registration.css">
-    <!-- Vincula el archivo de estilos CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Importa la fuente Roboto de Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Importa los íconos de Font Awesome -->
-    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
 
 <body>
-    <!-- Cuerpo principal del documento -->
-    <div class="header">
-        <!-- Encabezado de la página -->
-        <h1>LABORA</h1>
-        <!-- Título principal -->
-        <a href="../index.html">Volver al Inicio</a>
-        <!-- Enlace para volver a la página principal -->
-    </div>
+  <div class="header">
+    <h1>LABORA</h1>
+    <a href="../index.html">Volver al Inicio</a>
+  </div>
 
-    <div class="form-section">
-        <!-- Sección del formulario de registro -->
-        <h2>Registro de Empleado</h2>
-        <!-- Título del formulario -->
+  <div class="form-section">
+    <h2>Registro de Empleado</h2>
 
-        <form action="../funciones/worker-register.php" method="POST" onsubmit="return validateForm()">
-            <!-- Formulario con validación -->
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para nombre -->
-                <label for="emp-nombre">Nombre Completo</label>
-                <!-- Etiqueta del campo -->
-                <input type="text" id="emp-nombre" name="nombre" required>
-                <!-- Campo de entrada para nombre -->
-            </div>
+    <!-- enctype para archivo -->
+    <form action="../funciones/worker-register.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <div class="input-group">
+        <label for="emp-nombre">Nombre Completo</label>
+        <input type="text" id="emp-nombre" name="nombre" required>
+        <small class="error-text" data-error-for="emp-nombre"></small>
+      </div>
 
-            <div class="input-group">
-                <label for="emp-dni">DNI</label>
-                <input type="text" id="emp-dni" name="dni" required pattern="[0-9]{8}" title="Ingrese un DNI válido de 8 dígitos">
-            </div>
+      <div class="input-group">
+        <label for="emp-dni">DNI</label>
+        <input type="text" id="emp-dni" name="dni" required pattern="[0-9]{7,8}" title="Ingrese un DNI válido de 7 u 8 dígitos">
+        <small class="error-text" data-error-for="emp-dni"></small>
+      </div>
 
-            <div class="input-group">
-                <label for="emp-nacionalidad">Nacionalidad</label>
-                <input type="text" id="emp-nacionalidad" name="nacionalidad" required>
-            </div>
+      <div class="input-group">
+        <label for="emp-nacionalidad">Nacionalidad</label>
+        <select id="emp-nacionalidad" name="nacionalidad" required>
+            <option value="" disabled selected>Elegí una nacionalidad…</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Chilena">Chilena</option>
+            <option value="Brasilera">Brasilera</option>
+        </select>
+        <small class="error-text" data-error-for="emp-nacionalidad"></small>
+      </div>
 
-            <div class="input-group">
-                <label for="emp-fecha-nacimiento">Fecha de Nacimiento</label>
-                <input type="date" id="emp-fecha-nacimiento" name="fecha-nacimiento" required>
-            </div>
+      <div class="input-group">
+        <label for="emp-fecha-nacimiento">Fecha de Nacimiento</label>
+        <input type="date" id="emp-fecha-nacimiento" name="fecha-nacimiento" required>
+        <small class="error-text" data-error-for="emp-fecha-nacimiento"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para email -->
-                <label for="emp-email">Correo Electrónico</label>
-                <!-- Etiqueta del campo -->
-                <input type="email" id="emp-email" name="email" required>
-                <!-- Campo de entrada para email -->
-            </div>
+      <div class="input-group">
+        <label for="emp-email">Correo Electrónico</label>
+        <input type="email" id="emp-email" name="email" required>
+        <small class="error-text" data-error-for="emp-email"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para contraseña -->
-                <label for="emp-password">Contraseña</label>
-                <!-- Etiqueta del campo -->
-                <div class="password-container">
-                    <!-- Contenedor especial para el campo de contraseña -->
-                    <input type="password" id="emp-password" name="clave" required>
-                    <!-- Campo de entrada para contraseña -->
-                    <button type="button" class="toggle-password" onclick="togglePassword()">
-                        <!-- Botón para mostrar/ocultar contraseña -->
-                        <i class="fas fa-eye"></i>
-                        <!-- Ícono de ojo de Font Awesome -->
-                    </button>
-                </div>
-            </div>
+      <div class="input-group">
+        <label for="emp-password">Contraseña</label>
+        <div class="password-container">
+          <input type="password" id="emp-password" name="clave" required>
+          <button type="button" class="toggle-password" onclick="togglePassword()">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <small class="error-text" data-error-for="emp-password"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para confirmar contraseña -->
-                <label for="emp-confirm-password">Confirmar Contraseña</label>
-                <!-- Etiqueta del campo -->
-                <div class="password-container">
-                    <!-- Contenedor especial para el campo de confirmación -->
-                    <input type="password" id="emp-confirm-password" name="confirm-password" required>
-                    <!-- Campo de entrada para confirmar contraseña -->
-                    <button type="button" class="toggle-password" onclick="toggleConfirmPassword()">
-                        <!-- Botón para mostrar/ocultar confirmación -->
-                        <i class="fas fa-eye"></i>
-                        <!-- Ícono de ojo de Font Awesome -->
-                    </button>
-                </div>
-            </div>
+      <div class="input-group">
+        <label for="emp-confirm-password">Confirmar Contraseña</label>
+        <div class="password-container">
+          <input type="password" id="emp-confirm-password" name="confirm-password" required>
+          <button type="button" class="toggle-password" onclick="toggleConfirmPassword()">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <small class="error-text" data-error-for="emp-confirm-password"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para teléfono -->
-                <label for="emp-telefono">Teléfono</label>
-                <!-- Etiqueta del campo -->
-                <input type="tel" id="emp-telefono" name="telefono" required>
-                <!-- Campo de entrada para teléfono -->
-            </div>
+      <div class="input-group">
+        <label for="emp-telefono">Teléfono</label>
+        <input type="tel" id="emp-telefono" name="telefono" required
+               inputmode="numeric" pattern="\d{10}" title="Ingresá 10 dígitos, sin espacios ni guiones">
+        <small class="error-text" data-error-for="emp-telefono"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para zona de trabajo -->
-                <label for="emp-experiencia">Zona de trabajo</label>
-                <!-- Etiqueta del campo -->
-                <input type="text" id="emp-zona" name="zona_trabajo" required>
-                <!-- Campo de entrada numérico para experiencia -->
-            </div>
+      <div class="input-group">
+        <label for="emp-zona">Zona de trabajo</label>
+        <select id="emp-zona" name="zona_trabajo" required>
+            <option value="" disabled selected>Elegí una zona…</option>
+            <option value="Merlo">Merlo</option>
+            <option value="Moron">Moron</option>
+            <option value="Padua">Padua</option>
+            <option value="Ituzaingo">Ituzaingo</option>
+        </select>
+        <small class="error-text" data-error-for="emp-zona"></small>
+      </div>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para experiencia -->
-                <label for="emp-experiencia">Años de Experiencia</label>
-                <!-- Etiqueta del campo -->
-                <input type="number" id="emp-experiencia" name="experiencia" min="0" required>
-                <!-- Campo de entrada numérico para experiencia -->
-            </div>
+      <div class="input-group">
+        <label for="emp-experiencia">Años de Experiencia</label>
+        <input type="number" id="emp-experiencia" name="experiencia" min="0" required>
+        <small class="error-text" data-error-for="emp-experiencia"></small>
+      </div>
 
-            <div class="trabajos-container">
-                <!-- Contenedor para la selección de trabajos -->
-                <label>Selecciona tus trabajos</label>
-                <!-- Etiqueta para la selección de trabajos -->
-                <div class="trabajos-grid">
-                    <!-- Grid para los trabajos disponibles -->
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Carpintería -->
-                        <input type="checkbox" name="trabajos" value="carpinteria" id="trabajo-carpinteria">
-                        <i class="fas fa-hammer"></i>
-                        <span>Carpintería</span>
-                    </div>
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Plomería -->
-                        <input type="checkbox" name="trabajos" value="plomeria" id="trabajo-plomeria">
-                        <i class="fas fa-wrench"></i>
-                        <span>Plomería</span>
-                    </div>
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Educación -->
-                        <input type="checkbox" name="trabajos" value="educacion" id="trabajo-educacion">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <span>Educación</span>
-                    </div>
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Electricidad -->
-                        <input type="checkbox" name="trabajos" value="electricidad" id="trabajo-electricidad">
-                        <i class="fas fa-bolt"></i>
-                        <span>Electricidad</span>
-                    </div>
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Jardinería -->
-                        <input type="checkbox" name="trabajos" value="jardineria" id="trabajo-jardineria">
-                        <i class="fas fa-leaf"></i>
-                        <span>Jardinería</span>
-                    </div>
-                    <div class="trabajo-option" onclick="toggleTrabajo(this)">
-                        <!-- Opción de trabajo: Pintura -->
-                        <input type="checkbox" name="trabajos" value="pintura" id="trabajo-pintura">
-                        <i class="fas fa-paint-roller"></i>
-                        <span>Pintura</span>
-                    </div>
-                </div>
-            </div>
+      <!-- Dropdown de selección ÚNICA de trabajo -->
+      <div class="input-group" id="grupo-trabajo">
+        <label for="emp-trabajo-trigger">Selecciona tu trabajo</label>
 
-            <div class="input-group">
-                <!-- Grupo de campo de entrada para documentación -->
-                <label for="emp-documentacion">Documentación (Títulos, Matrícula, etc.)</label>
-                <!-- Etiqueta del campo -->
-                <input type="file" id="emp-documentacion" name="documentacion" multiple accept=".pdf,.jpg,.jpeg,.png">
-                <!-- Campo de entrada para archivos -->
-                <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG. Puedes subir varios archivos.</small>
-            </div>
+        <!-- Botón trigger -->
+        <button type="button" id="emp-trabajo-trigger" class="ms-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="ms-placeholder">Elegí una opción…</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </button>
 
-            <button type="submit">Registrarse</button>
-            <!-- Botón para enviar el formulario -->
-        </form>
+        <!-- Menú (radios) -->
+        <div class="ms-menu" role="listbox" aria-multiselectable="false" hidden>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="carpinteria"> <i class="fas fa-hammer"></i> Carpintería
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="plomeria"> <i class="fas fa-wrench"></i> Plomería
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="educacion"> <i class="fas fa-chalkboard-teacher"></i> Educación
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="electricidad"> <i class="fas fa-bolt"></i> Electricidad
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="jardineria"> <i class="fas fa-leaf"></i> Jardinería
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="pintura"> <i class="fas fa-paint-roller"></i> Pintura
+          </label>
+        </div>
 
-        <div id="message" class="message"></div>
-        <!-- Contenedor para mensajes del sistema -->
-    </div>
+        <!-- Campo REAL que viaja al backend (único) -->
+        <select id="emp-trabajo" name="trabajo" required hidden>
+          <option value="" selected disabled>Elegí una opción…</option>
+          <option value="carpinteria">Carpintería</option>
+          <option value="plomeria">Plomería</option>
+          <option value="educacion">Educación</option>
+          <option value="electricidad">Electricidad</option>
+          <option value="jardineria">Jardinería</option>
+          <option value="pintura">Pintura</option>
+        </select>
 
-    <script>
-        // Función para validar el formulario
-        function validateForm() {
-            // Obtiene los valores de los campos
-            const password = document.getElementById('emp-password').value;
-            const confirmPassword = document.getElementById('emp-confirm-password').value;
-            const messageDiv = document.getElementById('message');
-            
-            // Verifica si se ha seleccionado al menos un trabajo
-            const trabajosSeleccionados = document.querySelectorAll('input[name="trabajos"]:checked');
-            if (trabajosSeleccionados.length === 0) {
-                messageDiv.textContent = 'Por favor, selecciona al menos un trabajo';
-                return false;
-            }
+        <small class="error-text" data-error-for="emp-trabajo"></small>
+      </div>
+      <!-- FIN selección única -->
 
-            // Verifica si las contraseñas coinciden
-            if (password !== confirmPassword) {
-                messageDiv.textContent = 'Las contraseñas no coinciden';
-                return false;
-            }
+      <div class="input-group">
+        <label for="emp-documentacion">Documentación (un archivo)</label>
+        <input type="file" id="emp-documentacion" name="documentacion" accept=".pdf,.jpg,.jpeg,.png">
+        <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
+      </div>
 
-            // Si todo está correcto, muestra mensaje de éxito
-            messageDiv.textContent = 'Registro exitoso';
-            return true;
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    // ==== toggles de password ====
+    function togglePassword() {
+      const passwordInput = document.getElementById('emp-password');
+      const icon = document.querySelector('.toggle-password i');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+    function toggleConfirmPassword() {
+      const confirmPasswordInput = document.getElementById('emp-confirm-password');
+      const icon = document.querySelectorAll('.toggle-password i')[1];
+      if (confirmPasswordInput.type === 'password') {
+        confirmPasswordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        confirmPasswordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    // ==== Dropdown selección ÚNICA de trabajo ====
+    (function initTrabajoSingleSelect() {
+      const trigger = document.getElementById('emp-trabajo-trigger');
+      const menu = trigger.nextElementSibling; // .ms-menu
+      const hiddenSelect = document.getElementById('emp-trabajo');
+      const errEl = document.querySelector('[data-error-for="emp-trabajo"]');
+      const placeholder = trigger.querySelector('.ms-placeholder');
+
+      // abrir/cerrar
+      trigger.addEventListener('click', () => {
+        const isOpen = !menu.hasAttribute('hidden');
+        if (isOpen) {
+          menu.setAttribute('hidden', '');
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          menu.removeAttribute('hidden');
+          trigger.setAttribute('aria-expanded', 'true');
         }
+      });
 
-        // Función para mostrar/ocultar contraseña principal
-        function togglePassword() {
-            const passwordInput = document.getElementById('emp-password');
-            const icon = document.querySelector('.toggle-password i');
-            
-            // Cambia el tipo de input y el ícono
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+      // cerrar al click fuera
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !trigger.contains(e.target)) {
+          menu.setAttribute('hidden', '');
+          trigger.setAttribute('aria-expanded', 'false');
         }
+      });
 
-        // Función para mostrar/ocultar confirmación de contraseña
-        function toggleConfirmPassword() {
-            const confirmPasswordInput = document.getElementById('emp-confirm-password');
-            const icon = document.querySelectorAll('.toggle-password i')[1];
-            
-            // Cambia el tipo de input y el ícono
-            if (confirmPasswordInput.type === 'password') {
-                confirmPasswordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                confirmPasswordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
+      // elegir radio y sincronizar
+      menu.querySelectorAll('input[type="radio"][name="__trabajo_radio"]').forEach((radio) => {
+        radio.closest('.ms-option').addEventListener('click', (e) => {
+          if (e.target.tagName !== 'INPUT') radio.checked = true;
+          syncHiddenSelect(radio.value);
+          refreshTriggerText();
+          setError('');
+          // cerrar menú al elegir
+          menu.setAttribute('hidden', '');
+          trigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      function syncHiddenSelect(value) {
+        Array.from(hiddenSelect.options).forEach(opt => {
+          opt.selected = (opt.value === value);
+        });
+      }
+
+      function refreshTriggerText() {
+        const sel = hiddenSelect.value;
+        if (!sel) {
+          placeholder.textContent = 'Elegí una opción…';
+          return;
         }
-        
-        // Función para alternar la selección de un trabajo
-        function toggleTrabajo(elemento) {
-            const checkbox = elemento.querySelector('input[type="checkbox"]');
-            checkbox.checked = !checkbox.checked;
-            
-            // Actualiza la apariencia visual
-            if (checkbox.checked) {
-                elemento.classList.add('selected');
-            } else {
-                elemento.classList.remove('selected');
-            }
+        const label = menu.querySelector(`input[value="${sel}"]`).parentElement.innerText.trim();
+        placeholder.textContent = label;
+      }
+
+      function setError(msg) {
+        errEl.textContent = msg || '';
+        const group = document.getElementById('grupo-trabajo');
+        if (msg) { group.classList.add('error'); } else { group.classList.remove('error'); }
+      }
+
+      // Exponer validación
+      window.validateTrabajo = function () {
+        if (!hiddenSelect.value) {
+          setError('Seleccioná un trabajo');
+          menu.removeAttribute('hidden');
+          trigger.setAttribute('aria-expanded', 'true');
+          return false;
         }
-    </script>
+        setError('');
+        return true;
+      };
+    })();
+
+    // ==== Helpers UI de errores ====
+    function ensureErrorNode(inputId) {
+      const input = document.getElementById(inputId);
+      const group = input.closest('.input-group') || input.parentElement;
+      let node = group.querySelector(`small.error-text[data-error-for="${inputId}"]`);
+      if (!node) {
+        node = document.createElement('small');
+        node.className = 'error-text';
+        node.setAttribute('data-error-for', inputId);
+        group.appendChild(node);
+      }
+      return node;
+    }
+    function setFieldError(inputId, msg) {
+      const input = document.getElementById(inputId);
+      const group = input.closest('.input-group') || input.parentElement;
+      const node = ensureErrorNode(inputId);
+      node.textContent = msg || '';
+      if (msg) group.classList.add('error'); else group.classList.remove('error');
+    }
+    function clearAllErrors() {
+      document.querySelectorAll('.input-group.error').forEach(g => g.classList.remove('error'));
+      document.querySelectorAll('small.error-text').forEach(n => n.textContent = '');
+    }
+
+    // ==== Reglas cliente ====
+    function isAdult(yyyy_mm_dd) {
+      if (!yyyy_mm_dd) return false;
+      const parts = yyyy_mm_dd.split('-');
+      if (parts.length !== 3) return false;
+      const d = new Date(+parts[0], +parts[1]-1, +parts[2]);
+      if (isNaN(d)) return false;
+      const today = new Date();
+      const eighteen = new Date(d.getFullYear() + 18, d.getMonth(), d.getDate());
+      return eighteen <= new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }
+    function passwordOK(pw) {
+      // mín 8, al menos 1 letra y 1 número
+      return /^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(pw);
+    }
+
+    // ==== Validación general ====
+    function validateForm() {
+      const messageDiv = document.getElementById('message');
+      messageDiv.textContent = '';
+      clearAllErrors();
+
+      const ALLOWED_NAC = ['Argentina', 'Chilena', 'Brasilera'];
+      const ALLOWED_ZONAS = ['Merlo', 'Moron', 'Padua', 'Ituzaingo'];
+
+      let ok = true;
+
+      // Trabajo
+      if (!window.validateTrabajo || !window.validateTrabajo()) {
+        ok = false;
+      }
+
+      // Fecha de nacimiento >= 18
+      const fecha = document.getElementById('emp-fecha-nacimiento').value;
+      if (!isAdult(fecha)) {
+        setFieldError('emp-fecha-nacimiento', 'Debés ser mayor de 18 años');
+        ok = false;
+      }
+
+      // Contraseña
+      const pw = document.getElementById('emp-password').value;
+      const pw2 = document.getElementById('emp-confirm-password').value;
+      if (!passwordOK(pw)) {
+        setFieldError('emp-password', 'Mínimo 8 caracteres, incluir letras y números');
+        ok = false;
+      }
+      if (pw !== pw2) {
+        setFieldError('emp-confirm-password', 'Las contraseñas no coinciden');
+        ok = false;
+      }
+
+      // Teléfono 10 dígitos
+      const telRaw = document.getElementById('emp-telefono').value;
+      const telDigits = (telRaw || '').replace(/\D/g, '');
+      if (telDigits.length !== 10) {
+        setFieldError('emp-telefono', 'Ingresá 10 dígitos (solo números)');
+        ok = false;
+      }
+
+      // Nacionalidad
+      const nac = document.getElementById('emp-nacionalidad').value || '';
+      if (!ALLOWED_NAC.includes(nac)) {
+        setFieldError('emp-nacionalidad', 'Elegí una nacionalidad válida');
+        ok = false;
+      }
+
+      // Zona
+      const zona = document.getElementById('emp-zona').value || '';
+      if (!ALLOWED_ZONAS.includes(zona)) {
+        setFieldError('emp-zona', 'Elegí una zona válida');
+        ok = false;
+      }
+
+      if (!ok) {
+        messageDiv.textContent = 'Revisá los campos marcados';
+        return false;
+      }
+
+      messageDiv.textContent = 'Registro exitoso';
+      return true;
+    }
+
+    // Limpieza de errores en interacción
+    (function attachLiveClear() {
+      const ids = [
+        'emp-fecha-nacimiento','emp-password','emp-confirm-password',
+        'emp-telefono','emp-nacionalidad','emp-zona','emp-trabajo',
+        'emp-nombre','emp-dni','emp-email','emp-experiencia'
+      ];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const ev = (el.tagName === 'SELECT' || el.type === 'date') ? 'change' : 'input';
+        el.addEventListener(ev, () => setFieldError(id, ''));
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -51,3 +51,22 @@
         .trabajo-option.selected i {
             color: white;
         }
+        .ms-trigger {
+        width: 100%;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10px 12px; border: 1px solid var(--border-color, #d1d5db);
+        border-radius: 8px; background: var(--surface, #fff); cursor: pointer;
+        }
+        .ms-trigger:focus { outline: 2px solid var(--primary, #0ea5e9); outline-offset: 2px; }
+
+        .ms-menu {
+        position: relative; margin-top: 6px; border: 1px solid var(--border-color, #d1d5db);
+        border-radius: 8px; background: var(--surface, #fff); padding: 8px; max-height: 220px; overflow: auto;
+        box-shadow: 0 8px 24px rgba(0,0,0,.08);
+        }
+        .ms-option {
+        display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 6px; cursor: pointer;
+        }
+        .ms-option:hover { background: var(--hover, #f3f4f6); }
+        .ms-option input { pointer-events: none; } /* el click se maneja en el label */
+        .ms-placeholder { opacity: .85; }

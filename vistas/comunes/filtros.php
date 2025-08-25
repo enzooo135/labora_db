@@ -5,6 +5,8 @@
     <title>Buscar Trabajadores</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="../../recursos/css/index.css">
+
     <style>
       body {
         margin: 0;
@@ -89,6 +91,33 @@
       <div class="grid"></div>
     </div>
 
+        <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
+                <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
+                <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>
+            </div>
+
+            <div class="footer-redes">
+                <a href="https://www.facebook.com/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram">
+                </a>
+                <a href="https://wa.me/1234567890" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp">
+                </a>
+            </div>
+
+            <div class="footer-copy">
+                &copy; 2025 Labora - Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
     <script>
     document.addEventListener('DOMContentLoaded', function () {
       const grid = document.querySelector('.grid');
@@ -116,7 +145,7 @@
               const card = document.createElement('div');
               card.className = 'card';
               card.innerHTML = `
-                <img src="${trabajador.foto}" alt="Foto">
+                <img src="../../uploads/enzoo.jpg" alt="Foto">
                 <h3>${trabajador.nombre}</h3>
                 <p>${trabajador.profesion}</p>
                 <p>${trabajador.zona_trabajo}</p>

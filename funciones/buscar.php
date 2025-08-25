@@ -26,7 +26,7 @@ $resultado = $conn->query($sql);
 $trabajadores = [];
 
 while ($fila = $resultado->fetch_assoc()) {
-    $fila['foto'] = '../imagenes/enzo.jpg'; // Imagen por defecto
+    $fila['foto'] = '../uploads/enzoo.jpg'; // Imagen por defecto
     $trabajadores[] = $fila;
 }
 

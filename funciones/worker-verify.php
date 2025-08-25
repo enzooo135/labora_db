@@ -89,3 +89,4 @@ if ($res && $res->num_rows === 1) {
 
 $stmtSel->close();
 $conn->close();
+?>

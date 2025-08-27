@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Registro de Empleado - LABORA</title>
     <link rel="stylesheet" href="../recursos/css/styles.css">
@@ -89,10 +90,11 @@
         <label for="emp-zona">Zona de trabajo</label>
         <select id="emp-zona" name="zona_trabajo" required>
             <option value="" disabled selected>Elegí una zona…</option>
+            <option value="Moreno">Moreno</option>
+            <option value="Paso del Rey">Paso del Rey</option>
             <option value="Merlo">Merlo</option>
-            <option value="Moron">Moron</option>
             <option value="Padua">Padua</option>
-            <option value="Ituzaingo">Ituzaingo</option>
+            <option value="Padua">Ituzaingo</option>
         </select>
         <small class="error-text" data-error-for="emp-zona"></small>
       </div>
@@ -133,6 +135,12 @@
           <label class="ms-option">
             <input type="radio" name="__trabajo_radio" value="pintura"> <i class="fas fa-paint-roller"></i> Pintura
           </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="fletero"> <i class="fas fa-truck"></i> Fletero
+          </label>
+          <label class="ms-option">
+            <input type="radio" name="__trabajo_radio" value="cerrajero"> <i class="fas fa-key"></i> Cerrajero
+          </label>
         </div>
 
         <!-- Campo REAL que viaja al backend (único) -->
@@ -144,6 +152,8 @@
           <option value="electricidad">Electricidad</option>
           <option value="jardineria">Jardinería</option>
           <option value="pintura">Pintura</option>
+          <option value="fletero">Fletero</option>
+          <option value="cerrajero">Cerrajero</option>
         </select>
 
         <small class="error-text" data-error-for="emp-trabajo"></small>
@@ -151,8 +161,20 @@
       <!-- FIN selección única -->
 
       <div class="input-group">
-        <label for="emp-documentacion">Documentación (un archivo)</label>
+        <label for="emp-documentacion">Matricula (un archivo)</label>
         <input type="file" id="emp-documentacion" name="documentacion" accept=".pdf,.jpg,.jpeg,.png">
+        <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
+      </div>
+
+      <div class="input-group">
+        <label for="emp-documentacion">D.N.I FRENTE</label>
+        <input type="file" id="emp-dni-frente" name="dni-frente" accept=".pdf,.jpg,.jpeg,.png">
+        <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
+      </div>
+
+      <div class="input-group">
+        <label for="emp-documentacion">D.N.I DORSO</label>
+        <input type="file" id="emp-dni-dorso" name="dni-dorso" accept=".pdf,.jpg,.jpeg,.png">
         <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
       </div>
 

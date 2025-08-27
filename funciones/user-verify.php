@@ -22,9 +22,10 @@ if ($resultado && $resultado->num_rows === 1) {
     $clave = $pendiente['clave'];
     $telefono = $pendiente['telefono'];
     $direccion = $pendiente['direccion'];
+    $localidad = $pendiente['localidad'];
 
-    $insert = "INSERT INTO usuarios (nombre, dni, fecha_nacimiento, correo, clave, telefono, direccion)
-               VALUES ('$nombre', '$dni', '$fecha_nacimiento', '$correo', '$clave', '$telefono', '$direccion')";
+    $insert = "INSERT INTO usuarios (nombre, dni, fecha_nacimiento, correo, clave, telefono, direccion, localidad)
+               VALUES ('$nombre', '$dni', '$fecha_nacimiento', '$correo', '$clave', '$telefono', '$direccion', '$localidad')";
 
     if ($conn->query($insert) === TRUE) {
         $conn->query("DELETE FROM registro_pendiente_usuarios WHERE token = '$token'");

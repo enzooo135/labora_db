@@ -6,6 +6,7 @@
 <head>
     <!-- Sección de metadatos y recursos -->
     <meta charset="UTF-8">
+    <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
     <!-- Define la codificación de caracteres como UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Configura la vista para dispositivos móviles -->
@@ -109,6 +110,19 @@
                 <input type="text" id="empd-direccion" name="direccion" required>
                 <!-- Campo de entrada para dirección -->
             </div>
+
+            <div class="input-group">
+        <label for="emp-localidad">Localidad</label>
+        <select id="emp-localidad" name="localidad" required>
+            <option value="" disabled selected>Elegí una localidad…</option>
+            <option value="Moreno">Moreno</option>
+            <option value="Paso_del_rey">Paso del Rey</option>
+            <option value="Merlo">Merlo</option>
+            <option value="Padua">Padua</option>
+            <option value="Ituzaingo">Ituzaingo</option>
+        </select>
+        <small class="error-text" data-error-for="emp-localidad"></small>
+      </div>
 
             <button type="submit">Registrarse</button>
             <!-- Botón para enviar el formulario -->

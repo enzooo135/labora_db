@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-08-2025 a las 01:31:25
+-- Tiempo de generación: 28-08-2025 a las 20:23:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -92,19 +92,22 @@ CREATE TABLE `empleado` (
   `experiencia` varchar(255) DEFAULT NULL,
   `portafolio` varchar(255) DEFAULT NULL,
   `foto_perfil` varchar(255) DEFAULT NULL,
-  `portafolio_link` varchar(255) DEFAULT NULL
+  `portafolio_link` varchar(255) DEFAULT NULL,
+  `reset_token_hash` char(64) DEFAULT NULL,
+  `reset_expires` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `clave`, `profesion`, `experiencia_años`, `descripcion_servicios`, `disponibilidad`, `precio_hora`, `zona_trabajo`, `dni`, `fecha_nacimiento`, `nacionalidad`, `telefono`, `titulo_profesional`, `habilidades`, `educacion`, `experiencia`, `portafolio`, `foto_perfil`, `portafolio_link`) VALUES
-(19, 'Francisco tortelli', 'salchichamancpm@gmail.com', '$2y$10$sereWJRy/ETz/Rx79wqTO.zHrZ0C75ifdr4GQn6DPTWXDAsLZNIP.', 'maquina del mal, actor doble de riesgo', 18, 'Fachero', 'Full time', 10000.00, 'Merlo, Libertad', '48170252', '2007-06-02', 'Bolivia', '1130408554', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 'Lautaro German Ramirez', 'lauuramirez777@gmail.com', '$2y$10$1.23UiJAsBCS.Xc1tseWIOkL.pNqvB6sRsdnYJs635GM/zH6KfQg.', 'Educación', 5, 'Soy excelente', 'Full time', 3000.00, 'Merlo, el parque', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 'Enzo Santino ', 'santinomamanicuba@gmail.com', '$2y$10$9RhqQ1rUofSQI7gYtb.hqO5rXfFpj1s.50xlLbw3HYzx5E/q0DKTm', '', 5, '', '', 0.00, 'COSTA', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 'Enzo Santino ', 'santinomam@gmail.com', '$2y$10$kLpyHfR6s0.ja9EsqcVN4ea3.vjH6kePSxapONSEkPsz6Brn6pB/6', 'Estudiante', 6, 'soy un estudiante de escuela secundaria tecnia', 'Full time', 350.00, 'Merlo, el parque', '47161648', '2006-01-26', 'Argentina', '1164718626', 'Desarrollador full stack', 'Programador', 'Escuela secundaria tecnica numero 5 ', 'lalalala', 'Enzo portafolio', '68af781222983.jpg', 'EnzosPortafolio.com'),
-(32, 'Enzo Santino', 'labora1357@gmail.com', '$2y$10$xMROqT/4ES1F/EvhSJtWe.9ZBsS/1yUCGtjqOL2FOOGwR32J4tvai', 'educacion', 5, NULL, NULL, NULL, 'Merlo', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `clave`, `profesion`, `experiencia_años`, `descripcion_servicios`, `disponibilidad`, `precio_hora`, `zona_trabajo`, `dni`, `fecha_nacimiento`, `nacionalidad`, `telefono`, `titulo_profesional`, `habilidades`, `educacion`, `experiencia`, `portafolio`, `foto_perfil`, `portafolio_link`, `reset_token_hash`, `reset_expires`) VALUES
+(19, 'Francisco tortelli', 'salchichamancpm@gmail.com', '$2y$10$sereWJRy/ETz/Rx79wqTO.zHrZ0C75ifdr4GQn6DPTWXDAsLZNIP.', 'maquina del mal, actor doble de riesgo', 18, 'Fachero', 'Full time', 10000.00, 'Merlo, Libertad', '48170252', '2007-06-02', 'Bolivia', '1130408554', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'Lautaro German Ramirez', 'lauuramirez777@gmail.com', '$2y$10$1.23UiJAsBCS.Xc1tseWIOkL.pNqvB6sRsdnYJs635GM/zH6KfQg.', 'Educación', 5, 'Soy excelente', 'Full time', 3000.00, 'Merlo, el parque', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'Enzo Santino ', 'santinomamanicuba@gmail.com', '$2y$10$9RhqQ1rUofSQI7gYtb.hqO5rXfFpj1s.50xlLbw3HYzx5E/q0DKTm', '', 5, '', '', 0.00, 'COSTA', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 'Enzo Santino ', 'santinomam@gmail.com', '$2y$10$kLpyHfR6s0.ja9EsqcVN4ea3.vjH6kePSxapONSEkPsz6Brn6pB/6', 'Estudiante', 6, 'soy un estudiante de escuela secundaria tecnia', 'Full time', 350.00, 'Merlo, el parque', '47161648', '2006-01-26', 'Argentina', '1164718626', 'Desarrollador full stack', 'Programador', 'Escuela secundaria tecnica numero 5 ', 'lalalala', 'Enzo portafolio', '68af781222983.jpg', 'EnzosPortafolio.com', 'ee33b86e03cd8b7adea4ab757eaf082cbdad84565ff5126aaa58ea75fd7afd86', '2025-08-28 16:51:02'),
+(32, 'Enzo Santino', 'labora1357@gmail.com', '$2y$10$xMROqT/4ES1F/EvhSJtWe.9ZBsS/1yUCGtjqOL2FOOGwR32J4tvai', 'educacion', 5, NULL, NULL, NULL, 'Merlo', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 'Enzo Santino', 'enzosantinomamanicuba@gmail.com', '$2y$10$bv3HS2Zqyxmwq0sso9po0eGn4v1XkKRMwykzEs2l/YkGKQkZPiVJm', 'plomeria', 4, NULL, NULL, NULL, 'Merlo', '47161684', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -190,16 +193,18 @@ CREATE TABLE `usuarios` (
   `dni` varchar(25) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
   `fecha_nacimiento` varchar(30) DEFAULT NULL,
-  `localidad` varchar(250) DEFAULT NULL
+  `localidad` varchar(250) DEFAULT NULL,
+  `reset_token_hash` char(64) DEFAULT NULL,
+  `reset_expires` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `correo`, `clave`, `nombre`, `telefono`, `fecha_registro`, `tipo_usuario`, `dni`, `direccion`, `fecha_nacimiento`, `localidad`) VALUES
-(7, 'santinomam@gmail.com', '$2y$10$ASCsNW2CbjWDX9AYk8FbXuByWnwi9dWcRE.CALwoJGOh3yn/dGfpy', 'Enzo Santino ', '01164718626', '2025-07-24 18:18:43', '', '47161648', 'Constitución 858', '2006-01-26', NULL),
-(10, 'enzosantinomamanicuba@gmail.com', '$2y$10$Lwoi/vfEmUCHmicAc.QKuugYjirPfdQYGytg1utb3r6yf7cMrxhmW', 'Enzo Santino ', '1164718626', '2025-08-27 20:20:04', '', '47161648', 'Constitución 858', '2006-01-26', 'Merlo');
+INSERT INTO `usuarios` (`id_usuario`, `correo`, `clave`, `nombre`, `telefono`, `fecha_registro`, `tipo_usuario`, `dni`, `direccion`, `fecha_nacimiento`, `localidad`, `reset_token_hash`, `reset_expires`) VALUES
+(7, 'santinomam@gmail.com', '$2y$10$ASCsNW2CbjWDX9AYk8FbXuByWnwi9dWcRE.CALwoJGOh3yn/dGfpy', 'Enzo Santino ', '01164718626', '2025-07-24 18:18:43', '', '47161648', 'Constitución 858', '2006-01-26', NULL, 'cafac5b2f1aabfb1afd54c3f4a4956dda4064757358bdff5bede91a644b67555', '2025-08-28 14:57:41'),
+(10, 'enzosantinomamanicuba@gmail.com', '$2y$10$1mxjFRTXXduQPDeIZM7iDOf9ybhIrZwqwMtl1WLE62F7p6XQ/UF6a', 'Enzo Santino ', '1164718626', '2025-08-27 20:20:04', '', '47161648', 'Constitución 858', '2006-01-26', 'Merlo', 'e381cd84e1f43d0504667bb4eef483c81d63979ac2034301318185c4f4bb793b', '2025-08-28 21:18:19');
 
 --
 -- Índices para tablas volcadas
@@ -224,7 +229,8 @@ ALTER TABLE `educacion`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`id_empleado`),
-  ADD UNIQUE KEY `correo` (`correo`);
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD KEY `reset_token_hash` (`reset_token_hash`);
 
 --
 -- Indices de la tabla `experiencia_laboral`
@@ -250,7 +256,8 @@ ALTER TABLE `registro_pendiente_usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `email` (`correo`);
+  ADD UNIQUE KEY `email` (`correo`),
+  ADD KEY `reset_token_hash` (`reset_token_hash`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -272,7 +279,7 @@ ALTER TABLE `educacion`
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `experiencia_laboral`
@@ -284,7 +291,7 @@ ALTER TABLE `experiencia_laboral`
 -- AUTO_INCREMENT de la tabla `registro_pendiente_empleados`
 --
 ALTER TABLE `registro_pendiente_empleados`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `registro_pendiente_usuarios`

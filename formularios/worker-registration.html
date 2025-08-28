@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Registro de Empleado - LABORA</title>
-    <link rel="stylesheet" href="../recursos/css/styles.css">
-    <link rel="stylesheet" href="../recursos/css/worker-registration.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Empleado - LABORA</title>
+  <link rel="stylesheet" href="../recursos/css/styles.css">
+  <link rel="stylesheet" href="../recursos/css/worker-registration.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
 
 <body>
@@ -37,10 +37,10 @@
       <div class="input-group">
         <label for="emp-nacionalidad">Nacionalidad</label>
         <select id="emp-nacionalidad" name="nacionalidad" required>
-            <option value="" disabled selected>Elegí una nacionalidad…</option>
-            <option value="Argentina">Argentina</option>
-            <option value="Chilena">Chilena</option>
-            <option value="Brasilera">Brasilera</option>
+          <option value="" disabled selected>Elegí una nacionalidad…</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Chilena">Chilena</option>
+          <option value="Brasilera">Brasilera</option>
         </select>
         <small class="error-text" data-error-for="emp-nacionalidad"></small>
       </div>
@@ -82,19 +82,19 @@
       <div class="input-group">
         <label for="emp-telefono">Teléfono</label>
         <input type="tel" id="emp-telefono" name="telefono" required
-               inputmode="numeric" pattern="\d{10}" title="Ingresá 10 dígitos, sin espacios ni guiones">
+               inputmode="numeric" pattern="[0-9]{10}"
+               title="Ingresá 10 dígitos, sin espacios ni guiones">
         <small class="error-text" data-error-for="emp-telefono"></small>
       </div>
 
       <div class="input-group">
         <label for="emp-zona">Zona de trabajo</label>
         <select id="emp-zona" name="zona_trabajo" required>
-            <option value="" disabled selected>Elegí una zona…</option>
-            <option value="Moreno">Moreno</option>
-            <option value="Paso del Rey">Paso del Rey</option>
-            <option value="Merlo">Merlo</option>
-            <option value="Padua">Padua</option>
-            <option value="Padua">Ituzaingo</option>
+          <option value="" disabled selected>Elegí una zona…</option>
+          <option value="Merlo">Merlo</option>
+          <option value="Moron">Moron</option>
+          <option value="Padua">Padua</option>
+          <option value="Ituzaingo">Ituzaingo</option>
         </select>
         <small class="error-text" data-error-for="emp-zona"></small>
       </div>
@@ -106,8 +106,8 @@
       </div>
 
       <!-- Dropdown de selección ÚNICA de trabajo -->
-      <div class="input-group" id="grupo-trabajo">
-        <label for="emp-trabajo-trigger">Selecciona tu trabajo</label>
+      <div class="input-group" id="grupo-trabajo" style="position:relative">
+        <label for="emp-trabajo-trigger">Seleccioná tu trabajo</label>
 
         <!-- Botón trigger -->
         <button type="button" id="emp-trabajo-trigger" class="ms-trigger" aria-haspopup="listbox" aria-expanded="false">
@@ -116,45 +116,20 @@
         </button>
 
         <!-- Menú (radios) -->
-        <div class="ms-menu" role="listbox" aria-multiselectable="false" hidden>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="carpinteria"> <i class="fas fa-hammer"></i> Carpintería
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="plomeria"> <i class="fas fa-wrench"></i> Plomería
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="educacion"> <i class="fas fa-chalkboard-teacher"></i> Educación
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="electricidad"> <i class="fas fa-bolt"></i> Electricidad
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="jardineria"> <i class="fas fa-leaf"></i> Jardinería
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="pintura"> <i class="fas fa-paint-roller"></i> Pintura
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="fletero"> <i class="fas fa-truck"></i> Fletero
-          </label>
-          <label class="ms-option">
-            <input type="radio" name="__trabajo_radio" value="cerrajero"> <i class="fas fa-key"></i> Cerrajero
-          </label>
+        <div id="emp-trabajo-menu" class="ms-menu" role="listbox" aria-multiselectable="false" hidden
+             style="position:absolute; left:0; right:0; z-index:999; background:#fff; border:1px solid #ddd; border-radius:8px; padding:.5rem; margin-top:.25rem;">
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="carpinteria"> <i class="fas fa-hammer"></i> Carpintería</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="plomeria"> <i class="fas fa-wrench"></i> Plomería</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="educacion"> <i class="fas fa-chalkboard-teacher"></i> Educación</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="electricidad"> <i class="fas fa-bolt"></i> Electricidad</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="jardineria"> <i class="fas fa-leaf"></i> Jardinería</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="pintura"> <i class="fas fa-paint-roller"></i> Pintura</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="fletero"> <i class="fas fa-truck"></i> Fletero</label>
+          <label class="ms-option"><input type="radio" name="__trabajo_radio" value="cerrajero"> <i class="fas fa-key"></i> Cerrajero</label>
         </div>
 
-        <!-- Campo REAL que viaja al backend (único) -->
-        <select id="emp-trabajo" name="trabajo" required hidden>
-          <option value="" selected disabled>Elegí una opción…</option>
-          <option value="carpinteria">Carpintería</option>
-          <option value="plomeria">Plomería</option>
-          <option value="educacion">Educación</option>
-          <option value="electricidad">Electricidad</option>
-          <option value="jardineria">Jardinería</option>
-          <option value="pintura">Pintura</option>
-          <option value="fletero">Fletero</option>
-          <option value="cerrajero">Cerrajero</option>
-        </select>
+        <!-- Valor real que viaja al backend -->
+        <input type="hidden" id="emp-trabajo" name="trabajo" value="">
 
         <small class="error-text" data-error-for="emp-trabajo"></small>
       </div>
@@ -167,13 +142,13 @@
       </div>
 
       <div class="input-group">
-        <label for="emp-documentacion">D.N.I FRENTE</label>
+        <label for="emp-dni-frente">D.N.I FRENTE</label>
         <input type="file" id="emp-dni-frente" name="dni-frente" accept=".pdf,.jpg,.jpeg,.png">
         <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
       </div>
 
       <div class="input-group">
-        <label for="emp-documentacion">D.N.I DORSO</label>
+        <label for="emp-dni-dorso">D.N.I DORSO</label>
         <input type="file" id="emp-dni-dorso" name="dni-dorso" accept=".pdf,.jpg,.jpeg,.png">
         <small class="file-hint">Formatos aceptados: PDF, JPG, JPEG, PNG.</small>
       </div>
@@ -213,75 +188,62 @@
       }
     }
 
-    // ==== Dropdown selección ÚNICA de trabajo ====
+    // ==== Dropdown selección ÚNICA de trabajo (robusto con IDs) ====
     (function initTrabajoSingleSelect() {
       const trigger = document.getElementById('emp-trabajo-trigger');
-      const menu = trigger.nextElementSibling; // .ms-menu
-      const hiddenSelect = document.getElementById('emp-trabajo');
+      const menu = document.getElementById('emp-trabajo-menu');
+      const hiddenInput = document.getElementById('emp-trabajo');
       const errEl = document.querySelector('[data-error-for="emp-trabajo"]');
       const placeholder = trigger.querySelector('.ms-placeholder');
 
-      // abrir/cerrar
-      trigger.addEventListener('click', () => {
-        const isOpen = !menu.hasAttribute('hidden');
-        if (isOpen) {
-          menu.setAttribute('hidden', '');
-          trigger.setAttribute('aria-expanded', 'false');
-        } else {
-          menu.removeAttribute('hidden');
-          trigger.setAttribute('aria-expanded', 'true');
-        }
-      });
+      function openMenu() {
+        menu.removeAttribute('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        menu.setAttribute('hidden','');
+        trigger.setAttribute('aria-expanded','false');
+      }
+      function toggleMenu(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (menu.hasAttribute('hidden')) openMenu(); else closeMenu();
+      }
 
-      // cerrar al click fuera
+      trigger.addEventListener('click', toggleMenu);
+
+      // Cerrar al click afuera
       document.addEventListener('click', (e) => {
         if (!menu.contains(e.target) && !trigger.contains(e.target)) {
-          menu.setAttribute('hidden', '');
-          trigger.setAttribute('aria-expanded', 'false');
+          closeMenu();
         }
       });
 
-      // elegir radio y sincronizar
+      // Elegir opción
       menu.querySelectorAll('input[type="radio"][name="__trabajo_radio"]').forEach((radio) => {
-        radio.closest('.ms-option').addEventListener('click', (e) => {
+        const row = radio.closest('.ms-option');
+        row.addEventListener('click', (e) => {
           if (e.target.tagName !== 'INPUT') radio.checked = true;
-          syncHiddenSelect(radio.value);
-          refreshTriggerText();
+          const val = radio.value;
+          hiddenInput.value = val;
+          const labelText = row.innerText.trim();
+          placeholder.textContent = labelText;
           setError('');
-          // cerrar menú al elegir
-          menu.setAttribute('hidden', '');
-          trigger.setAttribute('aria-expanded', 'false');
+          closeMenu();
         });
       });
-
-      function syncHiddenSelect(value) {
-        Array.from(hiddenSelect.options).forEach(opt => {
-          opt.selected = (opt.value === value);
-        });
-      }
-
-      function refreshTriggerText() {
-        const sel = hiddenSelect.value;
-        if (!sel) {
-          placeholder.textContent = 'Elegí una opción…';
-          return;
-        }
-        const label = menu.querySelector(`input[value="${sel}"]`).parentElement.innerText.trim();
-        placeholder.textContent = label;
-      }
 
       function setError(msg) {
         errEl.textContent = msg || '';
         const group = document.getElementById('grupo-trabajo');
-        if (msg) { group.classList.add('error'); } else { group.classList.remove('error'); }
+        if (msg) group.classList.add('error'); else group.classList.remove('error');
       }
 
-      // Exponer validación
+      // Validación pública que usa validateForm()
       window.validateTrabajo = function () {
-        if (!hiddenSelect.value) {
+        if (!hiddenInput.value) {
           setError('Seleccioná un trabajo');
-          menu.removeAttribute('hidden');
-          trigger.setAttribute('aria-expanded', 'true');
+          openMenu();
           return false;
         }
         setError('');
@@ -336,8 +298,8 @@
       messageDiv.textContent = '';
       clearAllErrors();
 
-      const ALLOWED_NAC = ['Argentina', 'Chilena', 'Brasilera'];
-      const ALLOWED_ZONAS = ['Merlo', 'Moron', 'Padua', 'Ituzaingo'];
+      const ALLOWED_NAC   = ['Argentina', 'Chilena', 'Brasilera'];
+      const ALLOWED_ZONAS = ['Merlo', 'Moron', 'Padua', 'Ituzaingo']; // alineado con backend
 
       let ok = true;
 

@@ -23,6 +23,8 @@ if ($correo === '') {
     exit('Correo es obligatorio');
 }
 
+error_log('[FORM DEBUG] POST=' . print_r($_POST, true));
+
 // --- Chequeo de existencia ---
 $existe = false;
 
@@ -62,7 +64,7 @@ $confirm_plain     = $_POST['confirm-password'] ?? '';
 
 // Whitelists
 $NACIONALIDADES_PERMITIDAS = ['Argentina', 'Chilena', 'Brasilera'];
-$ZONAS_PERMITIDAS = ['Merlo', 'Moron', 'Padua', 'Ituzaingo'];
+$ZONAS_PERMITIDAS = ['Moreno', 'Paso del rey', 'Merlo', 'Padua', 'Ituzaingo'];
 
 // Profesión (única o múltiple)
 $profesion = '';

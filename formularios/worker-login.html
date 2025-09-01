@@ -12,7 +12,8 @@
     <!-- Configura la vista para dispositivos móviles -->
     <title>Iniciar Sesión - LABORA</title>
     <!-- Título que aparece en la pestaña del navegador -->
-    <link rel="stylesheet" href="../recursos/css/styles.css">
+    <link rel="stylesheet" href="../recursos/css/worker-login.css">
+    <link rel="stylesheet" href="../recursos/css/volver.css">
     <!-- Vincula el archivo de estilos CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Importa la fuente Roboto de Google Fonts -->
@@ -26,8 +27,10 @@
         <!-- Encabezado de la página -->
         <h1>LABORA</h1>
         <!-- Título principal -->
-        <a href="../index.html">Volver al Inicio</a>
-        <!-- Enlace para volver a la página principal -->
+        <button class="btn-volver" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Volver
+        </button>
+        <!-- Boton para volver a la página principal -->
     </div>
 
     <div class="form-section">
@@ -74,41 +77,7 @@
         <!-- Contenedor para mensajes del sistema -->
     </div>
 
-    <script>
-        // Función para validar el formulario
-        function validateForm() {
-            // Obtiene los valores de los campos
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const messageDiv = document.getElementById('message');
-
-            // Verifica si los campos están vacíos
-            if (!email || !password) {
-                messageDiv.textContent = 'Por favor, complete todos los campos';
-                return false;
-            }
-
-            // Si todo está correcto, muestra mensaje de éxito
-            messageDiv.textContent = 'Inicio de sesión exitoso';
-            return true;
-        }
-
-        // Función para mostrar/ocultar contraseña
-        function togglePassword() {
-            const passwordInput = document.getElementById('login-password');
-            const icon = document.querySelector('.toggle-password i');
-            
-            // Cambia el tipo de input y el ícono
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-    </script>
+    <script src="../recursos/js/volver.js"></script>
+    <script src="../recursos/js/worker-login.js"></script>    
 </body>
 </html> 

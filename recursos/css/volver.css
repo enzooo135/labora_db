@@ -1,0 +1,25 @@
+/* Botón Volver minimalista */
+.btn-volver {
+  all: unset;                 /* Resetea estilos para que no herede nada */
+  position: absolute;         /* Se posiciona dentro del header */
+  left: 20px;                 /* Separación desde el borde izquierdo */
+  top: 20px;                  /* Separación desde arriba */
+  display: inline-flex;       /* Para alinear icono + texto */
+  align-items: center;
+  gap: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #0077B6;             /* Azul corporativo */
+  cursor: pointer;
+  background: none;
+}
+
+.btn-volver:hover {
+  color: #005F8C;             /* Azul más oscuro en hover */
+}
+
+.btn-volver i {
+  font-size: 14px;            /* Ícono más chico */
+  line-height: 1;
+}

@@ -1,0 +1,176 @@
+/* Reset básico */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+/* Encabezado */
+.header {
+    background-color: transparent;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative; /* Para poder ubicar el enlace volver */
+}
+
+.header h1 {
+    color: #0077B6;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* Enlace Volver al inicio */
+.header a {
+    color: #0077B6;
+    text-decoration: none;
+    font-weight: 500;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 16px;
+}
+
+.header a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Sección del formulario */
+.form-section {
+    background-color: #F0F0F0;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 119, 182, 0.5);
+    width: 500px;
+    margin: 40px auto;
+    text-align: left;
+}
+
+.form-section h2 {
+    color: #333333;
+    font-size: 36px;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+/* Grupos de campos */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    color: #0077B6;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #0077B6;
+    border-radius: 10px;
+    background-color: #E0E0E0;
+    color: #333333;
+    font-size: 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #005F8C;
+    box-shadow: 0 0 10px rgba(0, 95, 140, 0.7);
+}
+
+/* Campo de contraseña con ícono */
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    padding-right: 45px; /* espacio para el ojo */
+    border: 2px solid #0077B6;
+    border-radius: 10px;
+    background-color: #E0E0E0;
+    color: #333333;
+    font-size: 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0077B6;
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #005F8C;
+}
+
+/* Botón de enviar */
+.form-section button[type="submit"] {
+    background-color: #0077B6;
+    color: #FFFFFF;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+.form-section button[type="submit"]:hover {
+    background-color: #005F8C;
+}
+
+/* Enlace de Olvidé mi contraseña */
+.forgot-password {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.forgot-password a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #0077B6;
+    font-weight: 500;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* Mensajes */
+.message {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: #0077B6;
+    font-weight: 500;
+}

@@ -114,3 +114,41 @@
             height: 100%;
             object-fit: cover;
         }
+        /* === Volver (idéntico a login) === */
+        a.btn-volver, button.btn-volver{
+        all: unset;                          /* resetea estilos nativos */
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: inline-flex !important;     /* evita display:block/herencias */
+        align-items: center;
+        gap: 6px;
+        font: 500 16px 'Roboto', sans-serif;
+        color: #0077B6;
+        text-decoration: none;
+        cursor: pointer;
+        z-index: 1000;                       /* por encima del fondo animado */
+        line-height: 1;
+        background: transparent;
+        border: 0;
+        }
+
+        a.btn-volver:hover{ color:#005F8C; }
+        .btn-volver i{ font-size:16px; line-height:1; pointer-events:none; }
+
+        /* Variante “chip” para que se lea sobre cualquier fondo */
+        .btn-volver.chip{
+        padding: 8px 12px;
+        background: rgba(255,255,255,.82);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: 1px solid rgba(0,0,0,.08);
+        border-radius: 999px;
+        box-shadow: 0 4px 14px rgba(0,0,0,.08);
+        }
+        .btn-volver.chip:hover{ background: rgba(255,255,255,.92); }
+
+        /* Anti-subrayado en todos los estados del link */
+        a.btn-volver:link,
+        a.btn-volver:visited,
+        a.btn-volver:active{ text-decoration:none; }

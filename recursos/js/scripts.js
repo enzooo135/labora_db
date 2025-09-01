@@ -9,3 +9,4 @@ document.getElementById('formularioEmpleador').addEventListener('submit', functi
     evento.preventDefault();
     alert('Empleador registrado exitosamente.');
 });
+card.href = `/labora_db/perfil_trabajador_usuario.php?id=${encodeURIComponent(tr.id_empleado)}`;

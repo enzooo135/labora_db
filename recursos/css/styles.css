@@ -226,3 +226,4 @@ button:hover {
     color: #0077B6;               /* Color azul corporativo */
     font-weight: 500;             /* Peso de fuente */
 }
+.card { display:block; text-decoration:none; color:inherit; cursor:pointer; }

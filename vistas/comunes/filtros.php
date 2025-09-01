@@ -114,6 +114,7 @@
 
             data.forEach(trabajador => {
               const card = document.createElement('div');
+              const href = `/labora_db/perfil_trabajador_usuario.php?id=${encodeURIComponent(trabajador.id_empleado)}`;
               card.className = 'card';
               card.innerHTML = `
                 <img src="${trabajador.foto}" alt="Foto">
@@ -121,6 +122,7 @@
                 <p>${trabajador.profesion}</p>
                 <p>${trabajador.zona_trabajo}</p>
                 <p style="font-size: 14px; color: #666;">${trabajador.descripcion_servicios || ''}</p>
+                <button> Ver perfil </button>;
               `;
               grid.appendChild(card);
             });
@@ -132,7 +134,9 @@
       profesionSelect.addEventListener('change', cargarTrabajadores);
 
       cargarTrabajadores(); // carga inicial
+      
     });
     </script>
+
   </body>
   </html>

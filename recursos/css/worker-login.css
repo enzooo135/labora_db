@@ -169,18 +169,14 @@ body {
     text-underline-offset: 4px;
 }
 
-/* Mensajes */
-.message {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 18px;
-    color: #0077B6;
-    font-weight: 500;
-}
+/* Mensajes de error y sistema */
 .message {
   margin-top: 12px;
   font-size: 0.95rem;
-  min-height: 20px;
+  line-height: 1.3;
+  display: block;
+  min-height: 20px;       /* evita que se mueva el formulario al aparecer */
+  text-align: center;     /* centrado */
 }
 
 .message.error {
@@ -189,4 +185,8 @@ body {
   border: 1px solid #f5b5b5;
   padding: 8px 10px;
   border-radius: 8px;
+}
+
+.message.info {
+  color: #0b5; /* verde para futuros mensajes de éxito */
 }

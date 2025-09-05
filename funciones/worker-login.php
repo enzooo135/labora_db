@@ -29,6 +29,5 @@ if ($row = $result->fetch_assoc()) {
     }
 }
 
-// Si llega acá → credenciales inválidas
 header("Location: ../formularios/worker-login.html?error=cred&email=" . urlencode($correo));
 exit();

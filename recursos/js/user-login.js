@@ -1,10 +1,8 @@
-// Mostrar mensajes según la query string y mantener el email
 (function () {
   const params = new URLSearchParams(window.location.search);
   const msg = document.getElementById('message');
   const emailInput = document.getElementById('login-email');
 
-  // Prellenar email si vino en la URL
   const emailFromQS = params.get('email');
   if (emailFromQS) emailInput.value = emailFromQS;
 
@@ -26,11 +24,9 @@
       text = 'Ocurrió un error. Intente nuevamente';
   }
   msg.textContent = text;
-  msg.classList.remove('info');
   msg.classList.add('error');
 })();
 
-// Validación rápida en cliente
 function validateForm() {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value.trim();
@@ -41,13 +37,11 @@ function validateForm() {
     messageDiv.classList.add('error');
     return false;
   }
-  // limpiamos mensaje anterior para no confundir
   messageDiv.textContent = '';
   messageDiv.classList.remove('error');
   return true;
 }
 
-// Mostrar/ocultar contraseña (dejas el mismo botón/ícono)
 function togglePassword() {
   const passwordInput = document.getElementById('login-password');
   const icon = document.querySelector('.toggle-password i');

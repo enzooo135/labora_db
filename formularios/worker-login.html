@@ -1,83 +1,54 @@
 <!DOCTYPE html>
-<!-- Declara que este documento es HTML5 -->
 <html lang="es">
-<!-- Inicio del documento HTML con idioma español -->
-
 <head>
-    <!-- Sección de metadatos y recursos -->
     <meta charset="UTF-8">
     <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
-    <!-- Define la codificación de caracteres como UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Configura la vista para dispositivos móviles -->
-    <title>Iniciar Sesión - LABORA</title>
-    <!-- Título que aparece en la pestaña del navegador -->
+    <title>Iniciar Sesión - Trabajador</title>
+
     <link rel="stylesheet" href="../recursos/css/worker-login.css">
     <link rel="stylesheet" href="../recursos/css/volver.css">
-    <!-- Vincula el archivo de estilos CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Importa la fuente Roboto de Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Importa los íconos de Font Awesome -->
 </head>
-
 <body>
-    <!-- Cuerpo principal del documento -->
     <div class="header">
-        <!-- Encabezado de la página -->
         <h1>LABORA</h1>
-        <!-- Título principal -->
         <button class="btn-volver" onclick="goBack()">
             <i class="fas fa-arrow-left"></i> Volver
         </button>
-        <!-- Boton para volver a la página principal -->
     </div>
 
     <div class="form-section">
-        <!-- Sección del formulario de inicio de sesión -->
         <h2>Iniciar Sesión</h2>
-        <!-- Título del formulario -->
 
-        <form action="../funciones/worker-login.php" method="POST">
-            <!-- Formulario con validación -->
+        <form action="../funciones/worker-login.php" method="POST" onsubmit="return validateForm()">
             <div class="input-group">
-                <!-- Grupo de campo de entrada para email -->
                 <label for="login-email">Correo Electrónico</label>
-                <!-- Etiqueta del campo -->
                 <input type="email" id="login-email" name="correo" required>
-                <!-- Campo de entrada para email -->
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para contraseña -->
                 <label for="login-password">Contraseña</label>
-                <!-- Etiqueta del campo -->
                 <div class="password-container">
-                    <!-- Contenedor especial para el campo de contraseña -->
                     <input type="password" id="login-password" name="clave" required>
-                    <!-- Campo de entrada para contraseña -->
                     <button type="button" class="toggle-password" onclick="togglePassword()">
-                        <!-- Botón para mostrar/ocultar contraseña -->
                         <i class="fas fa-eye"></i>
-                        <!-- Ícono de ojo de Font Awesome -->
                     </button>
                 </div>
             </div>
 
             <button type="submit">Iniciar Sesión</button>
-            <!-- Botón para enviar el formulario -->
 
             <div class="forgot-password">
                 <a href="worker-forgot-password.html">¿Olvidaste tu contraseña?</a>
-            </div>  
-
+            </div>
         </form>
 
         <div id="message" class="message"></div>
-        <!-- Contenedor para mensajes del sistema -->
     </div>
 
     <script src="../recursos/js/volver.js"></script>
-    <script src="../recursos/js/worker-login.js"></script>    
+    <script src="../recursos/js/worker-login.js"></script>
 </body>
-</html> 
+</html>

@@ -205,3 +205,27 @@
             font-size: 14px;
             color: #666;
         }
+        .contenido-principal {
+            background-image: url("/labora_db/imagenes/system-3539317_1280.jpg"); /* ruta a tu imagen */
+            background-size: cover;     /* cubre todo el div */
+            background-position: center;/* centrada */
+            background-repeat: no-repeat;
+            padding: 40px;              /* para que el texto no quede pegado */
+            border-radius: 12px;        /* opcional, esquinas redondeadas */
+            position: relative;
+          }
+          
+          /* Si querés un efecto de transparencia con overlay */
+          .contenido-principal::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7); /* blanco con 70% transparencia */
+            z-index: 0;
+          }
+          
+          .contenido-principal > * {
+            position: relative;
+            z-index: 1; /* mantiene el texto e íconos arriba del overlay */
+          }
+          

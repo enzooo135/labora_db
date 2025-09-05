@@ -31,3 +31,46 @@
 .nav-links li a:hover {
   color: #90E0EF; /* Azul claro */
 }
+/* === FULL-BLEED PARA LA NAVBAR === */
+body { margin: 0; } /* evita márgenes blancos del body por defecto */
+
+/* La barra ocupa el ancho del viewport aunque esté dentro de un contenedor centrado */
+.navbar {
+  /* tu estilo existente se mantiene (gradiente, padding, etc.) */
+  /* fondo de borde a borde: */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box; /* que el padding no corte el efecto */
+}
+
+/* Contenido centrado adentro, sin afectar el fondo full-bleed */
+.navbar-inner {
+  max-width: 1200px;      /* ajustá a tu ancho deseado */
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* (opcional) Estilos típicos de enlaces */
+.navbar .logo a,
+.navbar .nav-links a { color: #fff; text-decoration: none; }
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+/* Reseteo total para evitar franja superior y scroll horizontal */
+html, body, .terminos-body {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden; /* evita scroll por el 100vw */
+}

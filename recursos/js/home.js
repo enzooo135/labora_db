@@ -1,80 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const botonScrollArriba = document.querySelector('.scroll-to-top');
+// Menú hamburguesa
+(function(){
+  const navbar = document.querySelector('.navbar');
+  const btn = document.querySelector('.hamburger');
+  const backdrop = document.querySelector('.menu-backdrop');
+  const menu = document.getElementById('menu');
 
-    // Mostrar/ocultar el botón de scroll
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            botonScrollArriba.classList.add('visible');
-        } else {
-            botonScrollArriba.classList.remove('visible');
-        }
-    });
+  if(!navbar || !btn || !menu) return;
 
-    // Scroll suave al hacer clic en el botón
-    botonScrollArriba.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+  const toggle = () => {
+    const isOpen = navbar.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+    // Evita scroll del body cuando el menú está abierto en móvil
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  };
 
-    // Funcionalidad para el fondo dinámico
-    const elementosFondo = document.querySelectorAll('.background-item');
-    const deslizadorFondo = document.querySelector('.background-slider');
-    
-    // Función para animar la opacidad de las imágenes
-    const animarOpacidad = () => {
-        const desplazado = window.pageYOffset;
-        const altoVentana = window.innerHeight;
-        const altoDocumento = Math.max(
-            document.body.scrollHeight,
-            document.body.offsetHeight,
-            document.documentElement.clientHeight,
-            document.documentElement.scrollHeight,
-            document.documentElement.offsetHeight
-        );
+  btn.addEventListener('click', toggle);
+  backdrop && backdrop.addEventListener('click', toggle);
 
-        elementosFondo.forEach(elemento => {
-            const rect = elemento.getBoundingClientRect();
-            const estaEnVista = rect.top < altoVentana + 100 && rect.bottom > -100;
-            
-            if (estaEnVista) {
-                elemento.style.opacity = '0.12';
-            } else {
-                elemento.style.opacity = '0.08';
-            }
-        });
+  // Cerrar al hacer click en un link (mejor UX en móvil)
+  menu.addEventListener('click', (e) => {
+    if(e.target.tagName === 'A'){
+      navbar.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
 
-        // Parallax suave que tiene en cuenta la altura total del documento
-        const progresoScroll = desplazado / (altoDocumento - altoVentana);
-        const trasladarY = desplazado * 0.1;
-        deslizadorFondo.style.transform = `translateY(${trasladarY}px)`;
-    };
+  // Cerrar con tecla ESC
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && navbar.classList.contains('is-open')){
+      toggle();
+    }
+  });
+})();
 
-    // Animar las imágenes cuando se hace scroll
-    window.addEventListener('scroll', animarOpacidad);
-    window.addEventListener('resize', animarOpacidad);
-    
-    // Animar las imágenes inicialmente
-    animarOpacidad();
-
-    // Animación suave para los elementos de la cuadrícula
-    const elementosCuadricula = document.querySelectorAll('.grid-item');
-    const observador = new IntersectionObserver((entradas) => {
-        entradas.forEach(entrada => {
-            if (entrada.isIntersecting) {
-                entrada.target.style.opacity = '1';
-                entrada.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-
-    elementosCuadricula.forEach(elemento => {
-        elemento.style.opacity = '0';
-        elemento.style.transform = 'translateY(20px)';
-        elemento.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observador.observe(elemento);
-    });
-}); 
+// Cerrar con el botón "X" del header del panel
+const closeBtn = document.querySelector('.menu-close');
+closeBtn && closeBtn.addEventListener('click', () => {
+  document.querySelector('.navbar')?.classList.remove('is-open');
+  document.body.style.overflow = '';
+});

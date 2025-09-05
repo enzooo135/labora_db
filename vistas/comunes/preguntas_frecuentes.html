@@ -2,11 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Preguntas Frecuentes</title>
-    <link rel="stylesheet" href="../estilos/footer.css">
-    <link rel="stylesheet" href="../../recursos/css/index.css">
-    <link rel="stylesheet" href="../../recursos/css/nav.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Estilos propios (usá rutas absolutas para evitar ../../) -->
+    <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
+    <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+    <link rel="stylesheet" href="/labora_db/estilos/footer.css">
+
+    <!-- Fuentes e iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+            referrerpolicy="no-referrer" />
+
+    <!-- Material Icons (ya lo usás en el FAQ) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -75,16 +86,70 @@
 </head>
 <body>
 
-    <nav class="navbar">
+     <!-- nav_publico.html -->
+        <nav class="navbar">
     <div class="logo">
         <a href="/labora_db/index.html">Labora</a>
     </div>
-    <ul class="nav-links">
-        <li><a href="/labora_db/index.html">Inicio</a></li>
-        <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">FAQ</a></li>
-        <li><a href="/labora_db/formularios/login-options.html">Iniciar Sesión</a></li>
-        <li><a href="/labora_db/formularios/register-options.html">Registrarse</a></li>
+
+    <!-- Botón hamburguesa (arriba a la derecha) -->
+    <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Links -->
+    <ul id="menu" class="nav-links">
+    <!-- Header del panel -->
+    <li class="menu-header">
+        <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
+        <button class="menu-close" aria-label="Cerrar menú">
+        <i class="fa-solid fa-xmark"></i>
+        </button>
+    </li>
+
+    <!-- CTA principal -->
+    <li class="menu-cta">
+        <a href="/labora_db/formularios/register-options.html" class="btn-primario">
+        <i class="fa-solid fa-rocket"></i> Empezar ahora
+        </a>
+    </li>
+
+    <li class="menu-divider"><span>Explorar</span></li>
+
+    <!-- Links importantes -->
+    <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
+        <i class="fa-solid fa-circle-question"></i> FAQ
+        <small>Respuestas rápidas</small>
+    </a></li>
+
+    <li><a href="/labora_db/formularios/login-options.html">
+        <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+        <small>Accedé a tu cuenta</small>
+    </a></li>
+
+    <li><a href="/labora_db/formularios/register-options.html">
+        <i class="fa-solid fa-user-plus"></i> Registrarse
+        <small>Creá tu perfil</small>
+    </a></li>
+
+    <li class="menu-divider"><span>Contacto</span></li>
+
+    <li class="menu-inline">
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    </li>
+
+    <!-- Footer del panel -->
+    <li class="menu-footer">
+        <span>&copy; 2025 Labora</span>
+        <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos</a>
+        <a href="/labora_db/vistas/comunes/politica_privacidad.html">Privacidad</a>
+    </li>
     </ul>
+
+
+    <!-- Fondo oscuro al abrir menú en móvil -->
+    <div class="menu-backdrop"></div>
     </nav>
 
     <div class="faq-container">
@@ -199,7 +264,8 @@
                                     <div class="faq-item">
                                         <div class="faq-question">
                                             ¿Cómo protege la plataforma mi información personal?
-                                            <span class="material-icons">expand_more</span                                </div>
+                                            <span class="material-icons">expand_more</span>                                
+                                        </div>
                                         <div class="faq-answer">
                                             Utilizamos encriptación de datos y cumplimos con las normativas de protección de datos para garantizar que tu información personal esté segura. Nunca
     compartimos tus datos con terceros sin tu consentimiento.
@@ -251,6 +317,9 @@
             });
         });
     </script>
+
+    <script src="/labora_db/recursos/js/home.js"></script>
+
 
 </body>
 </html>

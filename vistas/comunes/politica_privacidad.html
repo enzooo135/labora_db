@@ -1,24 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Política de Privacidad</title>
-    <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="../../recursos/css/index.css">
-    <link rel="stylesheet" href="../../recursos/css/nav.css">
-</head>
-<body class="terminos-body">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Política de Privacidad</title>
 
-    <nav class="navbar">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
+  <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+
+  <!-- Fuentes e iconos (CDN) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        referrerpolicy="no-referrer" />
+</head>
+
+<body class="terminos-body">    
+
+     <!-- nav_publico.html -->
+        <nav class="navbar">
     <div class="logo">
         <a href="/labora_db/index.html">Labora</a>
     </div>
-    <ul class="nav-links">
-        <li><a href="/labora_db/index.html">Inicio</a></li>
-        <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">FAQ</a></li>
-        <li><a href="/labora_db/formularios/login-options.html">Iniciar Sesión</a></li>
-        <li><a href="/labora_db/formularios/register-options.html">Registrarse</a></li>
+
+    <!-- Botón hamburguesa (arriba a la derecha) -->
+    <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <!-- Links -->
+    <ul id="menu" class="nav-links">
+    <!-- Header del panel -->
+    <li class="menu-header">
+        <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
+        <button class="menu-close" aria-label="Cerrar menú">
+        <i class="fa-solid fa-xmark"></i>
+        </button>
+    </li>
+
+    <!-- CTA principal -->
+    <li class="menu-cta">
+        <a href="/labora_db/formularios/register-options.html" class="btn-primario">
+        <i class="fa-solid fa-rocket"></i> Empezar ahora
+        </a>
+    </li>
+
+    <li class="menu-divider"><span>Explorar</span></li>
+
+    <!-- Links importantes -->
+    <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
+        <i class="fa-solid fa-circle-question"></i> FAQ
+        <small>Respuestas rápidas</small>
+    </a></li>
+
+    <li><a href="/labora_db/formularios/login-options.html">
+        <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+        <small>Accedé a tu cuenta</small>
+    </a></li>
+
+    <li><a href="/labora_db/formularios/register-options.html">
+        <i class="fa-solid fa-user-plus"></i> Registrarse
+        <small>Creá tu perfil</small>
+    </a></li>
+
+    <li class="menu-divider"><span>Contacto</span></li>
+
+    <li class="menu-inline">
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+    </li>
+
+    <!-- Footer del panel -->
+    <li class="menu-footer">
+        <span>&copy; 2025 Labora</span>
+        <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos</a>
+        <a href="/labora_db/vistas/comunes/politica_privacidad.html">Privacidad</a>
+    </li>
     </ul>
+
+
+    <!-- Fondo oscuro al abrir menú en móvil -->
+    <div class="menu-backdrop"></div>
     </nav>
 
     <main class="terminos-container">
@@ -69,6 +132,8 @@
         </div>
     </div>
 </footer>
+
+    <script src="/labora_db/recursos/js/home.js"></script>
 
 </body>
 </html>

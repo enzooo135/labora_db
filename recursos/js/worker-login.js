@@ -1,34 +1,62 @@
-// Función para validar el formulario
-        function validateForm() {
-            // Obtiene los valores de los campos
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const messageDiv = document.getElementById('message');
+// Mostrar mensajes según la query string
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const msg = document.getElementById('message');
+  const emailInput = document.getElementById('login-email');
 
-            // Verifica si los campos están vacíos
-            if (!email || !password) {
-                messageDiv.textContent = 'Por favor, complete todos los campos';
-                return false;
-            }
+  // Prellenar email si vino en la URL
+  const emailFromQS = params.get('email');
+  if (emailFromQS) emailInput.value = emailFromQS;
 
-            // Si todo está correcto, muestra mensaje de éxito
-            messageDiv.textContent = 'Inicio de sesión exitoso';
-            return true;
-        }
+  const error = params.get('error');
+  if (!error) return;
 
-        // Función para mostrar/ocultar contraseña
-        function togglePassword() {
-            const passwordInput = document.getElementById('login-password');
-            const icon = document.querySelector('.toggle-password i');
-            
-            // Cambia el tipo de input y el ícono
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
+  let text = '';
+  switch (error) {
+    case 'cred':
+      text = 'Mail o contraseña incorrectos';
+      break;
+    case 'campos':
+      text = 'Por favor, complete todos los campos';
+      break;
+    case 'acceso':
+      text = 'Acceso no válido';
+      break;
+    default:
+      text = 'Ocurrió un error. Intente nuevamente';
+  }
+  msg.textContent = text;
+  msg.classList.add('error'); // agregá clase CSS para que se vea rojo
+})();
+
+// Validación rápida en cliente
+function validateForm() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  const messageDiv = document.getElementById('message');
+
+  if (!email || !password) {
+    messageDiv.textContent = 'Por favor, complete todos los campos';
+    messageDiv.classList.add('error');
+    return false;
+  }
+  messageDiv.textContent = '';
+  messageDiv.classList.remove('error');
+  return true;
+}
+
+// Mostrar/ocultar contraseña
+function togglePassword() {
+  const passwordInput = document.getElementById('login-password');
+  const icon = document.querySelector('.toggle-password i');
+
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  }
+}

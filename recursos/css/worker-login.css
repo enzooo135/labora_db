@@ -177,3 +177,16 @@ body {
     color: #0077B6;
     font-weight: 500;
 }
+.message {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  min-height: 20px;
+}
+
+.message.error {
+  color: #b00020;
+  background: #fdecec;
+  border: 1px solid #f5b5b5;
+  padding: 8px 10px;
+  border-radius: 8px;
+}

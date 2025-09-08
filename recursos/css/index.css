@@ -205,3 +205,67 @@
             font-size: 14px;
             color: #666;
         }
+        .contenido-principal {
+            background-image: url("/labora_db/imagenes/system-3539317_1280.jpg"); /* ruta a tu imagen */
+            background-size: cover;     /* cubre todo el div */
+            background-position: center;/* centrada */
+            background-repeat: no-repeat;
+            padding: 40px;              /* para que el texto no quede pegado */
+            border-radius: 12px;        /* opcional, esquinas redondeadas */
+            position: relative;
+          }
+          
+          /* Si querés un efecto de transparencia con overlay */
+          .contenido-principal::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7); /* blanco con 70% transparencia */
+            z-index: 0;
+          }
+          
+          .contenido-principal > * {
+            position: relative;
+            z-index: 1; /* mantiene el texto e íconos arriba del overlay */
+          }
+        /* Contenedor oculto que se despliega hacia abajo */
+.tarjeta-servicio .servicio-extra{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .5s ease, opacity .4s ease;
+    margin-top: 12px;
+    will-change: max-height;
+  }
+  
+  /* Al pasar el mouse por la card, mostrar el extra */
+  .tarjeta-servicio:hover .servicio-extra{
+    max-height: 250px;   /* ajustá según tu imagen/lista */
+    opacity: 1;
+  }
+  
+  /* Imagen grande dentro del extra */
+  .tarjeta-servicio .servicio-extra img{
+    width: 100%;
+    max-height: 250px;   /* hacela más grande si querés */
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Lista */
+  .tarjeta-servicio .servicio-extra ul{
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+  }
+  .tarjeta-servicio .servicio-extra li{
+    margin: 6px 0;
+  }
+  
+  /* Asegurar que el grid permita crecer las cards */
+  .servicios-grid{
+    align-items: start;  /* evita recortes si alguna card crece */
+  }
+ 

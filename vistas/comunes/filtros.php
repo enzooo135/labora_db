@@ -114,15 +114,16 @@
 
             data.forEach(trabajador => {
               const card = document.createElement('div');
-              const href = `/labora_db/perfil_trabajador_usuario.php?id=${encodeURIComponent(trabajador.id_empleado)}`;
+              const href = `/labora_db/vistas/usuarios/vistaperfiltrabajador.php?id=${encodeURIComponent(trabajador.id_empleado)}`;
+
               card.className = 'card';
               card.innerHTML = `
-                <img src="${trabajador.foto}" alt="Foto">
-                <h3>${trabajador.nombre}</h3>
-                <p>${trabajador.profesion}</p>
-                <p>${trabajador.zona_trabajo}</p>
-                <p style="font-size: 14px; color: #666;">${trabajador.descripcion_servicios || ''}</p>
-                <button> Ver perfil </button>;
+              <img src="${trabajador.foto}" alt="Foto">
+              <h3>${trabajador.nombre}</h3>
+              <p>${trabajador.profesion}</p>
+              <p>${trabajador.zona_trabajo}</p>
+              <p style="font-size: 14px; color: #666;">${trabajador.descripcion_servicios || ''}</p>
+              <a href="${href}"><button>Ver perfil</button></a>
               `;
               grid.appendChild(card);
             });

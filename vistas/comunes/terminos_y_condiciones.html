@@ -1,140 +1,251 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Términos y Condiciones</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Términos y Condiciones</title>
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="/labora_db/recursos/css/terminos-y-condiciones.css">
-    <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
-    <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/labora_db/recursos/css/terminos-y-condiciones.css">
+  <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
+  <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
 
-    <!-- Fuentes e íconos -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-            referrerpolicy="no-referrer" />
-    </head>
+  <!-- Fuentes e íconos -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        referrerpolicy="no-referrer" />
+
+  <style>
+    /* Igual que en politica_privacidad.html */
+    html, body { margin: 0 !important; padding: 0 !important; }
+    body.terminos-body {
+      margin-top: 0 !important;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background: #fdfdfd;
+      color: #333;
+    }
+    .terminos-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 16px 24px; /* mismo espacio por el navbar */
+    }
+    h1, h2, h3 { color: #005f8c; }
+    h1 { text-align: center; margin: 24px 0; }
+    ul { margin-left: 20px; }
+    .section { margin-bottom: 30px; }
+    .footer { margin-top: 40px; }
+  </style>
+</head>
 
 <body class="terminos-body">
 
-     <!-- nav_publico.html -->
-        <nav class="navbar">
+  <!-- NAV con menú hamburguesa (idéntico al de política) -->
+  <nav class="navbar">
     <div class="logo">
-        <a href="/labora_db/index.html">Labora</a>
+      <a href="/labora_db/index.html">Labora</a>
     </div>
 
-    <!-- Botón hamburguesa (arriba a la derecha) -->
     <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
-        <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars"></i>
     </button>
 
-    <!-- Links -->
     <ul id="menu" class="nav-links">
-    <!-- Header del panel -->
-    <li class="menu-header">
+      <li class="menu-header">
         <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
         <button class="menu-close" aria-label="Cerrar menú">
-        <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
-    </li>
+      </li>
 
-    <!-- CTA principal -->
-    <li class="menu-cta">
+      <li class="menu-cta">
         <a href="/labora_db/formularios/register-options.html" class="btn-primario">
-        <i class="fa-solid fa-rocket"></i> Empezar ahora
+          <i class="fa-solid fa-rocket"></i> Empezar ahora
         </a>
-    </li>
+      </li>
 
-    <li class="menu-divider"><span>Explorar</span></li>
+      <li class="menu-divider"><span>Explorar</span></li>
 
-    <!-- Links importantes -->
-    <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
+      <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
         <i class="fa-solid fa-circle-question"></i> FAQ
         <small>Respuestas rápidas</small>
-    </a></li>
+      </a></li>
 
-    <li><a href="/labora_db/formularios/login-options.html">
+      <li><a href="/labora_db/formularios/login-options.html">
         <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
         <small>Accedé a tu cuenta</small>
-    </a></li>
+      </a></li>
 
-    <li><a href="/labora_db/formularios/register-options.html">
+      <li><a href="/labora_db/formularios/register-options.html">
         <i class="fa-solid fa-user-plus"></i> Registrarse
         <small>Creá tu perfil</small>
-    </a></li>
+      </a></li>
 
-    <li class="menu-divider"><span>Contacto</span></li>
+      <li class="menu-divider"><span>Contacto</span></li>
 
-    <li class="menu-inline">
+      <li class="menu-inline">
         <a href="https://wa.me/1234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-    </li>
+      </li>
 
-    <!-- Footer del panel -->
-    <li class="menu-footer">
+      <li class="menu-footer">
         <span>&copy; 2025 Labora</span>
         <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos</a>
         <a href="/labora_db/vistas/comunes/politica_privacidad.html">Privacidad</a>
-    </li>
+      </li>
     </ul>
 
-
-    <!-- Fondo oscuro al abrir menú en móvil -->
     <div class="menu-backdrop"></div>
-    </nav>
+  </nav>
 
-    <main class="terminos-container">
-        <h1 class="terminos-titulo">TÉRMINOS Y CONDICIONES DE USO</h1>
-        
-        <p>Esta sección establece los términos y condiciones (en adelante, los "Términos y Condiciones") para el uso de los contenidos y servicios del sitio web.</p>
-        <p><strong>Al aceptar estos Términos y Condiciones, Usted (el “Usuario”):</strong> a) afirma que libremente ha leído todos los enunciados, y b) que estos enunciados los tiene por notificados, entendidos y aceptados en cumplimiento con la normativa aplicable.</p>
+  <!-- CONTENIDO -->
+  <main class="terminos-container">
+    <h1>Términos y Condiciones de Labora</h1>
 
-        <h2>1. TÉRMINOS Y CONDICIONES Y SU ACEPTACIÓN.</h2>
-
-        <h3>1.1 Acceso al Sitio Web.</h3>
-        <p>El acceso y utilización del Sitio Web no exige la previa suscripción o registro del Usuario.</p>
-
-        <h3>1.2 Utilización del Sitio Web.</h3>
-        <p><strong>1.2.1</strong> El Usuario se compromete a utilizar el Sitio Web de conformidad con estos Términos y Condiciones y con la moral y buenas costumbres.</p>
-        <p><strong>1.2.2</strong> El Usuario se obliga a abstenerse de utilizar el Sitio Web con fines ilícitos, inmorales o que perjudiquen a terceros.</p>
-
-        <h3>1.3 Contenido del Sitio Web.</h3>
-        <p><strong>1.3.1</strong> Todos los contenidos de este sitio son propiedad de la empresa y están protegidos por derechos de autor.</p>
-
-        <!-- Agregá más secciones si querés -->
-
-    </main>
-
-    <footer class="footer">
-    <div class="footer-container">
-        <div class="footer-links">
-            <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
-            <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
-            <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>  
-        </div>
-
-        <div class="footer-redes">
-            <a href="https://www.facebook.com/" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook">
-            </a>
-            <a href="https://www.instagram.com/" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram">
-            </a>
-            <a href="https://wa.me/1234567890" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp">
-            </a>
-        </div>
-
-        <div class="footer-copy">
-            &copy; 2025 Labora - Todos los derechos reservados.
-        </div>
+    <div class="section">
+      <p><strong>Fecha de vigencia:</strong> 01 de septiembre de 2025</p>
+      <p><strong>Última actualización:</strong> 01 de septiembre de 2025</p>
+      <p>
+        Bienvenido(a) a Labora, una plataforma que conecta a personas que buscan empleo en oficios 
+        como carpintería, albañilería, electricidad y similares (“Trabajadores”) con quienes ofrecen 
+        oportunidades laborales (“Empleadores”). Al utilizar nuestra Plataforma, usted (“Usuario”) acepta estos Términos.
+      </p>
     </div>
-</footer>
 
-    <script src="/labora_db/recursos/js/home.js"></script>
+    <div class="section">
+      <h2>1. Descripción del Servicio</h2>
+      <ul>
+        <li>Creación de perfiles de Trabajadores con habilidades, experiencia y ubicación.</li>
+        <li>Publicación de ofertas laborales por parte de Empleadores.</li>
+        <li>Herramientas de búsqueda y coincidencia según ubicación y necesidades.</li>
+        <li>Comunicación directa entre Usuarios a través de la Plataforma.</li>
+      </ul>
+      <p>Labora actúa únicamente como intermediario y no es parte de los acuerdos entre Trabajadores y Empleadores.</p>
+    </div>
 
+    <div class="section">
+      <h2>2. Elegibilidad y Registro</h2>
+      <ul>
+        <li>Ser mayor de 18 años.</li>
+        <li>Residir en Argentina o contar con autorización legal para trabajar.</li>
+        <li>Proporcionar información veraz y actualizada.</li>
+        <li>Resguardar la confidencialidad de sus credenciales.</li>
+      </ul>
+    </div>
 
+    <div class="section">
+      <h2>3. Reglas de Uso</h2>
+      <h3>3.1 Permitido</h3>
+      <ul>
+        <li>Crear y mantener perfiles auténticos.</li>
+        <li>Publicar o responder ofertas reales.</li>
+        <li>Enviar mensajes respetuosos.</li>
+        <li>Dejar reseñas basadas en experiencias reales.</li>
+      </ul>
+      <h3>3.2 Prohibido</h3>
+      <ul>
+        <li>Contenido falso, ofensivo o ilegal.</li>
+        <li>Usos distintos a los previstos.</li>
+        <li>Suplantación de identidad o cuentas falsas.</li>
+        <li>Ofertas que violen normativas laborales.</li>
+        <li>Scraping o extracción de datos sin permiso.</li>
+        <li>Interferir con el funcionamiento técnico del sitio.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>4. Derechos y Obligaciones</h2>
+      <h3>4.1 Derechos</h3>
+      <ul>
+        <li>Acceder a una plataforma segura y funcional.</li>
+        <li>Ejercer derechos de datos personales conforme Ley 25.326.</li>
+        <li>Reportar contenido inapropiado a <strong>labora1357@gmail.com</strong>.</li>
+      </ul>
+      <h3>4.2 Obligaciones</h3>
+      <ul>
+        <li>Cumplir la normativa argentina aplicable.</li>
+        <li>Proveer información precisa y actualizada.</li>
+        <li>Respetar a otros Usuarios.</li>
+        <li>Asumir responsabilidad por acuerdos fuera de la Plataforma.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>5. Propiedad Intelectual</h2>
+      <p>
+        El contenido de la Plataforma es propiedad de Labora o sus licenciantes y está protegido por la Ley 11.723. 
+        Queda prohibida la reproducción o distribución sin autorización expresa.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>6. Limitación de Responsabilidad</h2>
+      <ul>
+        <li>No garantizamos la veracidad de ofertas de Empleadores.</li>
+        <li>No garantizamos la idoneidad o conducta de Trabajadores.</li>
+        <li>Labora no responde por acuerdos celebrados entre Usuarios.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>7. Pagos y Servicios Premium</h2>
+      <p>
+        Si se ofrecen servicios premium, los pagos se procesarán con proveedores seguros (ej. Mercado Pago). 
+        No habrá reembolsos salvo lo dispuesto por la Ley 24.240.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>8. Terminación del Servicio</h2>
+      <ul>
+        <li>Incumplimiento de Términos por parte del Usuario.</li>
+        <li>Actividad fraudulenta o ilegal.</li>
+        <li>Requerimientos de autoridades competentes.</li>
+      </ul>
+      <p>El Usuario puede cerrar su cuenta desde la configuración cuando lo desee.</p>
+    </div>
+
+    <div class="section">
+      <h2>9. Resolución de Disputas</h2>
+      <p>
+        Estos Términos se rigen por las leyes de la República Argentina y la jurisdicción de los tribunales 
+        ordinarios de la Ciudad Autónoma de Buenos Aires.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>10. Modificaciones</h2>
+      <p>
+        Podremos actualizar estos Términos y notificaremos cambios relevantes con al menos 10 días de anticipación.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>11. Contacto</h2>
+      <p>Correo: <strong>labora1357@gmail.com</strong></p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
+        <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
+        <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>  
+      </div>
+      <div class="footer-redes">
+        <a href="https://www.facebook.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://wa.me/1234567890" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp"></a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2025 Labora - Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/labora_db/recursos/js/home.js"></script>
 </body>
 </html>

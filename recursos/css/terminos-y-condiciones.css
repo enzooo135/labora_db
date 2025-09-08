@@ -53,3 +53,39 @@
     color: #d62828;
     text-decoration: none;
 }
+/* HOTFIX: elimina espacios arriba y colapsos de márgenes */
+html, body { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+  }
+  
+  /* Si alguna hoja puso margen al body en esta vista, lo anulamos */
+  body.terminos-body { 
+    margin-top: 0 !important; 
+  }
+  
+  /* Evita que el primer H1 “empuje” hacia arriba por colapso de márgenes */
+  .terminos-container > h1:first-child { 
+    margin-top: 0 !important; 
+  }
+  
+  /* --- ELEGÍ SOLO UNO DE ESTOS BLOQUES, según tu navbar --- */
+  
+  /* A) SI TU NAVBAR ES FIXED o STICKY en nav.css */
+  .navbar {
+    position: sticky;   /* o fixed si así lo tenés */
+    top: 0;
+    z-index: 1000;
+  }
+  .terminos-container {
+    /* compensá el alto real del navbar: probá 64–80px */
+    padding-top: 72px !important;
+  }
+  
+  /* B) SI TU NAVBAR NO ES FIXED (fluye normal) — usa este en lugar del A */
+   /*
+  .terminos-container {
+    padding-top: 16px !important;
+  }
+  */
+  

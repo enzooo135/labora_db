@@ -1,235 +1,216 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Política de Privacidad</title>
+  <title>Política de Seguridad y Privacidad</title>
 
-  <!-- Estilos propios -->
+  <!-- Estilos -->
+  <link rel="stylesheet" href="/labora_db/recursos/css/politica-privacidad.css">
   <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
   <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
 
-  <!-- Fuentes e iconos (CDN) -->
+  <!-- Fuentes e íconos -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         referrerpolicy="no-referrer" />
+
+  <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    body.privacidad-body {
+      margin-top: 0 !important;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      background: #fdfdfd;
+      color: #333;
+    }
+    .privacidad-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 16px 24px; /* incluye espacio por el navbar */
+    }
+    h1, h2, h3 { color: #005f8c; }
+    h1 { text-align: center; margin: 24px 0; }
+    ul { margin-left: 20px; }
+    .section { margin-bottom: 30px; }
+    .footer { margin-top: 40px; }
+  </style>
 </head>
 
-<body class="terminos-body">    
+<body class="privacidad-body">
 
-     <!-- nav_publico.html -->
-        <nav class="navbar">
+  <!-- NAV con menú hamburguesa -->
+  <nav class="navbar">
     <div class="logo">
       <a href="/labora_db/index.html">Labora</a>
     </div>
 
-
-    <!-- Botón hamburguesa (arriba a la derecha) -->
     <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
-        <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars"></i>
     </button>
 
-    <!-- Links -->
     <ul id="menu" class="nav-links">
-    <!-- Header del panel -->
-    <li class="menu-header">
+      <li class="menu-header">
         <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
         <button class="menu-close" aria-label="Cerrar menú">
-        <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
-    </li>
+      </li>
 
-    <!-- CTA principal -->
-    <li class="menu-cta">
+      <li class="menu-cta">
         <a href="/labora_db/formularios/register-options.html" class="btn-primario">
-        <i class="fa-solid fa-rocket"></i> Empezar ahora
+          <i class="fa-solid fa-rocket"></i> Empezar ahora
         </a>
-    </li>
+      </li>
 
-    <li class="menu-divider"><span>Explorar</span></li>
+      <li class="menu-divider"><span>Explorar</span></li>
 
-    <!-- Links importantes -->
-    <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
+      <li><a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">
         <i class="fa-solid fa-circle-question"></i> FAQ
         <small>Respuestas rápidas</small>
-    </a></li>
+      </a></li>
 
-    <li><a href="/labora_db/formularios/login-options.html">
+      <li><a href="/labora_db/formularios/login-options.html">
         <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
         <small>Accedé a tu cuenta</small>
-    </a></li>
+      </a></li>
 
-    <li><a href="/labora_db/formularios/register-options.html">
+      <li><a href="/labora_db/formularios/register-options.html">
         <i class="fa-solid fa-user-plus"></i> Registrarse
         <small>Creá tu perfil</small>
       </a></li>
 
-    <li class="menu-divider"><span>Contacto</span></li>
+      <li class="menu-divider"><span>Contacto</span></li>
 
-    <li class="menu-inline">
+      <li class="menu-inline">
         <a href="https://wa.me/1234567890" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-    </li>
+      </li>
 
-    <!-- Footer del panel -->
-    <li class="menu-footer">
+      <li class="menu-footer">
         <span>&copy; 2025 Labora</span>
         <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos</a>
         <a href="/labora_db/vistas/comunes/politica_privacidad.html">Privacidad</a>
-    </li>
+      </li>
     </ul>
 
-
-    <!-- Fondo oscuro al abrir menú en móvil -->
     <div class="menu-backdrop"></div>
-    </nav>
+  </nav>
 
-  <!-- Importante: NO uses un segundo <body>. Usamos <main>. -->
-  <main class="container">
-    <h1>Términos y Condiciones de Labora</h1>
+  <!-- CONTENIDO -->
+  <main class="privacidad-container">
+    <h1>Política de Seguridad y Privacidad de Labora</h1>
 
     <div class="section">
       <p><strong>Fecha de vigencia:</strong> 01 de septiembre de 2025</p>
       <p><strong>Última actualización:</strong> 01 de septiembre de 2025</p>
       <p>
-        Bienvenido(a) a Labora (en adelante, "nosotros", "nuestro" o "la Plataforma"),
-        una plataforma diseñada para conectar a personas que buscan empleo en oficios como
-        carpintería, albañilería, electricidad y similares (en adelante, "Trabajadores") con aquellos
-        que ofrecen oportunidades laborales (en adelante, "Empleadores") en Argentina.
+        En Labora (en adelante, “nosotros”, “nuestro” o “la Plataforma”), nos comprometemos a
+        proteger la seguridad y privacidad de la información de nuestros usuarios, cumpliendo con la
+        normativa argentina (Ley 25.326 de Protección de Datos Personales y Decreto Reglamentario 1558/2001).
       </p>
       <p>
-        Estos Términos y Condiciones (en adelante, "Términos") constituyen un contrato
-        legalmente vinculante entre usted (el "Usuario") y Labora, que regula el uso de nuestra
-        Plataforma, servicios y contenido..
+        Nuestra Plataforma conecta a personas que buscan empleo en oficios (por ejemplo carpintería,
+        albañilería, electricidad) con quienes ofrecen oportunidades laborales (“Empleadores”).
       </p>
     </div>
 
     <div class="section">
-      <h2>1. Descripción del Servicio</h2>
+      <h2>1. Información Recopilada</h2>
       <ul>
-        <li>Creación de perfiles para Trabajadores con información sobre habilidades, experiencia y ubicación.</li>
-        <li>Publicación de ofertas laborales por parte de Empleadores.</li>
-        <li>Herramientas de búsqueda y matching según necesidades y ubicación.</li>
-        <li>Comunicación directa entre Usuarios a través de mensajes en la Plataforma.</li>
-      </ul>
-      <p>Labora actúa únicamente como intermediario y no es parte de los acuerdos laborales entre Trabajadores y Empleadores.</p>
-    </div>
-
-    <div class="section">
-      <h2>2. Elegibilidad y Registro</h2>
-      <ul>
-        <li>Ser mayor de 18 años.</li>
-        <li>Residir en Argentina o tener autorización legal para trabajar en el país.</li>
-        <li>Proporcionar información veraz y actualizada al registrarse.</li>
-        <li>Mantener la confidencialidad de sus credenciales de acceso.</li>
+        <li><strong>Datos personales:</strong> nombre, email, teléfono, DNI, ubicación, habilidades, certificaciones y CV.</li>
+        <li><strong>Datos de navegación:</strong> IP, dispositivo, navegador, páginas visitadas, tiempos de permanencia.</li>
+        <li><strong>Otros datos:</strong> reseñas, mensajes entre usuarios, interacciones en la plataforma.</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>3. Reglas de Uso de la Plataforma</h2>
-      <h3>3.1 Uso Permitido</h3>
+      <h2>2. Propósito de la Recopilación</h2>
       <ul>
-        <li>Crear y gestionar perfiles laborales.</li>
-        <li>Publicar o responder a ofertas de trabajo relevantes.</li>
-        <li>Enviar mensajes respetuosos a otros Usuarios.</li>
-        <li>Dejar reseñas o calificaciones basadas en experiencias reales.</li>
-      </ul>
-      <h3>3.2 Uso Prohibido</h3>
-      <ul>
-        <li>Publicar contenido falso, engañoso, difamatorio, ofensivo o ilegal.</li>
-        <li>Usar la Plataforma para fines distintos a los previstos.</li>
-        <li>Suplantar identidades o crear cuentas falsas.</li>
-        <li>Publicar ofertas que violen normativas laborales argentinas.</li>
-        <li>Extraer datos (scraping) sin autorización.</li>
-        <li>Interferir con el funcionamiento técnico de la Plataforma.</li>
+        <li>Facilitar el matching laboral entre trabajadores y empleadores.</li>
+        <li>Mejorar servicios mediante análisis de uso.</li>
+        <li>Prevenir fraudes y cumplir obligaciones legales.</li>
+        <li>Generar estadísticas internas (anónimas).</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>4. Derechos y Obligaciones de los Usuarios</h2>
-      <h3>4.1 Derechos</h3>
-      <ul>
-        <li>Acceder a una plataforma segura y funcional.</li>
-        <li>Ejercer derechos de protección de datos conforme a la Ley 25.326.</li>
-        <li>Reportar contenido inapropiado a <strong>labora1357@gmail.com</strong>.</li>
-      </ul>
-      <h3>4.2 Obligaciones</h3>
-      <ul>
-        <li>Cumplir con leyes argentinas aplicables (laborales y fiscales).</li>
-        <li>Proporcionar información precisa y actualizada.</li>
-        <li>Respetar a otros Usuarios.</li>
-        <li>Asumir responsabilidad de acuerdos celebrados fuera de la Plataforma.</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>5. Propiedad Intelectual</h2>
+      <h2>3. Uso de Cookies</h2>
       <p>
-        Todo el contenido de la Plataforma es propiedad de Labora o sus licenciantes y está protegido por la Ley 11.723.
-        Está prohibido copiar, modificar, distribuir o reproducir contenido sin autorización.
+        Usamos cookies esenciales y de rendimiento. Podés gestionar su uso desde tu navegador.
+        Al utilizar la Plataforma, consentís el uso de cookies.
       </p>
     </div>
 
     <div class="section">
-      <h2>6. Limitación de Responsabilidad</h2>
+      <h2>4. Almacenamiento y Seguridad</h2>
       <ul>
-        <li>No garantizamos la veracidad o calidad de ofertas publicadas por Empleadores.</li>
-        <li>No garantizamos la idoneidad, habilidades o conducta de los Trabajadores.</li>
-        <li>No garantizamos el cumplimiento de acuerdos celebrados entre Usuarios.</li>
+        <li>Servidores seguros en la nube con cifrado en tránsito y en reposo.</li>
+        <li>Controles de acceso restringido, auditorías y copias de seguridad cifradas.</li>
+        <li>Notificaremos cualquier brecha conforme la normativa argentina.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>5. Compartir Datos</h2>
+      <ul>
+        <li>Con otros usuarios, según necesidades de contacto.</li>
+        <li>Con proveedores de servicios bajo acuerdos de confidencialidad.</li>
+        <li>Por requerimiento de autoridades competentes.</li>
+        <li>No vendemos información personal.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>6. Derechos de los Usuarios</h2>
+      <ul>
+        <li>Acceder a sus datos personales.</li>
+        <li>Rectificar información incorrecta.</li>
+        <li>Solicitar eliminación de sus datos.</li>
+        <li>Oponerse a usos no esenciales.</li>
+        <li>Revocar el consentimiento en cualquier momento.</li>
       </ul>
       <p>
-        En la medida permitida por la ley, Labora no será responsable por daños indirectos, incidentales o
-        consecuentes derivados del uso de la Plataforma.
+        Para ejercer derechos: escriba a <strong>labora1357@gmail.com</strong>
+        con copia de su DNI. Responderemos en un máximo de 10 días hábiles.
       </p>
     </div>
 
     <div class="section">
-      <h2>7. Pagos y Servicios Premium</h2>
-      <p>
-        Si se ofrecen servicios premium (p. ej., promoción de perfiles), los pagos se procesarán a través de proveedores seguros
-        (p. ej., Mercado Pago). No hay reembolsos salvo lo dispuesto por la Ley 24.240.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>8. Terminación del Servicio</h2>
+      <h2>7. Conservación de Datos</h2>
       <ul>
-        <li>Violación de Términos por parte del Usuario.</li>
-        <li>Actividad fraudulenta o ilegal.</li>
-        <li>Requerimientos de autoridades.</li>
+        <li>Mientras la cuenta esté activa.</li>
+        <li>Datos inactivos hasta 2 años, luego se eliminan o anonimizan.</li>
+        <li>Transacciones: hasta 5 años (AFIP).</li>
+        <li>Logs técnicos: hasta 6 meses.</li>
       </ul>
-      <p>El Usuario puede cerrar su cuenta en cualquier momento desde la configuración.</p>
     </div>
 
     <div class="section">
-      <h2>9. Resolución de Disputas</h2>
+      <h2>8. Modificaciones</h2>
       <p>
-        Se rige por las leyes de la República Argentina y la jurisdicción de los tribunales ordinarios
-        de la Ciudad Autónoma de Buenos Aires.
+        Podremos actualizar esta política. Notificaremos cambios relevantes en la Plataforma o por correo,
+        con al menos 10 días de anticipación.
       </p>
     </div>
 
     <div class="section">
-      <h2>10. Modificaciones a los Términos</h2>
-      <p>
-        Podremos actualizar estos Términos y notificaremos cambios significativos con al menos 10 días hábiles de aviso.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>11. Contacto</h2>
+      <h2>9. Contacto</h2>
       <p>Correo: <strong>labora1357@gmail.com</strong></p>
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-links">
         <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
         <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
-        <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>
+        <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>  
       </div>
       <div class="footer-redes">
         <a href="https://www.facebook.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook"></a>
@@ -242,7 +223,6 @@
     </div>
   </footer>
 
-    <script src="/labora_db/recursos/js/home.js"></script>
-
+  <script src="/labora_db/recursos/js/home.js"></script>
 </body>
 </html>

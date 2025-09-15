@@ -268,4 +268,111 @@
   .servicios-grid{
     align-items: start;  /* evita recortes si alguna card crece */
   }
- 
+  .form { width: min(520px, 100% - 2rem); margin: 1rem auto; }
+.form .row { display:flex; gap:1rem; flex-wrap:wrap; }
+.form .col { flex:1 1 260px; }
+.form label { display:block; margin:.25rem 0 .35rem; }
+.form input, .form select, .form textarea { width:100%; max-width:100%; padding:.75rem; }
+@media (max-width:600px){ .form { margin: .75rem auto; } }
+/* ==== SOLO MOBILE / TABLET. Desktop queda intacto ==== */
+
+/* Tablets y abajo */
+@media (max-width: 1024px){
+    /* el contenedor ocupa ancho completo pero SIN tocar desktop */
+    .contenido-principal{
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+  
+   /* mantenemos 2 columnas también en tablets */
+.servicios-grid{
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  gap: 20px; /* un poco más de aire */
+}
+
+  }
+  
+  /* Móviles grandes */
+  @media (max-width: 768px){
+    .servicios-grid{ grid-template-columns: repeat(2, 1fr); }
+  
+    /* tipografías más chicas solo en mobile */
+    .descripcion h1{ font-size: 2rem; letter-spacing: 1px; }
+    .descripcion h2{ font-size: 1.4rem; }
+    .descripcion p{ font-size: .95rem; line-height: 1.45; }
+  
+    /* botón ancho completo en mobile */
+    .boton-empezar{ width: 100%; text-align: center; }
+  
+    /* navbar: sólo ajustes internos en mobile (no full-bleed global) */
+    .navbar .navbar-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+  }
+  
+  /* Móviles chicos */
+  @media (max-width: 480px){
+    .servicios-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  /* Si en mobile se te genera scroll horizontal por fondos 100vw, limitá SOLO en mobile */
+  @media (max-width: 768px){
+    html, body { overflow-x: hidden; }
+  }
+  /* ===== AJUSTES DE ESPACIO SOLO PARA MOBILE ===== */
+@media (max-width: 768px){
+
+    /* Más aire entre las cards */
+    .servicios-grid {
+      gap: 24px; /* antes 16px, más separación vertical */
+      padding-bottom: 20px;
+    }
+  
+    /* Botón con espacio arriba y abajo */
+    .boton-empezar {
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+  
+    /* Footer: más espacio y links separados */
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px; /* espacio entre Términos y Política */
+      margin-bottom: 12px;
+      text-align: center;
+    }
+  
+    .footer-redes {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+  
+    .footer-copy {
+      font-size: 0.8rem;
+      margin-top: 8px;
+    }
+  }
+  
+
+ /* ===== MOBILE EN DOS COLUMNAS ===== */
+@media (max-width: 768px){
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* dos columnas */
+      gap: 20px;
+    }
+  }
+  
+  /* Para celulares muy chicos seguir en 1 columna */
+  @media (max-width: 480px){
+    .servicios-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  

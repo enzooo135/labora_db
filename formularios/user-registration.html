@@ -1,55 +1,43 @@
 <!DOCTYPE html>
-<!-- Declara que este documento es HTML5 -->
 <html lang="es">
-<!-- Inicio del documento HTML con idioma español -->
-
 <head>
-    <!-- Sección de metadatos y recursos -->
     <meta charset="UTF-8">
     <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
-    <!-- Define la codificación de caracteres como UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Configura la vista para dispositivos móviles -->
     <title>Registro de Usuario - LABORA</title>
-    <!-- Título que aparece en la pestaña del navegador -->
-    <link rel="stylesheet" href="../recursos/css/styles.css">
-    <!-- Vincula el archivo de estilos CSS -->
+
+    <!-- RUTAS ABSOLUTAS -->
+    <link rel="stylesheet" href="/labora_db/recursos/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Importa la fuente Roboto de Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Importa los íconos de Font Awesome -->
 </head>
 
 <body>
-    <!-- Cuerpo principal del documento -->
     <div class="header">
-        <!-- Encabezado de la página -->
         <h1>LABORA</h1>
-        <!-- Título principal -->
         <a class="btn-volver chip" href="javascript:void(0)" onclick="goBack()" aria-label="Volver">
             <i class="fas fa-arrow-left"></i> Volver
         </a>
-        <!-- Enlace para volver a la página principal -->
     </div>
 
     <div class="form-section">
-        <!-- Sección del formulario de registro -->
         <h2>Registro de Usuario</h2>
-        <!-- Título del formulario -->
 
-        <form action="../funciones/user-registration.php" method="post" id="employerForm" onsubmit="return validateForm()">
-            <!-- Formulario con validación -->
+        <!-- IMPORTANTE: action con ruta absoluta + enctype para subir archivos -->
+        <form action="/labora_db/funciones/user-registration.php"
+              method="post"
+              id="employerForm"
+              onsubmit="return validateForm()"
+              enctype="multipart/form-data">
+
             <div class="input-group">
-                <!-- Grupo de campo de entrada para nombre -->
                 <label for="empd-nombre">Nombre completo</label>
-                <!-- Etiqueta del campo -->
                 <input type="text" id="empd-nombre" name="nombre" required>
-                <!-- Campo de entrada para nombre -->
             </div>
 
             <div class="input-group">
                 <label for="emp-dni">DNI</label>
-                <input type="text" id="emp-dni" name="dni" required pattern="[0-9]{8}" title="Ingrese un DNI válido de 8 dígitos">
+                <input type="text" id="emp-dni" name="dni" required pattern="[0-9]{7,8}" title="Ingrese un DNI válido de 7 u 8 dígitos">
             </div>
 
             <div class="input-group">
@@ -58,84 +46,74 @@
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para email -->
                 <label for="empd-email">Correo Electrónico</label>
-                <!-- Etiqueta del campo -->
                 <input type="email" id="empd-email" name="email" required>
-                <!-- Campo de entrada para email -->
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para contraseña -->
                 <label for="empd-password">Contraseña</label>
-                <!-- Etiqueta del campo -->
                 <div class="password-container">
-                    <!-- Contenedor especial para el campo de contraseña -->
                     <input type="password" id="empd-password" name="clave" required>
-                    <!-- Campo de entrada para contraseña -->
                     <button type="button" class="toggle-password" onclick="togglePassword()">
-                        <!-- Botón para mostrar/ocultar contraseña -->
                         <i class="fas fa-eye"></i>
-                        <!-- Ícono de ojo de Font Awesome -->
                     </button>
                 </div>
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para confirmar contraseña -->
                 <label for="empd-confirm-password">Confirmar Contraseña</label>
-                <!-- Etiqueta del campo -->
                 <div class="password-container">
-                    <!-- Contenedor especial para el campo de confirmación -->
                     <input type="password" id="empd-confirm-password" name="confirm-password" required>
-                    <!-- Campo de entrada para confirmar contraseña -->
                     <button type="button" class="toggle-password" onclick="toggleConfirmPassword()">
-                        <!-- Botón para mostrar/ocultar confirmación -->
                         <i class="fas fa-eye"></i>
-                        <!-- Ícono de ojo de Font Awesome -->
                     </button>
                 </div>
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para teléfono -->
                 <label for="empd-telefono">Teléfono</label>
-                <!-- Etiqueta del campo -->
                 <input type="tel" id="empd-telefono" name="telefono" required>
-                <!-- Campo de entrada para teléfono -->
             </div>
 
             <div class="input-group">
-                <!-- Grupo de campo de entrada para dirección -->
                 <label for="empd-direccion">Dirección</label>
-                <!-- Etiqueta del campo -->
                 <input type="text" id="empd-direccion" name="direccion" required>
-                <!-- Campo de entrada para dirección -->
             </div>
 
             <div class="input-group">
-        <label for="emp-localidad">Localidad</label>
-        <select id="emp-localidad" name="localidad" required>
-            <option value="" disabled selected>Elegí una localidad…</option>
-            <option value="Moreno">Moreno</option>
-            <option value="Paso_del_rey">Paso del Rey</option>
-            <option value="Merlo">Merlo</option>
-            <option value="Padua">Padua</option>
-            <option value="Ituzaingo">Ituzaingo</option>
-        </select>
-        <small class="error-text" data-error-for="emp-localidad"></small>
-      </div>
+                <label for="emp-localidad">Localidad</label>
+                <select id="emp-localidad" name="localidad" required>
+                    <option value="" disabled selected>Elegí una localidad…</option>
+                    <option value="Moreno">Moreno</option>
+                    <option value="Paso del rey">Paso del Rey</option>
+                    <option value="Merlo">Merlo</option>
+                    <option value="Padua">Padua</option>
+                    <option value="Ituzaingo">Ituzaingo</option>
+                </select>
+            </div>
+
+            <!-- Documentación para verificación -->
+            <div class="input-group">
+                <label>DNI (frente)</label>
+                <input type="file" name="dni-frente" accept="image/jpeg,image/png,application/pdf">
+            </div>
+            <div class="input-group">
+                <label>DNI (dorso)</label>
+                <input type="file" name="dni-dorso" accept="image/jpeg,image/png,application/pdf">
+            </div>
+            <div class="input-group">
+                <label>Documento adicional (certificado/comprobante)</label>
+                <input type="file" name="documentacion" accept="image/jpeg,image/png,application/pdf">
+            </div>
 
             <button type="submit">Registrarse</button>
-            <!-- Botón para enviar el formulario -->
         </form>
 
         <div id="message" class="message"></div>
-        <!-- Contenedor para mensajes del sistema -->
     </div>
 
-    <script src="../recursos/js/user-registration.js"> </script>
-    
-    <script src="../recursos/js/volver.js"> </script>
+    <!-- RUTAS ABSOLUTAS A JS -->
+    <script src="/labora_db/recursos/js/user-registration.js"></script>
+    <script src="/labora_db/recursos/js/volver.js"></script>
 </body>
 </html>

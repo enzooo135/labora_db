@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-08-2025 a las 20:23:48
+-- Tiempo de generación: 15-09-2025 a las 21:21:39
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,7 +38,7 @@ CREATE TABLE `administradores` (
 --
 
 INSERT INTO `administradores` (`id_admin`, `usuario`, `clave`) VALUES
-(1, 'enzo', '1234'),
+(1, 'enzo', '$2y$10$JUIPX0fd4WED0np9tiqsOu/lVp3aerHRUWcnUiLT.kbjC1LLfGDMq'),
 (2, 'jose', '1234'),
 (3, 'alan', '1234'),
 (4, 'santiago', '1234');
@@ -57,13 +57,6 @@ CREATE TABLE `educacion` (
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `educacion`
---
-
-INSERT INTO `educacion` (`id_educacion`, `id_empleado`, `titulo`, `institucion`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 29, 'no', 'Escuela Tecnica número 5', '2022-03-07', '2025-11-23');
 
 -- --------------------------------------------------------
 
@@ -94,20 +87,23 @@ CREATE TABLE `empleado` (
   `foto_perfil` varchar(255) DEFAULT NULL,
   `portafolio_link` varchar(255) DEFAULT NULL,
   `reset_token_hash` char(64) DEFAULT NULL,
-  `reset_expires` datetime DEFAULT NULL
+  `reset_expires` datetime DEFAULT NULL,
+  `estado_verificacion` enum('pendiente','aprobado','rechazado') NOT NULL DEFAULT 'pendiente',
+  `verificado_por` int(11) DEFAULT NULL,
+  `fecha_verificacion` datetime DEFAULT NULL,
+  `observaciones_verificacion` text DEFAULT NULL,
+  `dni_frente_path` varchar(255) DEFAULT NULL,
+  `dni_dorso_path` varchar(255) DEFAULT NULL,
+  `matricula_path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `clave`, `profesion`, `experiencia_años`, `descripcion_servicios`, `disponibilidad`, `precio_hora`, `zona_trabajo`, `dni`, `fecha_nacimiento`, `nacionalidad`, `telefono`, `titulo_profesional`, `habilidades`, `educacion`, `experiencia`, `portafolio`, `foto_perfil`, `portafolio_link`, `reset_token_hash`, `reset_expires`) VALUES
-(19, 'Francisco tortelli', 'salchichamancpm@gmail.com', '$2y$10$sereWJRy/ETz/Rx79wqTO.zHrZ0C75ifdr4GQn6DPTWXDAsLZNIP.', 'maquina del mal, actor doble de riesgo', 18, 'Fachero', 'Full time', 10000.00, 'Merlo, Libertad', '48170252', '2007-06-02', 'Bolivia', '1130408554', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 'Lautaro German Ramirez', 'lauuramirez777@gmail.com', '$2y$10$1.23UiJAsBCS.Xc1tseWIOkL.pNqvB6sRsdnYJs635GM/zH6KfQg.', 'Educación', 5, 'Soy excelente', 'Full time', 3000.00, 'Merlo, el parque', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 'Enzo Santino ', 'santinomamanicuba@gmail.com', '$2y$10$9RhqQ1rUofSQI7gYtb.hqO5rXfFpj1s.50xlLbw3HYzx5E/q0DKTm', '', 5, '', '', 0.00, 'COSTA', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 'Enzo Santino ', 'santinomam@gmail.com', '$2y$10$kLpyHfR6s0.ja9EsqcVN4ea3.vjH6kePSxapONSEkPsz6Brn6pB/6', 'Estudiante', 6, 'soy un estudiante de escuela secundaria tecnia', 'Full time', 350.00, 'Merlo, el parque', '47161648', '2006-01-26', 'Argentina', '1164718626', 'Desarrollador full stack', 'Programador', 'Escuela secundaria tecnica numero 5 ', 'lalalala', 'Enzo portafolio', '68af781222983.jpg', 'EnzosPortafolio.com', 'ee33b86e03cd8b7adea4ab757eaf082cbdad84565ff5126aaa58ea75fd7afd86', '2025-08-28 16:51:02'),
-(32, 'Enzo Santino', 'labora1357@gmail.com', '$2y$10$xMROqT/4ES1F/EvhSJtWe.9ZBsS/1yUCGtjqOL2FOOGwR32J4tvai', 'educacion', 5, NULL, NULL, NULL, 'Merlo', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, 'Enzo Santino', 'enzosantinomamanicuba@gmail.com', '$2y$10$bv3HS2Zqyxmwq0sso9po0eGn4v1XkKRMwykzEs2l/YkGKQkZPiVJm', 'plomeria', 4, NULL, NULL, NULL, 'Merlo', '47161684', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `clave`, `profesion`, `experiencia_años`, `descripcion_servicios`, `disponibilidad`, `precio_hora`, `zona_trabajo`, `dni`, `fecha_nacimiento`, `nacionalidad`, `telefono`, `titulo_profesional`, `habilidades`, `educacion`, `experiencia`, `portafolio`, `foto_perfil`, `portafolio_link`, `reset_token_hash`, `reset_expires`, `estado_verificacion`, `verificado_por`, `fecha_verificacion`, `observaciones_verificacion`, `dni_frente_path`, `dni_dorso_path`, `matricula_path`) VALUES
+(39, 'enzo santino mamani cuba', 'enzosantinomamanicuba@gmail.com', '$2y$10$olnPTJwRLHYiQLVuNIh.AOJTUOK2rB.6TX/w0hJgCiozbeYeB09pi', 'carpinteria', 5, NULL, NULL, NULL, 'Merlo', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'aprobado', 1, '2025-09-15 15:40:02', '', 'uploads/verificaciones/empleado_39/doc_68c85385c05480.74623229.jpg', 'uploads/verificaciones/empleado_39/doc_68c85385c0a027.98148134.jpg', 'uploads/verificaciones/empleado_39/doc_68c85385c0d2d5.10723924.jpg'),
+(40, 'Mario Gabriel Mamani', 'santinomam@gmail.com', '$2y$10$WuYWoxIyu5r65uxjnfF/6eERGyNWqmWJ8mcBMzePw7EjeU6TfX3PC', 'cerrajero', 5, NULL, NULL, NULL, 'Merlo', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'pendiente', NULL, NULL, NULL, 'uploads/verificaciones/empleado_40/doc_68c862c9788142.72084822.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c978e302.07821426.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c9793182.18876329.jpg');
 
 -- --------------------------------------------------------
 
@@ -125,13 +121,6 @@ CREATE TABLE `experiencia_laboral` (
   `fecha_fin` date DEFAULT NULL,
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `experiencia_laboral`
---
-
-INSERT INTO `experiencia_laboral` (`id_experiencia`, `id_empleado`, `puesto`, `empresa`, `contacto_referencia`, `fecha_inicio`, `fecha_fin`, `descripcion`) VALUES
-(1, 29, 'Gerente', 'Coca Cola', '11 64718626', '2006-01-26', '2006-01-27', 'Trabaja como gerente de Coca Cola en el turno noche y cargaba camiones con las manos.');
 
 -- --------------------------------------------------------
 
@@ -152,7 +141,10 @@ CREATE TABLE `registro_pendiente_empleados` (
   `zona_trabajo` varchar(100) DEFAULT NULL,
   `experiencia_años` int(11) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
-  `creado_en` datetime DEFAULT current_timestamp()
+  `creado_en` datetime DEFAULT current_timestamp(),
+  `dni_frente_tmp` varchar(255) DEFAULT NULL,
+  `dni_dorso_tmp` varchar(255) DEFAULT NULL,
+  `matricula_tmp` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -173,7 +165,10 @@ CREATE TABLE `registro_pendiente_usuarios` (
   `direccion` varchar(250) DEFAULT NULL,
   `dni` varchar(50) DEFAULT NULL,
   `creado_en` datetime DEFAULT current_timestamp(),
-  `localidad` varchar(250) DEFAULT NULL
+  `localidad` varchar(250) DEFAULT NULL,
+  `dni_frente_tmp` varchar(255) DEFAULT NULL,
+  `dni_dorso_tmp` varchar(255) DEFAULT NULL,
+  `matricula_tmp` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -195,16 +190,38 @@ CREATE TABLE `usuarios` (
   `fecha_nacimiento` varchar(30) DEFAULT NULL,
   `localidad` varchar(250) DEFAULT NULL,
   `reset_token_hash` char(64) DEFAULT NULL,
-  `reset_expires` datetime DEFAULT NULL
+  `reset_expires` datetime DEFAULT NULL,
+  `estado_verificacion` enum('pendiente','aprobado','rechazado') NOT NULL DEFAULT 'pendiente',
+  `verificado_por` int(11) DEFAULT NULL,
+  `fecha_verificacion` datetime DEFAULT NULL,
+  `observaciones_verificacion` text DEFAULT NULL,
+  `dni_frente_path` varchar(255) DEFAULT NULL,
+  `dni_dorso_path` varchar(255) DEFAULT NULL,
+  `matricula_path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `correo`, `clave`, `nombre`, `telefono`, `fecha_registro`, `tipo_usuario`, `dni`, `direccion`, `fecha_nacimiento`, `localidad`, `reset_token_hash`, `reset_expires`) VALUES
-(7, 'santinomam@gmail.com', '$2y$10$ASCsNW2CbjWDX9AYk8FbXuByWnwi9dWcRE.CALwoJGOh3yn/dGfpy', 'Enzo Santino ', '01164718626', '2025-07-24 18:18:43', '', '47161648', 'Constitución 858', '2006-01-26', NULL, 'cafac5b2f1aabfb1afd54c3f4a4956dda4064757358bdff5bede91a644b67555', '2025-08-28 14:57:41'),
-(10, 'enzosantinomamanicuba@gmail.com', '$2y$10$1mxjFRTXXduQPDeIZM7iDOf9ybhIrZwqwMtl1WLE62F7p6XQ/UF6a', 'Enzo Santino ', '1164718626', '2025-08-27 20:20:04', '', '47161648', 'Constitución 858', '2006-01-26', 'Merlo', 'e381cd84e1f43d0504667bb4eef483c81d63979ac2034301318185c4f4bb793b', '2025-08-28 21:18:19');
+INSERT INTO `usuarios` (`id_usuario`, `correo`, `clave`, `nombre`, `telefono`, `fecha_registro`, `tipo_usuario`, `dni`, `direccion`, `fecha_nacimiento`, `localidad`, `reset_token_hash`, `reset_expires`, `estado_verificacion`, `verificado_por`, `fecha_verificacion`, `observaciones_verificacion`, `dni_frente_path`, `dni_dorso_path`, `matricula_path`) VALUES
+(12, 'santinomam@gmail.com', '$2y$10$1l0LISEPWpODmPPYHni3F.Xc4A.FkrkjNC9PEShkZotRkT4MQOuv6', 'Mario Gabriel Mamani', '1164718626', '2025-09-15 14:56:06', '', '23211489', 'constitucion 858', '1979-06-29', 'Merlo', NULL, NULL, 'aprobado', 1, '2025-09-15 15:39:15', '', 'uploads/verificaciones/usuario_12/doc_68c8532b88ada2.60790696.jpg', 'uploads/verificaciones/usuario_12/doc_68c8532b890c36.92471876.jpg', 'uploads/verificaciones/usuario_12/doc_68c8532b895883.55976684.jpg'),
+(13, 'enzosantinomamanicuba@gmail.com', '$2y$10$LIXZc6/V2rZqT5P0b0sEiOm7qJIslFQgeME0CFTAnwlw0KfzKUTsK', 'enzo santino mamani cuba', '1164718626', '2025-09-15 15:56:00', '', '47161648', 'constitucion 858', '2006-01-26', 'Merlo', NULL, NULL, 'pendiente', NULL, NULL, NULL, 'uploads/verificaciones/usuario_13/doc_68c86111113541.92507834.jpg', 'uploads/verificaciones/usuario_13/doc_68c8611111cc09.49066319.jpg', 'uploads/verificaciones/usuario_13/doc_68c86111121b30.41576349.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `valoraciones`
+--
+
+CREATE TABLE `valoraciones` (
+  `id_valoracion` int(11) NOT NULL,
+  `id_empleado` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `puntuacion` tinyint(4) NOT NULL CHECK (`puntuacion` between 1 and 5),
+  `comentario` text DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
@@ -230,7 +247,8 @@ ALTER TABLE `educacion`
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`id_empleado`),
   ADD UNIQUE KEY `correo` (`correo`),
-  ADD KEY `reset_token_hash` (`reset_token_hash`);
+  ADD KEY `reset_token_hash` (`reset_token_hash`),
+  ADD KEY `idx_empleado_estado` (`estado_verificacion`);
 
 --
 -- Indices de la tabla `experiencia_laboral`
@@ -257,7 +275,17 @@ ALTER TABLE `registro_pendiente_usuarios`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id_usuario`),
   ADD UNIQUE KEY `email` (`correo`),
-  ADD KEY `reset_token_hash` (`reset_token_hash`);
+  ADD KEY `reset_token_hash` (`reset_token_hash`),
+  ADD KEY `idx_usuarios_estado` (`estado_verificacion`),
+  ADD KEY `fk_usuarios_verificador` (`verificado_por`);
+
+--
+-- Indices de la tabla `valoraciones`
+--
+ALTER TABLE `valoraciones`
+  ADD PRIMARY KEY (`id_valoracion`),
+  ADD KEY `id_empleado` (`id_empleado`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -273,37 +301,43 @@ ALTER TABLE `administradores`
 -- AUTO_INCREMENT de la tabla `educacion`
 --
 ALTER TABLE `educacion`
-  MODIFY `id_educacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_educacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `experiencia_laboral`
 --
 ALTER TABLE `experiencia_laboral`
-  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `registro_pendiente_empleados`
 --
 ALTER TABLE `registro_pendiente_empleados`
-  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_empleado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `registro_pendiente_usuarios`
 --
 ALTER TABLE `registro_pendiente_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `valoraciones`
+--
+ALTER TABLE `valoraciones`
+  MODIFY `id_valoracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -320,6 +354,19 @@ ALTER TABLE `educacion`
 --
 ALTER TABLE `experiencia_laboral`
   ADD CONSTRAINT `experiencia_laboral_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_usuarios_verificador` FOREIGN KEY (`verificado_por`) REFERENCES `administradores` (`id_admin`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `valoraciones`
+--
+ALTER TABLE `valoraciones`
+  ADD CONSTRAINT `valoraciones_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `empleado` (`id_empleado`),
+  ADD CONSTRAINT `valoraciones_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

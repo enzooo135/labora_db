@@ -36,6 +36,55 @@ $stmt_edu->bind_param("i", $id);
 $stmt_edu->execute();
 $res_edu = $stmt_edu->get_result();
 $educacion = $res_edu->fetch_assoc() ?? null;
+// Normaliza teléfonos de Argentina para WhatsApp (wa.me)
+function ar_normalize_phone_for_wa(string $raw): string {
+    // solo dígitos
+    $digits = preg_replace('/\D+/', '', $raw ?? '');
+
+    // quitar 00 internacional si viene así
+    $digits = preg_replace('/^00/', '', $digits);
+
+    // asegurar código país 54
+    if (strpos($digits, '54') !== 0) {
+        $digits = '54' . $digits;
+    }
+
+    // trabajar sobre el resto (sin 54)
+    $rest = substr($digits, 2);
+
+    // quitar 0 inicial de área
+    $rest = preg_replace('/^0+/', '', $rest);
+
+    // quitar prefijo local 15
+    $rest = preg_replace('/^15/', '', $rest);
+
+    // si parece celular y no tiene 9 (móvil internacional), agregárselo
+    // (en AR móviles: 54 + 9 + área + línea)
+    if (!preg_match('/^9/', $rest) && strlen($rest) >= 9) {
+        $rest = '9' . $rest;
+    }
+
+    // limpiar duplicados de 9 si los hubiera (casos raros)
+    $rest = preg_replace('/^99+/', '9', $rest);
+
+    return '54' . $rest;
+}
+
+// Construir link de WhatsApp del trabajador
+$telefonoRaw = $empleado['telefono'] ?? '';
+$waNumber   = ar_normalize_phone_for_wa($telefonoRaw);
+$waText     = rawurlencode("Hola {$empleado['nombre']}, te contacto desde Labora.");
+$waLink     = "https://wa.me/{$waNumber}?text={$waText}";
+$oficio   = trim($empleado['profesion'] ?? '');
+$zona     = trim($empleado['zona_trabajo'] ?? '');
+$mensaje  = "Hola {$empleado['nombre']}, te contacto desde Labora"
+          . ($oficio ? " por un trabajo de {$oficio}" : "")
+          . ($zona ? " en la zona de {$zona}" : "")
+          . ".";
+$waText   = rawurlencode($mensaje);
+$waLink   = "https://wa.me/{$waNumber}?text={$waText}";
+
+
 
 // 5) Foto
 $ruta_foto = !empty($empleado['foto_perfil'])
@@ -317,5 +366,50 @@ function estrellas($valorFloat) {
       <?php endif; ?>
     </section>
   </div>
+  <!-- Botón de chat flotante estilo Labora -->
+  <a
+  class="chat-float"
+  href="<?php echo htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>"
+  target="_blank"
+  rel="noopener"
+  aria-label="Abrir chat"
+  title="Chatear"
+>
+  <!-- SVG acá como ya lo tenías -->
+
+  <!-- SVG: burbuja + tres puntos -->
+  <svg viewBox="0 0 64 64" aria-hidden="true">
+    <!-- Fondo circular -->
+    <circle cx="32" cy="32" r="30" class="bg"/>
+    <!-- Burbuja -->
+    <path class="bubble" d="M48 30c0 8.28-7.61 15-17 15-2.66 0-5.17-.51-7.37-1.45L16 46l1.74-6.34A15.2 15.2 0 0 1 15 30c0-8.28 7.61-15 17-15s16 6.72 16 15z"/>
+    <!-- Tres puntos -->
+    <circle cx="26" cy="30" r="3" class="dot"/>
+    <circle cx="32" cy="30" r="3" class="dot"/>
+    <circle cx="38" cy="30" r="3" class="dot"/>
+  </svg>
+</a>
+
+<style>
+  .chat-float{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 100px; height: 100px; /* MÁS GRANDE */
+    display: inline-grid; place-items: center;
+    text-decoration: none;
+    border-radius: 50%;
+    box-shadow: 0 12px 28px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.25);
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .chat-float:hover{ transform: translateY(-3px); filter: brightness(1.05); }
+  .chat-float:active{ transform: translateY(0); filter: brightness(.95); }
+  .chat-float svg{ width: 100%; height: 100%; }
+
+  /* Colores estilo Labora */
+  .chat-float .bg{ fill: #005F8C; }        /* fondo principal */
+  .chat-float .bubble{ fill: white; }      /* burbuja */
+  .chat-float .dot{ fill: #0077B6; }       /* puntos acento */
+</style>
 </body>
 </html>

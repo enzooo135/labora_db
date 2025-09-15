@@ -1,5 +1,5 @@
 <?php
-// worker-register.php
+// labora_db/funciones/worker-register.php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -10,6 +10,34 @@ require '../PHPMailer-master/src/SMTP.php';
 require '../config/conexion.php'; // mysqli en $conn
 
 mysqli_set_charset($conn, 'utf8mb4');
+
+// ===== Helper subida de archivos =====
+function saveUpload($field, $destAbs, $destRel) {
+    if (empty($_FILES[$field]) || $_FILES[$field]['error'] === UPLOAD_ERR_NO_FILE) return null;
+    $f = $_FILES[$field];
+    if ($f['error'] !== UPLOAD_ERR_OK) return null;
+
+    if ($f['size'] > 5 * 1024 * 1024) { // 5MB
+        return null;
+    }
+    $allowed = [
+        'image/jpeg' => '.jpg',
+        'image/png'  => '.png',
+        'application/pdf' => '.pdf'
+    ];
+    $mime = mime_content_type($f['tmp_name']);
+    if (!isset($allowed[$mime])) return null;
+
+    $ext  = $allowed[$mime];
+    $name = uniqid('doc_', true) . $ext;
+
+    if (!is_dir($destAbs)) { @mkdir($destAbs, 0775, true); }
+
+    $targetAbs = rtrim($destAbs, '/\\') . DIRECTORY_SEPARATOR . $name;
+    if (!move_uploaded_file($f['tmp_name'], $targetAbs)) return null;
+
+    return rtrim($destRel, '/') . '/' . $name; // ruta relativa desde labora_db/
+}
 
 // --- Método ---
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -103,7 +131,6 @@ if ($fecha_nacimiento === '') {
     }
 }
 
-
 // Nacionalidad whitelist
 if (!in_array($nacionalidad, $NACIONALIDADES_PERMITIDAS, true)) {
     $errores[] = 'Nacionalidad inválida.';
@@ -147,9 +174,11 @@ $clave_hash = password_hash($clave_plain, PASSWORD_DEFAULT);
 // --- Token y guardado ---
 $token = bin2hex(random_bytes(32));
 
+// 1) Insert en tabla de pendientes (con columnas temporales para archivos)
 $sql_insert = "INSERT INTO registro_pendiente_empleados 
-    (nombre, correo, clave, profesion, dni, fecha_nacimiento, nacionalidad, telefono, zona_trabajo, `experiencia_años`, token)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    (nombre, correo, clave, profesion, dni, fecha_nacimiento, nacionalidad, telefono, zona_trabajo, `experiencia_años`, token,
+     dni_frente_tmp, dni_dorso_tmp, matricula_tmp)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL)";
 
 $stmt = $conn->prepare($sql_insert);
 if (!$stmt) {
@@ -175,13 +204,37 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
+    // 2) ID del registro pendiente
+    $reg_id = $stmt->insert_id;
+
+    // 3) carpeta en verificaciones: uploads/verificaciones/pre_empleado_{id}
+    $projectRoot = realpath(__DIR__ . '/..'); // raíz labora_db
+    if ($projectRoot === false) { $projectRoot = dirname(__DIR__); }
+    $verifRel = "uploads/verificaciones/pre_empleado_{$reg_id}";
+    $verifAbs = $projectRoot . DIRECTORY_SEPARATOR . $verifRel;
+
+    // 4) guardar archivos subidos DIRECTO en /uploads/verificaciones/pre_empleado_{id}
+    $dni_frente_rel = saveUpload('dni-frente', $verifAbs, $verifRel);
+    $dni_dorso_rel  = saveUpload('dni-dorso',  $verifAbs, $verifRel);
+    $matricula_rel  = saveUpload('documentacion', $verifAbs, $verifRel);
+
+    // 5) actualizar rutas temporales en la fila pendiente (guardamos las rutas relativas finales)
+    $upd = $conn->prepare("
+        UPDATE registro_pendiente_empleados
+           SET dni_frente_tmp = ?, dni_dorso_tmp = ?, matricula_tmp = ?
+         WHERE id_empleado = ?
+    ");
+    $upd->bind_param("sssi", $dni_frente_rel, $dni_dorso_rel, $matricula_rel, $reg_id);
+    $upd->execute();
+
+    // 6) enviar mail de verificación
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'labora1357@gmail.com';
-        $mail->Password = 'fqkp sppu bmgv ynmb'; 
+        $mail->Password = 'fqkp sppu bmgv ynmb';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
@@ -244,10 +297,9 @@ if ($stmt->execute()) {
     } catch (Exception $e) {
         header('Content-Type: text/plain; charset=utf-8');
         echo "No se pudo enviar el correo de verificación: {$mail->ErrorInfo}";
-        // Podrías también borrar el registro pendiente si falla el mail (opcional)
         exit();
     }
-}else {
+} else {
     header('Content-Type: text/plain; charset=utf-8');
     echo "Error al registrar Empleado: " . $stmt->error;
     exit();
@@ -255,4 +307,3 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
-?>

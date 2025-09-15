@@ -1,3 +1,88 @@
+<?php
+// labora_db/vistas/comunes/filtros.php
+session_start();
+require_once __DIR__ . '/../../config/conexion.php';
+mysqli_set_charset($conn, 'utf8mb4');
+
+// Detectar ID de usuario en sesión
+function current_user_id(): int {
+    $candidates = [
+        $_SESSION['id_usuario'] ?? null,
+        $_SESSION['user_id'] ?? null,
+        $_SESSION['usuario_id'] ?? null,
+        $_SESSION['usuario']['id_usuario'] ?? null,
+        $_SESSION['usuario']['id'] ?? null,
+    ];
+    foreach ($candidates as $v) {
+        if (is_numeric($v) && (int)$v > 0) return (int)$v;
+    }
+    return 0;
+}
+
+$idU = current_user_id();
+$estado = null;
+
+if ($idU > 0) {
+    $stmt = $conn->prepare("SELECT estado_verificacion FROM usuarios WHERE id_usuario = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $idU);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $row = $res ? $res->fetch_assoc() : null;
+        $estado = $row['estado_verificacion'] ?? null;
+        $stmt->close();
+    }
+}
+
+// Si no hay sesión o no está aprobado, mostramos aviso y salimos
+if ($idU <= 0 || $estado !== 'aprobado'):
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación pendiente - LABORA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/labora_db/imagenes/logo-labora.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+    <link rel="stylesheet" href="/labora_db/recursos/css/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root{--acc:#0077B6; --bg:#f0f8ff;}
+      *{box-sizing:border-box}
+      body{margin:0;font-family:'Roboto',sans-serif;background:var(--bg)}
+      .wrap{min-height:100vh; display:grid; place-items:center; padding:24px}
+      .card{max-width:720px; width:100%; background:#fff; border:2px solid var(--acc); border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.08)}
+      h1{margin:0 0 10px; color:#005F8C}
+      p{margin:8px 0; color:#333}
+      .note{background:#eaf6ff; border:1px solid #cfe9ff; padding:12px; border-radius:12px; color:#024a77; margin:12px 0}
+      .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+      .btn{display:inline-block; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; border:0; cursor:pointer}
+      .btn.primary{background:linear-gradient(135deg, #00B4D8, #0077B6); color:#fff}
+      .btn.secondary{background:#e5f2ff; color:#0b4a75}
+    </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Tu cuenta está en revisión</h1>
+      <p>¡Gracias por registrarte en <b>LABORA</b>! Estamos validando tu información.</p>
+      <div class="note">
+        <b>Importante:</b> No podrás buscar trabajadores hasta que te verifiquemos. Disculpá la demora.
+      </div>
+      <p>Cuando un administrador apruebe tu cuenta, te enviaremos un correo avisándote.</p>
+      <div class="row">
+        <a class="btn primary" href="/labora_db/index.html">Ir al inicio</a>
+        <a class="btn secondary" href="/labora_db/funciones/logout.php">Cerrar sesión</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+<?php
+exit;
+endif;
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -93,11 +178,12 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,119,182,.35);
         }
+        .card { display:block; text-decoration:none; color:inherit; cursor:pointer; }
     </style>
 </head>
 <body>
 
-    <!-- NAV hamburguesa (igual que en index.html) -->
+    <!-- NAV hamburguesa -->
     <nav class="navbar">
         <div class="logo">
             <a href="/labora_db/filtros.php">Labora</a>
@@ -117,8 +203,8 @@
             </li>
             <li class="menu-divider"><span>Cuenta</span></li>
             <li><a href="#">Perfil</a></li>
-            <li><a href="../usuarios/configuracion.php">Configuración</a></li>
-            <li><a href="../../funciones/logout.php">Cerrar sesión</a></li>
+            <li><a href="/labora_db/vistas/usuarios/configuracion.php">Configuración</a></li>
+            <li><a href="/labora_db/funciones/logout.php">Cerrar sesión</a></li>
         </ul>
         <div class="menu-backdrop"></div>
     </nav>
@@ -161,13 +247,14 @@
                 const zona = zonaSelect.value;
                 const profesion = profesionSelect.value;
 
-                const url = `../../funciones/buscar.php?busqueda=${encodeURIComponent(busqueda)}&zona=${encodeURIComponent(zona)}&profesion=${encodeURIComponent(profesion)}`;
+                const url = `/labora_db/funciones/buscar.php?busqueda=${encodeURIComponent(busqueda)}&zona=${encodeURIComponent(zona)}&profesion=${encodeURIComponent(profesion)}`;
 
-                fetch(url)
+                // Importante: credenciales para enviar cookies de sesión si algún día sirves desde otro host
+                fetch(url, { credentials: 'same-origin' })
                     .then(res => res.json())
                     .then(data => {
                         grid.innerHTML = '';
-                        if (data.length === 0) {
+                        if (!Array.isArray(data) || data.length === 0) {
                             grid.innerHTML = '<p>No se encontraron trabajadores.</p>';
                             return;
                         }
@@ -187,6 +274,9 @@
                             `;
                             grid.appendChild(card);
                         });
+                    })
+                    .catch(() => {
+                        grid.innerHTML = '<p>Error al cargar los trabajadores.</p>';
                     });
             }
 

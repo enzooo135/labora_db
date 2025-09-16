@@ -4,7 +4,8 @@ include '../../config/conexion.php';
 
 // 1) Validar ID del trabajador
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    echo "Perfil no encontrado.";
+  // Poner un mensaje más lindo
+      echo "Perfil no encontrado.";
     exit();
 }
 $id = (int) $_GET['id'];
@@ -135,6 +136,9 @@ function estrellas($valorFloat) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- CSS-->
+  <link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title><?php echo htmlspecialchars($empleado['nombre']); ?> - Perfil</title>
@@ -214,6 +218,33 @@ function estrellas($valorFloat) {
   </style>
 </head>
 <body>
+
+    <!-- NAV hamburguesa -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/labora_db/filtros.php">Labora</a>
+        </div>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul id="menu" class="nav-links">
+            <li class="menu-header">
+                <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
+                <button class="menu-close" aria-label="Cerrar menú">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </li>
+            <li class="menu-cta">
+                <a href="#" class="btn-primario"><i class="fa-solid fa-rocket"></i> Mis Favoritos</a>
+            </li>
+            <li class="menu-divider"><span>Cuenta</span></li>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="/labora_db/vistas/usuarios/configuracion.php">Configuración</a></li>
+            <li><a href="/labora_db/funciones/logout.php">Cerrar sesión</a></li>
+        </ul>
+        <div class="menu-backdrop"></div>
+    </nav>
+
   <div class="container">
     <!-- Foto -->
     <div class="profile-picture">
@@ -262,7 +293,7 @@ function estrellas($valorFloat) {
     <!-- Sobre mí -->
     <?php if(!empty($empleado['descripcion_servicios'])): ?>
     <section class="section">
-      <h2>Sobre mí</h2>
+      <h2>Sobre <?php echo htmlspecialchars($empleado['nombre']); ?></h2>
       <p><?php echo nl2br(htmlspecialchars($empleado['descripcion_servicios'])); ?></p>
     </section>
     <?php endif; ?>
@@ -288,7 +319,7 @@ function estrellas($valorFloat) {
     <section class="section">
       <h2>Experiencia Laboral</h2>
       <p><strong><?php echo htmlspecialchars($experiencia['puesto']); ?></strong> en <?php echo htmlspecialchars($experiencia['empresa']); ?></p>
-      <p><?php echo htmlspecialchars($experiencia['fecha_inicio']); ?> - <?php echo htmlspecialchars($experiencia['fecha_fin']); ?></p>
+      <p>Inicio: <?php echo htmlspecialchars($experiencia['fecha_inicio']); ?> - Fin: <?php echo htmlspecialchars($experiencia['fecha_fin']); ?></p>
       <p><?php echo nl2br(htmlspecialchars($experiencia['descripcion'])); ?></p>
     </section>
     <?php endif; ?>
@@ -298,7 +329,7 @@ function estrellas($valorFloat) {
     <section class="section">
       <h2>Educación</h2>
       <p><strong><?php echo htmlspecialchars($educacion['titulo']); ?></strong> en <?php echo htmlspecialchars($educacion['institucion']); ?></p>
-      <p><?php echo htmlspecialchars($educacion['fecha_inicio']); ?> - <?php echo htmlspecialchars($educacion['fecha_fin']); ?></p>
+      <p>Inicio: <?php echo htmlspecialchars($educacion['fecha_inicio']); ?> - Fin: <?php echo htmlspecialchars($educacion['fecha_fin']); ?></p>
     </section>
     <?php endif; ?>
 
@@ -389,6 +420,8 @@ function estrellas($valorFloat) {
     <circle cx="38" cy="30" r="3" class="dot"/>
   </svg>
 </a>
+
+      <script src="/labora_db/recursos/js/menu-hamburguesa.js"></script>
 
 <style>
   .chat-float{

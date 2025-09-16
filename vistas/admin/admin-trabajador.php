@@ -1,5 +1,5 @@
 <?php
-// labora_db/funciones/admin-trabajador.php
+// labora_db/vistas/admin/admin-trabajador.php
 session_start();
 if (empty($_SESSION['admin'])) { header("Location: admin-login.php"); exit(); }
 require_once __DIR__ . '/../../config/conexion.php';
@@ -11,7 +11,8 @@ if ($id <= 0) { http_response_code(400); exit('ID inválido'); }
 $sql = "SELECT id_empleado, nombre, correo, profesion, zona_trabajo, dni, fecha_nacimiento,
                nacionalidad, telefono, experiencia_años, estado_verificacion,
                dni_frente_path, dni_dorso_path, matricula_path,
-               verificado_por, fecha_verificacion, observaciones_verificacion
+               verificado_por, fecha_verificacion, observaciones_verificacion,
+               titulo_profesional
           FROM empleado
          WHERE id_empleado = ?";
 $stmt = $conn->prepare($sql);
@@ -96,7 +97,8 @@ $errObs = isset($_GET['err']) && $_GET['err'] === 'obs_required';
   .b-pend{background:#fde68a; color:#92400e}
   .b-apr{background:#bbf7d0; color:#065f46}
   .b-rech{background:#fecaca; color:#7f1d1d}
-  textarea{width:100%; min-height:90px; padding:10px; border:1px solid #d1d5db; border-radius:10px}
+  textarea,input[type=text]{width:100%; padding:10px; border:1px solid #d1d5db; border-radius:10px}
+  textarea{min-height:90px}
   .error{background:linear-gradient(90deg,#ef4444,#f97316); color:white; padding:10px 12px; border-radius:10px; margin-bottom:14px; font-size:14px}
   @media (max-width: 980px){ .grid{grid-template-columns:1fr} .docs{grid-template-columns:1fr} .row{grid-template-columns:1fr} .layout{grid-template-columns:1fr}}
 </style>
@@ -143,16 +145,29 @@ $errObs = isset($_GET['err']) && $_GET['err'] === 'obs_required';
         <h3 style="margin-top:0">Acciones de verificación</h3>
         <form method="post" action="../../funciones/admin-verificar-trabajador.php" id="verifForm" onsubmit="return checkForm(event)">
           <input type="hidden" name="id_empleado" value="<?= (int)$emp['id_empleado'] ?>">
+
+          <!-- NUEVO: contenedor para Profesión y Título profesional -->
+          <div class="row" style="grid-template-columns: 180px 1fr;">
+            <label class="label" for="profesion">Profesión (requerido al aprobar)</label>
+            <input id="profesion" type="text" name="profesion" value="<?= htmlspecialchars($emp['profesion'] ?? '') ?>" placeholder="Ej: Plomero, Electricista, Fletero…">
+          </div>
+          <div class="row" style="grid-template-columns: 180px 1fr;">
+            <label class="label" for="titulo_profesional">Título profesional</label>
+            <input id="titulo_profesional" type="text" name="titulo_profesional" value="<?= htmlspecialchars($emp['titulo_profesional'] ?? '') ?>" placeholder="Ej: Técnico matriculado, Certificación X…">
+          </div>
+
           <div class="row" style="grid-template-columns:1fr">
             <label class="label" for="obs">Observaciones (obligatorio para rechazar)</label>
             <textarea id="obs" name="observaciones" placeholder="Motivo del rechazo, inconsistencias, etc."><?= htmlspecialchars($emp['observaciones_verificacion'] ?? '') ?></textarea>
           </div>
+
           <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
             <button class="btn ok"   type="submit" name="accion" value="aprobar">Aprobar</button>
             <button class="btn warn" type="submit" name="accion" value="rechazar">Rechazar</button>
             <a class="btn sec" href="admin-panel.php#pendientes">Cancelar</a>
           </div>
         </form>
+
         <?php if (!empty($emp['verificado_por']) && !empty($emp['fecha_verificacion'])): ?>
           <div style="margin-top:14px; font-size:13px; color:#6b7280">
             Última acción: <?= htmlspecialchars($emp['estado_verificacion']) ?> el <?= htmlspecialchars($emp['fecha_verificacion']) ?> (admin #<?= (int)$emp['verificado_por'] ?>)
@@ -174,15 +189,16 @@ $errObs = isset($_GET['err']) && $_GET['err'] === 'obs_required';
 
 <script>
 function checkForm(e){
-  // Si el botón fue "rechazar", exigir observaciones
-  const form = document.getElementById('verifForm');
   const obs = document.getElementById('obs').value.trim();
-
-  // Detecta qué botón disparó el submit (compatible con la mayoría de navegadores modernos)
+  const profesion = document.getElementById('profesion').value.trim();
   const submitter = e.submitter && e.submitter.value ? e.submitter.value : null;
 
   if (submitter === 'rechazar' && !obs) {
     alert('Para RECHAZAR es obligatorio ingresar un motivo en Observaciones.');
+    return false;
+  }
+  if (submitter === 'aprobar' && !profesion) {
+    alert('Para APROBAR es obligatorio definir la Profesión.');
     return false;
   }
   return true;

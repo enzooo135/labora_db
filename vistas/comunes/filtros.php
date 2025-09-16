@@ -212,13 +212,18 @@ endif;
     <div class="container">
         <h1>Buscar Trabajadores</h1>
         <div class="filters">
-            <input type="text" placeholder="Buscar por nombre o profesión">
+    
+        
+        <input type="text" placeholder="profesión"> 
+    
+            
             <select>
                 <option value="">Zona de trabajo</option>
-                <option>Zona Norte</option>
-                <option>Zona Sur</option>
-                <option>Zona Oeste</option>
-                <option>Zona Este</option>
+                <option>Moreno</option>
+                <option>Paso del Rey</option>
+                <option>Merlo</option>
+                <option>Padua</option>
+                <option>Ituzaingo</option>
             </select>
             <select>
                 <option value="">Profesión</option>
@@ -226,6 +231,13 @@ endif;
                 <option>Plomería</option>
                 <option>Electricidad</option>
                 <option>Educación</option>
+                <option>jardineria</option>
+                <option>Pintura</option>
+                <option>Gasista</option>
+                <option>Acompañante terapeutico</option>
+                <option>Profesor de educacion fisica</option>
+                <option>fletero</option>
+                <option>cerrajero</option>
             </select>
         </div>
 

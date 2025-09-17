@@ -202,7 +202,7 @@ endif;
                 <a href="#" class="btn-primario"><i class="fa-solid fa-rocket"></i> Mis Favoritos</a>
             </li>
             <li class="menu-divider"><span>Cuenta</span></li>
-            <li><a href="#">Perfil</a></li>
+            <li><a href="/labora_db/vistas/usuarios/perfil_usuario.php">Perfil</a></li>
             <li><a href="/labora_db/vistas/usuarios/configuracion.php">Configuración</a></li>
             <li><a href="/labora_db/funciones/logout.php">Cerrar sesión</a></li>
         </ul>
@@ -243,6 +243,33 @@ endif;
 
         <div class="grid"></div>
     </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/labora_db/vistas/comunes/terminos_y_condiciones.html">Términos y Condiciones</a>
+                <a href="/labora_db/vistas/comunes/politica_privacidad.html">Política de Privacidad</a>
+                <a href="/labora_db/vistas/comunes/preguntas_frecuentes.html">Preguntas Frecuentes</a>
+            </div>
+
+            <div class="footer-redes">
+                <a href="https://www.facebook.com/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram">
+                </a>
+                <a href="https://wa.me/1234567890" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp">
+                </a>
+            </div>
+
+            <div class="footer-copy">
+                &copy; 2025 Labora - Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

@@ -142,6 +142,7 @@ h1{margin:0 0 8px;color:#0077B6}
     </li>
     <li class="menu-cta"><a href="/labora_db/filtros.php" class="btn-primario"><i class="fa-solid fa-rocket"></i> Buscar Trabajadores</a></li>
     <li class="menu-divider"><span>Cuenta</span></li>
+    <li><a href="/labora_db/vistas/usuarios/perfil_usuario.php">Perfil</a></li>
     <li><a href="/labora_db/vistas/usuarios/configuracion.php">Configuración</a></li>
     <li><a href="/labora_db/funciones/logout.php">Cerrar sesión</a></li>
   </ul>
@@ -157,11 +158,6 @@ h1{margin:0 0 8px;color:#0077B6}
     <?php if($error): ?><div class="alert-err"><?=htmlspecialchars($error)?></div><?php endif; ?>
 
     <div class="grid">
-      <div class="card">
-        <strong>Nombre</strong>
-        <div class="helper">Actual: <b><?=htmlspecialchars($usuario['nombre'] ?? '')?></b></div>
-        <button class="btn" data-modal="modal-nombre"><i class="fa-solid fa-user-pen"></i> Cambiar nombre</button>
-      </div>
 
       <div class="card">
         <strong>Correo</strong>

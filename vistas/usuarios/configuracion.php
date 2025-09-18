@@ -80,6 +80,122 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+/* ========= ELIMINAR CUENTA (descubre FKs y borra en cascada) ========= */
+if (isset($_POST['eliminar_cuenta'])) {
+    // Conexión (usa la que ya tengas)
+    $db = isset($conexion) ? $conexion : (isset($conn) ? $conn : null);
+    if (!($db instanceof mysqli)) { die("Sin conexión a la base de datos."); }
+
+    // Sesión: ¿usuario o empleado?
+    session_start();
+    $esUsuario  = isset($_SESSION['usuario_id']);
+    $esEmpleado = isset($_SESSION['empleado_id']);
+    if (!$esUsuario && !$esEmpleado) {
+        header("Location: /labora_db/formularios/login-options.html"); exit();
+    }
+
+    // Tabla, PK y id logueado
+    if ($esUsuario) {
+        $tabla    = "usuarios";
+        $pkCampo  = "id_usuario";
+        $idValor  = (int)$_SESSION['usuario_id'];
+        $pwdCampo = "clave";            // según tu foto
+    } else {
+        $tabla    = "empleado";
+        $pkCampo  = "id_empleado";
+        $idValor  = (int)$_SESSION['empleado_id'];
+        $pwdCampo = "clave";            // asumimos mismo nombre en empleado
+    }
+
+    // Contraseña tipeada en el modal
+    $pass = trim($_POST['password_confirm'] ?? '');
+    if ($pass === '') {
+        $error = "Debés ingresar tu contraseña.";
+    } else {
+        // 1) Obtener hash de la contraseña
+        $stmt = $db->prepare("SELECT {$pwdCampo} AS pass_hash FROM {$tabla} WHERE {$pkCampo}=? LIMIT 1");
+        if (!$stmt) { die("Error de preparación"); }
+        $stmt->bind_param("i", $idValor);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $row = $res->fetch_assoc();
+        if (!$row || !password_verify($pass, $row['pass_hash'])) {
+            $error = "La contraseña no coincide.";
+        } else {
+            // 2) Borrado en transacción
+            $db->begin_transaction();
+            try {
+                // 2.a) Descubrir todas las tablas que referencian a la actual (FKs)
+                // Nota: SCHEMA() devuelve el nombre de la base actual (p.ej. labora_db)
+                $sqlFk = "
+                    SELECT
+                        KCU.TABLE_NAME       AS child_table,
+                        KCU.COLUMN_NAME      AS child_column
+                    FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU
+                    JOIN INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
+                      ON RC.CONSTRAINT_SCHEMA = KCU.CONSTRAINT_SCHEMA
+                     AND RC.CONSTRAINT_NAME   = KCU.CONSTRAINT_NAME
+                    JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC
+                      ON TC.CONSTRAINT_SCHEMA = KCU.CONSTRAINT_SCHEMA
+                     AND TC.CONSTRAINT_NAME   = KCU.CONSTRAINT_NAME
+                     AND TC.CONSTRAINT_TYPE   = 'FOREIGN KEY'
+                    WHERE
+                        KCU.CONSTRAINT_SCHEMA = SCHEMA()
+                        AND KCU.REFERENCED_TABLE_NAME  = ?
+                        AND KCU.REFERENCED_COLUMN_NAME = ?
+                ";
+                $fk = $db->prepare($sqlFk);
+                $fk->bind_param("ss", $tabla, $pkCampo);
+                $fk->execute();
+                $fkRes = $fk->get_result();
+
+                // 2.b) Borrar filas hijas (nivel 1). Si tus FKs estuvieran en CASCADE, esto igual no rompe.
+                while ($r = $fkRes->fetch_assoc()) {
+                    $childTable  = $r['child_table'];
+                    $childColumn = $r['child_column'];
+
+                    // Evitar borrarnos a nosotros mismos por algún FK raro
+                    if ($childTable === $tabla) continue;
+
+                    // DELETE hijo
+                    $q = $db->prepare("DELETE FROM `{$childTable}` WHERE `{$childColumn}` = ?");
+                    if (!$q) { throw new Exception("No se pudo preparar DELETE hijo en {$childTable}"); }
+                    $q->bind_param("i", $idValor);
+                    $q->execute();
+                    // No chequeo affected_rows: puede ser 0 y está bien
+                }
+
+                // 2.c) Borrar el registro padre
+                $del = $db->prepare("DELETE FROM {$tabla} WHERE {$pkCampo}=? LIMIT 1");
+                if (!$del) { throw new Exception("No se pudo preparar DELETE en {$tabla}"); }
+                $del->bind_param("i", $idValor);
+                $del->execute();
+                if ($del->affected_rows !== 1) {
+                    throw new Exception("No se eliminó la cuenta (verificá FKs o id).");
+                }
+
+                // 2.d) Commit y cerrar sesión
+                $db->commit();
+                session_unset();
+                session_destroy();
+                header("Location: /labora_db/index.html"); exit();
+
+            } catch (Throwable $e) {
+                $db->rollback();
+                // Si querés loguear: error_log($e->getMessage());
+                $error = "No se pudo eliminar la cuenta. Posibles causas: relaciones/FKs en cascada inversa o triggers.";
+            }
+        }
+    }
+
+    // Manejo básico de error para mostrar en tu vista
+    if (isset($error)) {
+        // Podés setearlo a sesión/flash o mostrar inline
+        echo "<div class='alert alert-danger'>{$error}</div>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -180,9 +296,17 @@ h1{margin:0 0 8px;color:#0077B6}
         <div class="helper">Cerrá tu sesión actual</div>
         <form action="/labora_db/funciones/logout.php" method="POST">
           <button class="btn"><i class="fa-solid fa-door-open"></i> Cerrar sesión</button>
-        </form>
+        </form>        
+       </div>
       </div>
     </div>
+    <div class="card" style="border:1px solid #e33; background:#fff5f5;">
+  <strong style="color:#b00000;">Eliminar cuenta</strong>
+  <div class="helper">Acción permanente. El perfil se deshabilita o elimina.</div>
+  <button class="btn btn-danger" data-modal="modal-eliminar">
+    <i class="fa-solid fa-trash-can"></i> Eliminar mi cuenta
+  </button>
+</div>
   </div>
 </div>
 
@@ -250,6 +374,42 @@ h1{margin:0 0 8px;color:#0077B6}
     </div>
   </div>
 </div>
+<!-- MODAL: ELIMINAR CUENTA -->
+<div class="modal" id="modal-eliminar" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 style="color:#b00000"><i class="fa-solid fa-triangle-exclamation"></i> Eliminar cuenta</h3>
+      <button class="btn-sec" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <form method="POST">
+        <input type="hidden" name="csrf_token" value="<?=$csrf?>">
+        <p>Esta acción es <b>permanente</b>. Tu perfil será deshabilitado o eliminado y no podrás volver a acceder.</p>
+       
+        <label>Contraseña</label>
+        <input class="input" type="password" name="password_confirm" placeholder="Ingresá tu contraseña" required>
+        
+        <button type="button" id="toggle-pass" class="btn-sec" style="margin-top:6px;">
+         <i class="fa-solid fa-eye"></i> Mostrar
+        </button>
+
+        <label class="small" style="display:flex;gap:8px;align-items:center;">
+          <input type="checkbox" id="chk-irrev" required>
+          <span>Entiendo que esta acción es irreversible.</span>
+        </label>
+
+        <div class="modal-foot">
+          <button type="button" class="btn-sec" data-close>Cancelar</button>
+          <button type="submit" name="eliminar_cuenta" id="btn-eliminar" class="btn btn-danger" disabled>Eliminar definitivamente</button>
+        </div>
+        
+      </form>
+      
+    </div>
+  </div>
+</div>
+
+
 
 <script src="/labora_db/recursos/js/menu-hamburguesa.js"></script>
 <script>
@@ -268,6 +428,53 @@ document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', e=>{
     if(e.target===m) m.classList.remove('is-open');
   });
+});
+document.querySelectorAll('.btn[data-modal]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const id = btn.getAttribute('data-modal');
+    document.getElementById(id).classList.add('is-open');
+  });
+});
+document.querySelectorAll('[data-close]').forEach(btn=>{
+  btn.addEventListener('click', ()=> btn.closest('.modal').classList.remove('is-open'));
+});
+document.querySelectorAll('.modal').forEach(m=>{
+  m.addEventListener('click', e=>{
+    if(e.target===m) m.classList.remove('is-open');
+  });
+});
+// Habilitar el botón rojo sólo si se marca la casilla
+const chk = document.getElementById('chk-irrev');
+const btnDel = document.getElementById('btn-eliminar');
+if (chk && btnDel) chk.addEventListener('change', ()=> btnDel.disabled = !chk.checked);
+
+</script>
+<script>
+/* Toggle mostrar/ocultar contraseña SOLO para el botón clickeado */
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('#toggle-pass');
+  if (!btn) return;                 // si no tocaste el botón, nada
+
+  e.preventDefault();
+
+  // Buscamos el input dentro del MISMO formulario / modal
+  const form  = btn.closest('form');
+  let pass = null;
+  if (form) {
+    pass = form.querySelector('#password_confirm, input[name="password_confirm"]');
+  }
+  // Fallback por si el input está fuera del form (raro, pero por las dudas)
+  if (!pass) pass = document.getElementById('password_confirm');
+
+  if (!pass) return; // no encontró el input -> no hace nada
+
+  const isHidden = pass.type === 'password';
+  pass.type = isHidden ? 'text' : 'password';
+
+  // Actualiza el texto/ícono del botón
+  btn.innerHTML = isHidden
+    ? '<i class="fa-solid fa-eye-slash"></i> Ocultar'
+    : '<i class="fa-solid fa-eye"></i> Mostrar';
 });
 </script>
 </body>

@@ -282,8 +282,11 @@ require_once __DIR__ . '/../../config/conexion.php';
             <td>
               <form method="post" action="admin-verificar-trabajador.php" style="display:inline">
                 <input type="hidden" name="id_empleado" value="<?= (int)$emp['id_empleado'] ?>">
+            <!--
+                //Innecesario por ahora
                 <button class="btn ok"   name="accion" value="aprobar">Aprobar</button>
-                <button class="btn warn" name="accion" value="rechazar">Rechazar</button>
+                <button class="btn warn" name="accion" value="rechazar">Rechazar</button> 
+            -->
               </form>
               <a href="../../funciones/admin-panel-editar-trabajador.php?id=<?= (int)$emp['id_empleado'] ?>"><button class="btn edit" type="button">Editar</button></a>
               <a href="../../funciones/admin-panel-eliminar-trabajador.php?id=<?= (int)$emp['id_empleado'] ?>" onclick="return confirm('¿Seguro que deseas eliminar este trabajador?')"><button class="btn del" type="button">Eliminar</button></a>

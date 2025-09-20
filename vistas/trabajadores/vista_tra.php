@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['empleado_id'])) {
-    header("Location: ../formulario/login.html");
+    header("Location: /labora_db/formularios/login-options.html");
     exit();
 }
 
@@ -250,6 +250,11 @@ function mostrar_ars($monto) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- CSS -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/labora_db/recursos/css/nav.css">
+
   <title>Perfil del Trabajador</title>
   <style>
     :root {
@@ -296,6 +301,33 @@ function mostrar_ars($monto) {
 </head>
 
 <body>
+
+  <!-- NAV hamburguesa -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/labora_db/vistas/comunes/filtros.php">Labora</a>
+        </div>
+        <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul id="menu" class="nav-links">
+            <li class="menu-header">
+                <img src="/labora_db/imagenes/logo-labora.png" alt="Labora" class="menu-logo">
+                <button class="menu-close" aria-label="Cerrar menú">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </li>
+            <li class="menu-cta">
+                <a href="#" class="btn-primario"><i class="fa-solid fa-rocket"></i> Mis Favoritos</a>
+            </li>
+            <li class="menu-divider"><span>Cuenta</span></li>
+            <li><a href="/labora_db/vistas/trabajadores/vista_tra.php">Perfil</a></li>
+            <li><a href="#">Configuración</a></li>
+            <li><a href="/labora_db/funciones/logout.php">Cerrar sesión</a></li>
+        </ul>
+        <div class="menu-backdrop"></div>
+    </nav>
+
   <div class="container">
       <?php if ($perfil_incompleto): ?>
     <div class="alerta-perfil-incompleto">
@@ -482,5 +514,8 @@ function mostrar_ars($monto) {
       <button type="submit" id="boton-aplicar" class="save-button">Aplicar cambios</button>
     </form>
   </div>
+
+  <script src="/labora_db/recursos/js/menu-hamburguesa.js"></script>
+
 </body>
 </html>

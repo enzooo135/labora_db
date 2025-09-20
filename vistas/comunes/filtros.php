@@ -186,7 +186,7 @@ endif;
     <!-- NAV hamburguesa -->
     <nav class="navbar">
         <div class="logo">
-            <a href="/labora_db/filtros.php">Labora</a>
+            <a href="/labora_db/vistas/comunes/filtros.php">Labora</a>
         </div>
         <button class="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
             <i class="fa-solid fa-bars"></i>

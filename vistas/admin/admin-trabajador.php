@@ -110,7 +110,7 @@ $errObs = isset($_GET['err']) && $_GET['err'] === 'obs_required';
     <a href="admin-panel.php#pendientes">Trabajadores pendientes</a>
     <a href="admin-panel.php#trabajadores">Trabajadores</a>
     <a href="admin-panel.php#usuarios">Usuarios</a>
-    <a href="logout.php">Cerrar sesión</a>
+    <a href="/labora_db/funciones/admin-logout.php">Cerrar sesión</a>
   </div>
 
   <div class="content">

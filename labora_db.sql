@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-09-2025 a las 13:27:29
+-- Tiempo de generación: 20-09-2025 a las 19:19:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -111,7 +111,7 @@ CREATE TABLE `empleado` (
 
 INSERT INTO `empleado` (`id_empleado`, `nombre`, `correo`, `clave`, `profesion`, `experiencia_años`, `descripcion_servicios`, `disponibilidad`, `precio_hora`, `zona_trabajo`, `dni`, `fecha_nacimiento`, `nacionalidad`, `telefono`, `titulo_profesional`, `habilidades`, `educacion`, `experiencia`, `portafolio`, `foto_perfil`, `portafolio_link`, `reset_token_hash`, `reset_expires`, `estado_verificacion`, `verificado_por`, `fecha_verificacion`, `observaciones_verificacion`, `dni_frente_path`, `dni_dorso_path`, `matricula_path`) VALUES
 (39, 'enzo santino mamani cuba', 'enzosantinomamanicuba@gmail.com', '$2y$10$olnPTJwRLHYiQLVuNIh.AOJTUOK2rB.6TX/w0hJgCiozbeYeB09pi', 'carpinteria', 5, 'soy buenisimo en todo lo que hago', 'Full time', 2500.00, 'Merlo', '47161648', '2006-01-26', 'Argentina', '1164718626', NULL, 'Resolución de problemas, Licencia de conducir', NULL, NULL, '', 'pf_68c9ae637f5350.62357190.jpg', '', NULL, NULL, 'aprobado', 1, '2025-09-15 15:40:02', '', 'uploads/verificaciones/empleado_39/doc_68c85385c05480.74623229.jpg', 'uploads/verificaciones/empleado_39/doc_68c85385c0a027.98148134.jpg', 'uploads/verificaciones/empleado_39/doc_68c85385c0d2d5.10723924.jpg'),
-(40, 'Mario Gabriel Mamani', 'santinomam@gmail.com', '$2y$10$WuYWoxIyu5r65uxjnfF/6eERGyNWqmWJ8mcBMzePw7EjeU6TfX3PC', 'cerrajero', 5, 'Soy excelente carpintero', 'Part time', 3500.00, 'Merlo', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, 'Comunicación, Herramientas propias', NULL, NULL, '', 'pf_68c9a069d03b80.44058042.jpg', '', NULL, NULL, 'pendiente', NULL, NULL, NULL, 'uploads/verificaciones/empleado_40/doc_68c862c9788142.72084822.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c978e302.07821426.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c9793182.18876329.jpg');
+(40, 'Mario Gabriel Mamani', 'santinomam@gmail.com', '$2y$10$WuYWoxIyu5r65uxjnfF/6eERGyNWqmWJ8mcBMzePw7EjeU6TfX3PC', 'cerrajero', 5, 'Soy excelente carpintero', 'Part time', 10.00, 'Merlo', '23211489', '2006-01-26', 'Argentina', '1164718626', NULL, 'Comunicación, Herramientas propias', NULL, NULL, '', 'pf_68c9a069d03b80.44058042.jpg', '', NULL, NULL, 'pendiente', NULL, NULL, NULL, 'uploads/verificaciones/empleado_40/doc_68c862c9788142.72084822.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c978e302.07821426.jpg', 'uploads/verificaciones/empleado_40/doc_68c862c9793182.18876329.jpg');
 
 -- --------------------------------------------------------
 
